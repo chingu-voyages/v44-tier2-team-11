@@ -1,3 +1,5 @@
+import Arena from './components/arena/Arena';
+
 function App() {
   return (
     <>

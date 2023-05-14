@@ -35,6 +35,9 @@ export default {
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
+      width: {
+        '8x8': '28rem',
+      },
     },
   },
   plugins: [],
