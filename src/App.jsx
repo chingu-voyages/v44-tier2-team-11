@@ -1,4 +1,6 @@
 import Arena from './components/arena/Arena';
+import Leaderboard from './components/leaderboard/Leaderboard';
+
 
 function App() {
   return (
