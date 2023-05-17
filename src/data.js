@@ -2,7 +2,7 @@ export const bots = [
   { id: 1, x: 7, y: 5, direction: 'east', speed: 200 },
   { id: 2, x: 0, y: 0, direction: 'south', speed: 1000 },
   { id: 3, x: 4, y: 7, direction: 'north', speed: 1000 },
-  { id: 4, x: 0, y: 4, direction: 'west', speed: 1000 },
+  { id: 4, x: 0, y: 4, direction: 'north', speed: 200 },
 ];
 
 export const tiles = [

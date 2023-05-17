@@ -1,7 +1,6 @@
 import Arena from './components/arena/Arena';
 import Leaderboard from './components/leaderboard/Leaderboard';
 
-
 function App() {
   return (
     <>
@@ -18,7 +17,7 @@ export default App;
 // const App = () => {
 //   return (
 //     <>
-//     <Leaderboard />
+//
 //     </>
 //   );
 // }
