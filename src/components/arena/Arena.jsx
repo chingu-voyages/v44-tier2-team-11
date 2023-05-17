@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { bots, tiles } from '../../data';
+import { useState } from 'react';
+import { tiles } from '../../data';
 import Bot from './Bot';
 import { useGlobalContext } from '../../contex';
 
