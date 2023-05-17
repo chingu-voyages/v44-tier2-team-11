@@ -1,11 +1,12 @@
-import Arena from './components/arena/Arena';
+import 'tailwindcss/tailwind.css';
 
 function App() {
   return (
     <>
-      <h2 className="justify-centertext-4xl flex h-screen w-full items-center font-black text-form-500">
-        Start Coding Here
-      </h2>
+      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+        <div className="relative bg-red-300 px-8 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 ">
+        </div>
+      </div>
     </>
   );
 }
