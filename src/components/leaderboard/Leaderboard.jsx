@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import BotBlue from "../bots/BotBlue";
+import BotRed from "../bots/BotRed";
+import BotYellow from "../bots/BotYellow";
+import BotEmerald from "../bots/BotEmerald";
 
 const WinCounter = (val) => {
     return(
-        <div>
+        <div className="flex justify-center items-center font-bold">
         { val.win }
         </div>
     );
@@ -10,7 +14,7 @@ const WinCounter = (val) => {
 
 const LossCounter = (val) => {
     return(
-        <div>
+        <div className="flex justify-center items-center font-bold">
         { val.loss }
         </div>
     );
@@ -18,7 +22,7 @@ const LossCounter = (val) => {
 
 const TieCounter = (val) => {
     return(
-        <div>
+        <div className="flex justify-center items-center font-bold">
         { val.tie }
         </div>
     );
@@ -26,16 +30,19 @@ const TieCounter = (val) => {
 
 const BotScoreRow = (botScore) => {
     return(
-        <div className="bg-form-500 flex flex-row justify-evenly h-min my-4">
-            <div>
+        <div className="flex flex-row justify-evenly h-min my-1">
+            {/* <div>
                 crowned
-            </div>
-            <div>
-                <div className="bg-form-700 relative w-2/4 my-3 h-full rounded-full">
-                    
+            </div> */}
+            <div className="flex flex-col justify-center align-middle items-center">
+            {/* <div style={{color: botScore.color}} className="relative object-cover w-20 my-3 h-full rounded-full"> */}
+                <div className="bg-primary-300 border-2 border-primary-700 relative translate-y-3 object-contain w-16 my-3 h-16 rounded-full">
+                    {/* bot sample */}
+                    {/* <BotRed /> */}
                 </div>
-                <div className=""></div>
-                botImage
+                <div className="bg-primary-500 text-primary-50 p-1 rounded-lg -translate-y-3 text-center font-bold">
+                    {botScore.botName}
+                </div>
             </div>
             <WinCounter win={ botScore.win }/>
             <LossCounter loss={ botScore.loss }/>
@@ -44,13 +51,27 @@ const BotScoreRow = (botScore) => {
     );
 }
 
-const Header = (p) => 
-<header id="head" className="max-w-7xl mx-auto px-4 bg-primary-300 sm:px-6 lg:px-8">
-    <h1>{p.title}</h1>
-    <span className="stats">Players: {p.allBots}</span>
-</header>
-;
-
+const LeaderboardHeader = () => {
+    return(
+        <div className=" flex flex-row justify-evenly h-min my-4">
+            {/* <div className="flex justify-center items-center">
+                Standing            
+            </div> */}
+            <div className="flex justify-center items-center font-bold">
+                Bot Name:
+            </div>
+            <div className="flex justify-center items-center font-bold">
+                Win
+            </div>
+            <div className="flex justify-center items-center font-bold">
+                Loss
+            </div>
+            <div className="flex justify-center items-center font-bold">
+                Tie
+            </div>
+    </div>
+    );
+}
 class Leaderboard extends React.Component {
 
     state = {
@@ -61,6 +82,7 @@ class Leaderboard extends React.Component {
                 win: 1,
                 loss: 1,
                 tie:1,
+                color: '#C85553',
             },
             {
                 id: '2',
@@ -68,6 +90,7 @@ class Leaderboard extends React.Component {
                 win: 2,
                 loss: 2,
                 tie: 2,
+                color: '#1C78C2',
             },
             {
                 id: '3',
@@ -75,13 +98,15 @@ class Leaderboard extends React.Component {
                 win: 3,
                 loss: 3,
                 tie: 3,
+                color: '#B4A55C',
             },
             {
                 id: '4',
-                name: 'BotGreen',
+                name: 'BotEmerald',
                 win: 4,
                 loss: 4,
                 tie: 4,
+                color: '#32A9A3',
             },
         ]
     };
@@ -90,10 +115,17 @@ class Leaderboard extends React.Component {
     render(){
         return(
             <div className="modal absolute w-full h-full flex justify-center items-center bg-primary-950 bg-opacity-30 backdrop-blur-sm">
-                <div className="container absolute w-2/4  bg-form-800 rounded-md mx-auto">
+                <div className="container absolute bg-primary-50 w-2/4 rounded-3xl pb-4">
                     <div className="mx-5 my-4 flex justify-end">
-                        <button className="">x</button>
+                        {/* <button className="close-btn"></button> */}
+                        <button type="button" className="close_lbModal bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-form-100 hover:bg-primary-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-950">
+                          {/* <span className="sr-only">Close menu</span> */}
+                          <svg className="h-6 w-6 text-form-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
                     </div>
+                    <LeaderboardHeader />
                 {/* <Header title='Leaderboard' allBots={this.state.bots.length}/> */}
                 {/* bots score list */}
                 {
