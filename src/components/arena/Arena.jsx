@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { bots, tiles } from '../../data';
 import Bot from './Bot';
+import { useGlobalContext } from '../../contex';
 
 const Arena = () => {
   const [inGame, setInGame] = useState(false);
-  const [botList, setBotList] = useState(bots);
+  const { botList } = useGlobalContext();
   console.log(inGame);
   return (
     <div className="relative flex w-8x8 flex-wrap bg-primary-100">
