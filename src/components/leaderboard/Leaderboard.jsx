@@ -3,6 +3,8 @@ import BotBlue from "../bots/BotBlue";
 import BotRed from "../bots/BotRed";
 import BotYellow from "../bots/BotYellow";
 import BotEmerald from "../bots/BotEmerald";
+import BotFig from "../bots/BotFig";
+
 
 const WinCounter = (val) => {
     return(
@@ -36,11 +38,11 @@ const BotScoreRow = (botScore) => {
             </div> */}
             <div className="flex flex-col justify-center align-middle items-center">
             {/* <div style={{color: botScore.color}} className="relative object-cover w-20 my-3 h-full rounded-full"> */}
-                <div className="bg-primary-300 border-2 border-primary-700 relative translate-y-3 object-contain w-16 my-3 h-16 rounded-full">
+                <div style={{backgroundColor:botScore.bgColor, borderColor:botScore.bColor}} className="bg-primary-300 border-2 border-primary-700 relative translate-y-3 object-contain w-16 my-3 h-16 rounded-full flex justify-center">
                     {/* bot sample */}
-                    {/* <BotRed /> */}
+                    <BotFig scale='45' priColor={ botScore.color } bColor={ botScore.bColor }/>
                 </div>
-                <div className="bg-primary-500 text-primary-50 p-1 rounded-lg -translate-y-3 text-center font-bold">
+                <div style={{backgroundColor:botScore.bColor}} className="bg-primary-500 text-primary-50 p-1 rounded-lg -translate-y-3 text-center font-semibold text-xs">
                     {botScore.botName}
                 </div>
             </div>
@@ -82,7 +84,9 @@ class Leaderboard extends React.Component {
                 win: 1,
                 loss: 1,
                 tie:1,
-                color: '#C85553',
+                color: '#EF5350',
+                bColor: '#B91C19',
+                bgColor: '#FFC8C7',
             },
             {
                 id: '2',
@@ -90,7 +94,9 @@ class Leaderboard extends React.Component {
                 win: 2,
                 loss: 2,
                 tie: 2,
-                color: '#1C78C2',
+                color: '#42A5F5',
+                bColor: '#1C78C2',
+                bgColor: '#D0EAFF',
             },
             {
                 id: '3',
@@ -98,7 +104,9 @@ class Leaderboard extends React.Component {
                 win: 3,
                 loss: 3,
                 tie: 3,
-                color: '#B4A55C',
+                color: '#F6D62A',
+                bColor: '#BAA11D',
+                bgColor: '#FFF3B6',
             },
             {
                 id: '4',
@@ -106,7 +114,9 @@ class Leaderboard extends React.Component {
                 win: 4,
                 loss: 4,
                 tie: 4,
-                color: '#32A9A3',
+                color: '#3EC2BC',
+                bColor: '#137D78',
+                bgColor: '#C7FFFD',
             },
         ]
     };
@@ -137,6 +147,9 @@ class Leaderboard extends React.Component {
                     win={bot.win}
                     loss={bot.loss}
                     tie={bot.tie}
+                    color={bot.color}
+                    bColor={bot.bColor}
+                    bgColor={bot.bgColor}
                     /> 
                     )
                 }
