@@ -1,11 +1,21 @@
+import { useState } from 'react';
 import Arena from './components/arena/Arena';
+import GameConfiguration from './components/GameConfigurationPanel';
 
 function App() {
+  let [isGameConfigurationShown, setIsGameConfigurationShown] = useState(false);
+
+  const onClickCloseModal = () => {
+    setIsGameConfigurationShown(!isGameConfigurationShown);
+  };
+
   return (
     <>
-      <h2 className="flex h-screen w-full items-center justify-center text-4xl font-black text-cyan-500">
-        Start Coding Here
-      </h2>
+      <button onClick={onClickCloseModal}>Show game configuration</button>
+      <GameConfiguration
+        onClickCloseModal={onClickCloseModal}
+        shouldShow={isGameConfigurationShown}
+      />
       <Arena />
     </>
   );
