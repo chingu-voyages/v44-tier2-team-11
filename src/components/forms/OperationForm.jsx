@@ -4,9 +4,7 @@ const OperationForm = () => {
   const OPERATIONS = ['AND', 'OR', 'XOR', 'NAND', 'NOR', 'XNOR'];
   return (
     <div className="flex flex-col">
-      <span className="mb-2 text-base font-black text-form-900">
-        Operation:
-      </span>
+      <span className="mb-2 text-sm font-black text-form-900">Operation:</span>
       <div>
         {OPERATIONS.map((operation) => (
           <OperationFormButton
