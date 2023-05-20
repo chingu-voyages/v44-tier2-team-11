@@ -2,6 +2,8 @@ import 'tailwindcss/tailwind.css';
 import LogoIcon from './components/icons/LogoIcon';
 import TrophyStar from './components/icons/TrophyStar';
 import WrenchIcon from './components/icons/WrenchIcon';
+import Arena from './components/arena/Arena';
+import Leaderboard from './components/leaderboard/Leaderboard';
 
 function App() {
   return (
@@ -25,3 +27,12 @@ function App() {
 }
 
 export default App;
+
+// const App = () => {
+//   return (
+//     <>
+//
+//     </>
+//   );
+// }
+// export default App;

@@ -1,45 +1,134 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
+import { useGlobalContext } from '../../contex';
+import { winLosTie } from './utilis';
 
-const Bot = ({ id, initialTop, initialLeft, direction, inGame }) => {
-  const [top, setTop] = useState(initialTop);
-  const [left, setLeft] = useState(initialLeft);
-  const [speed, setSpeed] = useState(56);
+const Bot = ({ id, x, y, direction, inGame, speed, booleanValue }) => {
+  const [top, setTop] = useState(y);
+  const [left, setLeft] = useState(x);
+  const [duration, setSpeed] = useState(0.2);
+  const { inGamePositions } = useGlobalContext();
+
+  const currentDirection = useRef(direction);
+  const botPositions = useRef();
+  const PosX = botPositions?.current?.offsetLeft;
+  const PosY = botPositions?.current?.offsetTop;
+  const botWidth = botPositions?.current?.clientWidth;
+  const botHeight = botPositions?.current?.clientHeight;
+
+  const checkForCollision = () => {
+    const compareArr = inGamePositions.current.filter((bot) => bot.id !== id);
+    compareArr.map((bot) => {
+      const {
+        id: botId,
+        x,
+        y,
+        width,
+        height,
+        booleanValue: comparedValue,
+      } = bot;
+      if (
+        PosX + botWidth > x &&
+        PosX < x + width &&
+        PosY + botHeight > y &&
+        PosY < y + height
+      ) {
+        console.log(`bot ${id} collied with bot ${botId}`);
+        console.log(`bot ${id} x:${PosX} , y:${PosY}`);
+        console.log(`bot ${botId} x:${x} , y:${y}`);
+        const result = winLosTie(booleanValue, comparedValue, 'AND');
+
+        console.log(
+          `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
+        );
+        if (result === 1 && id < botId) {
+          inGame = true;
+        } else if (result === 0) {
+          inGame = true;
+        } else if (result === 1 && id > botId) {
+          inGame = false;
+        }
+      }
+    });
+  };
+
+  const updateInGamePos = () => {
+    if (PosX >= 0 && PosY >= 0) {
+      const botPos = {
+        id,
+        x: PosX,
+        y: PosY,
+        width: botWidth,
+        height: botHeight,
+        booleanValue,
+      };
+      const newPosArr = [
+        ...inGamePositions.current.filter((bot) => bot.id !== id),
+        botPos,
+      ];
+
+      inGamePositions.current = newPosArr;
+      checkForCollision();
+    }
+  };
+  updateInGamePos();
+
   useEffect(() => {
+    const changeDirection = () => {
+      const directions = ['south', 'west', 'north', 'east'];
+      const newDirections = directions.filter((d) => d !== currentDirection);
+      const randomIndex = Math.floor(Math.random() * newDirections.length);
+      currentDirection.current = directions[randomIndex];
+    };
     let moveBot;
+
     if (top <= 7 && top >= 0 && left >= 0 && left <= 7 && inGame) {
       moveBot = setInterval(() => {
-        if (direction === 'south') {
-          if (top + 1 >= 7) {
-            return setTop(7);
+        if (currentDirection.current === 'south') {
+          if (top + duration >= 7) {
+            setTop(7);
+            changeDirection();
+            return;
           }
-          return setTop(top + 1);
-        } else if (direction === 'north') {
-          if (top - 1 <= 0) {
-            return setTop(0);
+          return setTop(top + duration);
+        } else if (currentDirection.current === 'north') {
+          if (top - duration <= 0) {
+            setTop(0);
+            changeDirection();
+            return;
           }
-          return setTop(top - 1);
-        } else if (direction === 'east') {
-          if (left - 1 < 0) {
-            return setLeft(0);
+          return setTop(top - duration);
+        } else if (currentDirection.current === 'east') {
+          if (left - duration < 0) {
+            setLeft(0);
+            changeDirection();
+            return;
           }
-          return setLeft(left - 1);
-        } else if (direction === 'west') {
-          if (left + 1 >= 7) {
-            return setLeft(7);
+          return setLeft(left - duration);
+        } else if (currentDirection.current === 'west') {
+          if (left + duration >= 7) {
+            setLeft(7);
+            changeDirection();
+            return;
           }
-          return setLeft(left + 1);
+          return setLeft(left + duration);
         }
-      }, 1000);
+      }, speed);
     }
+
     return () => {
       clearInterval(moveBot);
     };
   });
   return (
     <div
-      className="absolute h-14 w-14 rounded-full bg-primary-300 duration-300 ease-linear"
-      style={{ left: left * speed, top: top * speed }}
+      ref={botPositions}
+      className="absolute h-14 w-14 rounded-full bg-primary-300 "
+      style={{
+        left: left * 56,
+        top: top * 56,
+        transition: `all ${speed / 999}s linear`,
+      }}
     >
       Bot {id}
     </div>
