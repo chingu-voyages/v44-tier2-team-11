@@ -38,7 +38,7 @@ const Modal = ({
         targets: bgRef.current,
         opacity: 0.8,
         easing: 'easeOutCubic',
-        duration: 750,
+        duration: 450,
       });
 
       // Animate content wrapper
@@ -47,7 +47,7 @@ const Modal = ({
         translateY: 0,
         opacity: 1,
         easing: 'easeOutCubic',
-        duration: 750,
+        duration: 450,
       });
     } else {
       document.body.style.overflowY = null;

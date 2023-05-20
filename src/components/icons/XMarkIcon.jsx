@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function XMarkIcon({ className }) {
   return (
     <svg
@@ -9,5 +11,7 @@ function XMarkIcon({ className }) {
     </svg>
   );
 }
+
+
 
 export default XMarkIcon;
