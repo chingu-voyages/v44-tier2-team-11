@@ -1,6 +1,7 @@
 import Modal from './base/Modal';
 import OperationForm from './forms/OperationForm';
 import SpeedForm from './forms/SpeedForm';
+import BotPanel from './forms/BotPanel';
 
 // NPM
 import PropTypes from 'prop-types';
@@ -18,7 +19,10 @@ const GameConfigurationPanel = ({ shouldShow, onClickCloseModal }) => {
       <div className="mb-6">
         <OperationForm />
       </div>
-      <SpeedForm />
+      <div className="mb-6">
+        <SpeedForm />
+      </div>
+      <BotPanel />
     </Modal>
   );
 };
