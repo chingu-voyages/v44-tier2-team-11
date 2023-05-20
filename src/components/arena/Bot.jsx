@@ -7,6 +7,7 @@ const Bot = ({ id, x, y, direction, inGame, speed }) => {
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
   const { inGamePositions } = useGlobalContext();
+  const currentDirection = useRef(direction);
   const botPositions = useRef();
   const PosX = botPositions?.current?.offsetLeft;
   const PosY = botPositions?.current?.offsetTop;
@@ -49,31 +50,45 @@ const Bot = ({ id, x, y, direction, inGame, speed }) => {
     }
   };
   updateInGamePos();
-  console.log(inGamePositions.current);
-  console.log(`bot${id}`, PosX, PosY);
 
   useEffect(() => {
+    const changeDirection = () => {
+      const directions = ['south', 'west', 'north', 'east'];
+      const newDirections = directions.filter((d) => d !== currentDirection);
+      const randomIndex = Math.floor(Math.random() * newDirections.length);
+      currentDirection.current = directions[randomIndex];
+      console.log(randomIndex);
+    };
     let moveBot;
+
     if (top <= 7 && top >= 0 && left >= 0 && left <= 7 && inGame) {
       moveBot = setInterval(() => {
-        if (direction === 'south') {
+        if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
-            return setTop(7);
+            setTop(7);
+            changeDirection();
+            return;
           }
           return setTop(top + duration);
-        } else if (direction === 'north') {
+        } else if (currentDirection.current === 'north') {
           if (top - duration <= 0) {
-            return setTop(0);
+            setTop(0);
+            changeDirection();
+            return;
           }
           return setTop(top - duration);
-        } else if (direction === 'east') {
+        } else if (currentDirection.current === 'east') {
           if (left - duration < 0) {
-            return setLeft(0);
+            setLeft(0);
+            changeDirection();
+            return;
           }
           return setLeft(left - duration);
-        } else if (direction === 'west') {
+        } else if (currentDirection.current === 'west') {
           if (left + duration >= 7) {
-            return setLeft(7);
+            setLeft(7);
+            changeDirection();
+            return;
           }
           return setLeft(left + duration);
         }
