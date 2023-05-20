@@ -12,13 +12,15 @@ function App() {
         <div className="w-3/4 rounded bg-gradient-to-b from-red-100 to-red-300 p-4">
           <div className="flex items-center justify-between pt-4 px-4">
             <div className='flex items-center text-white bold text-xl'>
-              <LogoIcon className="w-8 h-8"/> Boole Bot
+              <LogoIcon size={80}/> Boole Bot
             </div>
-            <div>
-              <button className="flex items-center justify-center h-14 w-14 rounded-full bg-red-500 text-white items-center justify-center">
+            <div className='flex flex-row'>
+              <button className="flex items-center justify-center h-14 w-14 rounded-full bg-red-500 text-white">
                 <TrophyStar size={10}/>
               </button>
-              <button className="h-14 w-14 rounded-full bg-red-500 text-white"><WrenchIcon/></button>
+              <button className="flex items-center justify-center h-14 w-14 rounded-full bg-red-500 text-white">
+                <WrenchIcon size={10}/>
+              </button>
             </div>
           </div>
           <div className="flex w-full justify-center">
