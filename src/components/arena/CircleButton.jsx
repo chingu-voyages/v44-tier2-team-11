@@ -1,4 +1,4 @@
-import React from 'react';
+import LogoIcon from './components/icons/LogoIcon'
 
 const CircleButton = ({ icon }) => {
   return (
