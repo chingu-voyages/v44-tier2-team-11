@@ -12,6 +12,8 @@ function XMarkIcon({ className }) {
   );
 }
 
-
+XMarkIcon.propTypes = {
+  className: PropTypes.string.isRequired,
+};
 
 export default XMarkIcon;

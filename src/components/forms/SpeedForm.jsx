@@ -43,7 +43,7 @@ const SpeedForm = () => {
         <span className="mb-2 block text-right text-sm font-black text-primary-900">
           {second}s
         </span>
-        <div className="relative h-1 rounded-md bg-gray-300" ref={trackRef}>
+        <div className="relative h-1 rounded-md bg-form-400" ref={trackRef}>
           <div
             className="h-full rounded-md bg-primary-500"
             style={{ width: `${currentPosition}%` }}
