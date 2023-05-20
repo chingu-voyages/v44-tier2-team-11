@@ -4,9 +4,14 @@ import { useUpdateEffect } from 'react-use';
 import anime from 'animejs';
 
 // Component
-import XMarkButtonIcon from './buttons/XMarkButtonIcon';
+import XMarkButtonIcon from '../buttons/XMarkButtonIcon';
 
-const Modal = ({ shouldShow, children, onClickCloseModal }) => {
+const Modal = ({
+  mainContentWrapperClassName,
+  shouldShow,
+  children,
+  onClickCloseModal,
+}) => {
   const rootWrapper = useRef('');
   const bgRef = useRef('');
   const contentRef = useRef('');
@@ -81,16 +86,25 @@ const Modal = ({ shouldShow, children, onClickCloseModal }) => {
       className="fixed left-0 top-0 hidden h-screen w-screen"
       ref={rootWrapper}
     >
+      {/* Background */}
       <span
         className="absolute left-0 top-0 block h-screen w-full bg-primary-900 opacity-0"
         ref={bgRef}
       ></span>
+
+      {/* Parent Content Wrapper */}
       <div className="absolute flex h-screen w-full items-center justify-center overflow-y-scroll">
+        {/* Main Content Wrapper */}
         <div
-          className="relative my-auto rounded-lg bg-white p-4"
+          className={`my-auto rounded-lg bg-white p-4 ${mainContentWrapperClassName}`}
           ref={contentRef}
         >
-          <XMarkButtonIcon onClick={onClickCloseModal} />
+          <div className="mb-2 flex justify-end">
+            <XMarkButtonIcon
+              className="right-5 top-5"
+              onClick={onClickCloseModal}
+            />
+          </div>
           <div>{children}</div>
         </div>
       </div>
