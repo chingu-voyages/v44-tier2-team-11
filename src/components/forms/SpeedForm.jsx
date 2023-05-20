@@ -39,7 +39,7 @@ const SpeedForm = () => {
   return (
     <div>
       <span className="mb-2 text-sm font-black text-form-900">Boot Speed:</span>
-      <div className="w-64">
+      <div className="w-full max-w-sm">
         <span className="mb-2 block text-right text-sm font-black text-primary-900">
           {second}s
         </span>
@@ -50,7 +50,7 @@ const SpeedForm = () => {
           ></div>
           <button
             type="button"
-            className="absolute top-0 -mt-1 h-3 w-3 -translate-x-2/4 cursor-pointer rounded-full border-2 border-white bg-primary-500 shadow-md"
+            className="absolute top-0 -mt-1 h-3 w-3 -translate-x-2/4 cursor-pointer rounded-full border-2 border-white bg-primary-500 shadow-md outline-none duration-100 ease-in focus:ring-4 focus:ring-primary-300"
             style={{ left: `${currentPosition}%` }}
             ref={handleRef}
           ></button>

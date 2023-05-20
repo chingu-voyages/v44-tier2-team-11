@@ -18,7 +18,7 @@ const BotBooleanValue = () => {
           />
           <label
             htmlFor="botRadioFalsy"
-            className="mr-2 flex h-full cursor-pointer items-center justify-center rounded-lg bg-form-300 px-5 py-2 text-xs font-black text-form-700 outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 hover:bg-form-400 peer-checked:bg-primary-50 peer-checked:text-primary-500 peer-focus:ring-4 peer-focus:ring-primary-300"
+            className="mr-2 flex h-full cursor-pointer items-center justify-center rounded-lg bg-form-300 px-5 py-3 text-xs font-black text-form-700 outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 hover:bg-form-400 peer-checked:bg-primary-50 peer-checked:text-primary-500 peer-focus:ring-4 peer-focus:ring-primary-300"
           >
             0
           </label>
@@ -33,7 +33,7 @@ const BotBooleanValue = () => {
           />
           <label
             htmlFor="botRadioTruthy"
-            className="mr-2 flex h-full cursor-pointer items-center justify-center rounded-lg  bg-form-300 px-5 py-2 text-xs font-black text-form-700 outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 hover:bg-form-400 peer-checked:bg-primary-50 peer-checked:text-primary-500 peer-focus:ring-4 peer-focus:ring-primary-300"
+            className="mr-2 flex h-full cursor-pointer items-center justify-center rounded-lg  bg-form-300 px-5 py-3 text-xs font-black text-form-700 outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 hover:bg-form-400 peer-checked:bg-primary-50 peer-checked:text-primary-500 peer-focus:ring-4 peer-focus:ring-primary-300"
           >
             1
           </label>

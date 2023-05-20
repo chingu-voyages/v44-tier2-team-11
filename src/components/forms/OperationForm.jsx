@@ -20,7 +20,7 @@ const OperationForm = () => {
             key={ind}
             type="button"
             data-index={ind}
-            className={`mr-2 rounded-lg px-4 py-2 text-xs font-black outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 focus:ring-4 focus:ring-primary-300 ${
+            className={`mb-4 mr-2 rounded-lg px-4 py-2 text-xs font-black outline-none transition-shadow duration-100 ease-in last-of-type:mr-0 focus:ring-4 focus:ring-primary-300 min-[480px]:mb-0 ${
               operation === OPERATIONS[ind]
                 ? 'bg-primary-50 text-primary-500 hover:bg-primary-100 focus:bg-primary-100'
                 : 'bg-form-300 text-form-600 hover:bg-form-400 focus:bg-primary-50 focus:text-primary-500'

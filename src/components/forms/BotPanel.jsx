@@ -4,14 +4,14 @@ import BotDirection from './BotDirection';
 
 const BotPanel = () => {
   return (
-    <div className="flex">
-      <div className="mr-10 w-2/5">
+    <div className="flex flex-col">
+      <div className="mb-4 max-w-sm">
         <BotName />
       </div>
-      <div className="mr-10">
+      <div className="mb-4 mr-10">
         <BotBooleanValue />
       </div>
-      <div>
+      <div className="max-w-sm">
         <BotDirection />
       </div>
     </div>
