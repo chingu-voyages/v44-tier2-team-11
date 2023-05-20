@@ -1,8 +1,8 @@
 export const bots = [
-  { id: 1, initialLeft: 7, initialTop: 5, direction: "east" },
-  { id: 2, initialLeft: 0, initialTop: 0, direction: "south" },
-  { id: 3, initialLeft: 4, initialTop: 7, direction: "north" },
-  { id: 4, initialLeft: 0, initialTop: 4, direction: "west" },
+  { id: 1, x: 7, y: 5, direction: 'north', speed: 500, booleanValue: 0 },
+  { id: 2, x: 0, y: 0, direction: 'south', speed: 500, booleanValue: 0 },
+  { id: 3, x: 4, y: 7, direction: 'north', speed: 500, booleanValue: 0 },
+  { id: 4, x: 0, y: 4, direction: 'north', speed: 500, booleanValue: 0 },
 ];
 
 export const tiles = [
