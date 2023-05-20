@@ -4,7 +4,7 @@ import { useUpdateEffect } from 'react-use';
 import anime from 'animejs';
 
 // Component
-import XMarkButtonIcon from '../buttons/XMarkButtonIcon';
+import XMarkButtonIcon from '../buttons/ModalCloseButton';
 
 const Modal = ({
   mainContentWrapperClassName,
