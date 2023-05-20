@@ -1,9 +1,11 @@
-function LogoIcon() {
+import PropTypes from 'prop-types';
+
+function LogoIcon({size}) {
   return (
     <>
       <svg
-        width="316"
-        height="290"
+        width={size}
+        height="auto"
         viewBox="0 0 316 290"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -44,5 +46,9 @@ function LogoIcon() {
     </>
   );
 }
+
+LogoIcon.propTypes = {
+  size: PropTypes.number
+};
 
 export default LogoIcon;
