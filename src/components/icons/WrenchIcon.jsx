@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function WrenchIcon({ size }) {
   return (
     <>
@@ -10,5 +12,9 @@ function WrenchIcon({ size }) {
     </>
   );
 }
+
+WrenchIcon.propTypes = {
+  size: PropTypes.number
+};
 
 export default WrenchIcon;

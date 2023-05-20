@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function LogoIcon({size}) {
   return (
     <>
@@ -44,5 +46,9 @@ function LogoIcon({size}) {
     </>
   );
 }
+
+LogoIcon.propTypes = {
+  size: PropTypes.number
+};
 
 export default LogoIcon;

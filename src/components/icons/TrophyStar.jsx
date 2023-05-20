@@ -1,4 +1,6 @@
-function WrenchIcon({ size }) {
+import PropTypes from 'prop-types';
+
+function TrophyStar({ size }) {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg"
@@ -11,4 +13,8 @@ function WrenchIcon({ size }) {
   );
 }
 
-export default WrenchIcon;
+TrophyStar.propTypes = {
+  size: PropTypes.number
+};
+
+export default TrophyStar;
