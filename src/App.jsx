@@ -27,9 +27,10 @@ function App() {
           <div className="flex w-full justify-center">
             <button className="relative h-16 w-72 rounded-full bg-red-500 font-bold text-white shadow-lg my-10 text-2xl">START!</button>
           </div>
+          <Arena />
         </div>
       </div>
-    <Arena />
+    <Leaderboard />
     </>
   );
 }
