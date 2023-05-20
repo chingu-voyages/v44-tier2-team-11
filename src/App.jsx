@@ -1,5 +1,4 @@
 import Arena from './components/arena/Arena';
-import Leaderboard from './components/leaderboard/Leaderboard';
 
 function App() {
   return (
@@ -13,12 +12,3 @@ function App() {
 }
 
 export default App;
-
-// const App = () => {
-//   return (
-//     <>
-//
-//     </>
-//   );
-// }
-// export default App;
