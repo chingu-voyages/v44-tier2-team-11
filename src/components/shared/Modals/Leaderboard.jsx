@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import BotBlue from "../bots/BotBlue";
-import BotRed from "../bots/BotRed";
-import BotYellow from "../bots/BotYellow";
-import BotEmerald from "../bots/BotEmerald";
-import BotFig from "../bots/BotFig";
+import BotBlue from "../bots/BotBlue.jsx";
+import BotRed from "../bots/BotRed.jsx";
+import BotYellow from "../bots/BotYellow.jsx";
+import BotEmerald from "../bots/BotEmerald.jsx";
+import BotFig from "../bots/BotFig.jsx";
 
 
 const WinCounter = (val) => {
@@ -12,7 +12,7 @@ const WinCounter = (val) => {
         { val.win }
         </div>
     );
-} 
+}
 
 const LossCounter = (val) => {
     return(
@@ -20,7 +20,7 @@ const LossCounter = (val) => {
         { val.loss }
         </div>
     );
-} 
+}
 
 const TieCounter = (val) => {
     return(
@@ -28,7 +28,7 @@ const TieCounter = (val) => {
         { val.tie }
         </div>
     );
-} 
+}
 
 const BotScoreRow = (botScore) => {
     return(
@@ -57,7 +57,7 @@ const LeaderboardHeader = () => {
     return(
         <div className=" flex flex-row justify-evenly h-min my-4">
             {/* <div className="flex justify-center items-center">
-                Standing            
+                Standing
             </div> */}
             <div className="flex justify-center items-center font-bold">
                 Bot Name:
@@ -121,7 +121,7 @@ class Leaderboard extends React.Component {
         ]
     };
 
-    
+
     render(){
         return(
             <div className="modal absolute w-full h-full flex justify-center items-center bg-primary-950 bg-opacity-30 backdrop-blur-sm">
@@ -140,7 +140,7 @@ class Leaderboard extends React.Component {
                 {/* bots score list */}
                 {
                     this.state.bots.map( bot =>
-                    <BotScoreRow     
+                    <BotScoreRow
                     id={bot.id}
                     botName={bot.name}
                     key={bot.id.toString()}
@@ -150,7 +150,7 @@ class Leaderboard extends React.Component {
                     color={bot.color}
                     bColor={bot.bColor}
                     bgColor={bot.bgColor}
-                    /> 
+                    />
                     )
                 }
                 </div>
