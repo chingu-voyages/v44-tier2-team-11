@@ -1,6 +1,6 @@
-import BotName from './BotName';
-import BotBooleanValue from './BotBooleanValue';
-import BotDirection from './BotDirection';
+import BotName from './BotName.jsx';
+import BotBooleanValue from './BotBooleanValue.jsx';
+import BotDirection from './BotDirection.jsx';
 
 const BotPanel = () => {
   return (

@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
-import Arena from "./components/shared/Arena/Arena.jsx";
-import Leaderboard from './components/leaderboard/Leaderboard';
-import GameConfigurationPanel from './components/GameConfigurationPanel';
+import Arena from "./components/shared/arena/Arena.jsx";
+import Leaderboard from './components/shared/leaderboard/Leaderboard';
+import GameConfigurationPanel from './components/shared/Modals/GameConfigurationPanel.jsx';
 
 // NPM
 import { useState } from 'react';
@@ -17,7 +17,6 @@ function App() {
     <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
       <Arena />
       {/*<Leaderboard />*/}
-      <button onClick={onClickCloseModal}>Show game configuration</button>
       <GameConfigurationPanel
         onClickCloseModal={onClickCloseModal}
         shouldShow={isGameConfigurationShown}

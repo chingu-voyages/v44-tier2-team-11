@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import XMarkIcon from '../shared/icons/XMarkIcon';
+import XMarkIcon from '../icons/XMarkIcon.jsx';
 
 const XMarkButtonIcon = ({ className, onClick }) => {
   return (

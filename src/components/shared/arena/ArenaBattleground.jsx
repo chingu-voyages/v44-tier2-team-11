@@ -1,5 +1,5 @@
+import Bot from './ArenaBot.jsx';
 import { tiles } from '../../../data.js';
-import Bot from '../../arena/Bot.jsx';
 import GlobalContext from "../../../contexts/global-context.js";
 
 // NPM

@@ -1,7 +1,7 @@
-import Modal from './base/Modal';
-import OperationForm from './forms/OperationForm';
-import SpeedForm from './forms/SpeedForm';
-import BotPanel from './forms/BotPanel';
+import Modal from '../../base/Modal.jsx';
+import OperationForm from '../forms/OperationForm.jsx';
+import SpeedForm from '../forms/SpeedForm.jsx';
+import BotPanel from '../forms/BotPanel.jsx';
 
 // NPM
 import PropTypes from 'prop-types';
