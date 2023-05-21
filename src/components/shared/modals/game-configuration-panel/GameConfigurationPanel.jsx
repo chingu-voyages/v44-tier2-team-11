@@ -33,8 +33,11 @@ const GameConfigurationPanel = () => {
                 <SpeedForm/>
             </div>
 
-            <BotList/>
-            <BotForms/>
+            <div>
+                <span className='mb-2 inline-block text-sm font-black text-form-900'>Your Bots:</span>
+                <BotList/>
+            </div>
+            {/*<BotForms/>*/}
 
             <div className="mt-6 flex justify-end">
                 <button
