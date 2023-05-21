@@ -2,6 +2,7 @@ import BotColorScheme from './BotColorScheme.jsx';
 import BotName from './BotName.jsx';
 import BotBooleanValue from './BotBooleanValue.jsx';
 import BotDirection from './BotDirection.jsx';
+import ErrorAlert from './ErrorAlert.jsx';
 import BotDynamic from '../../../bots/BotDynamic.jsx';
 import ArrowLeftIcon from '../../../icons/ArrowLeftIcon.jsx';
 
@@ -10,30 +11,92 @@ import GlobalContext from '../../../../../contexts/global-context.js';
 
 // NPM
 import { useState, useContext, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const BotForms = ({ onClickGoBackToMain }) => {
+  const DEFAULT_COLOR_SCHEMES = {
+    avatarBg: '#E7EFF3',
+    avatarBorder: '#A9C6D5',
+    baseColor: '#A9C6D5',
+    strokeColor: '#4B7F9B',
+  };
   const avatarRef = useRef(null);
-  const [botAvatarBg, setBotAvatarBg] = useState('#E7EFF3');
-  const [botAvatarBorder, setBotAvatarBorder] = useState('#A9C6D5');
-  const [baseColor, setBaseColor] = useState('#A9C6D5');
-  const [strokeColor, setStrokeColor] = useState('#4B7F9B');
+  const [botAvatarBg, setBotAvatarBg] = useState(
+    DEFAULT_COLOR_SCHEMES.avatarBg
+  );
+  const [botAvatarBorder, setBotAvatarBorder] = useState(
+    DEFAULT_COLOR_SCHEMES.avatarBorder
+  );
+  const [baseColor, setBaseColor] = useState(DEFAULT_COLOR_SCHEMES.baseColor);
+  const [strokeColor, setStrokeColor] = useState(
+    DEFAULT_COLOR_SCHEMES.strokeColor
+  );
   const [botName, setBotName] = useState('');
   const [botBooleanValue, setBotBooleanValue] = useState('');
   const [botDirection, setBotDirection] = useState('');
+  const [error, setError] = useState('');
   const { bots } = useContext(GlobalContext);
 
-  const goBackToMainForm = () => {
-    onClickGoBackToMain();
-  };
   const resetForm = () => {
+    setBotAvatarBg(DEFAULT_COLOR_SCHEMES.avatarBg);
+    setBotAvatarBorder(DEFAULT_COLOR_SCHEMES.avatarBorder);
+    setBaseColor(DEFAULT_COLOR_SCHEMES.baseColor);
+    setStrokeColor(DEFAULT_COLOR_SCHEMES.strokeColor);
     setBotName('');
     setBotBooleanValue('');
     setBotDirection('');
+    setError('');
+  };
+
+  const goBackToMainForm = () => {
+    resetForm();
+    onClickGoBackToMain();
   };
 
   const onClickSaveRobot = () => {
-    // Save to global context
-    bots.push({
+    const NO_COLOR_SCHEMES =
+      botAvatarBorder === DEFAULT_COLOR_SCHEMES.avatarBg ||
+      botAvatarBg === DEFAULT_COLOR_SCHEMES.avatarBorder ||
+      baseColor === DEFAULT_COLOR_SCHEMES.baseColor ||
+      strokeColor === DEFAULT_COLOR_SCHEMES.strokeColor;
+    const NAME_ALREADY_EXIST =
+      bots.filter((obj) => obj.name === botName).length !== 0;
+    const NAME_IS_EMPTY = botName === '';
+    const BOOLEAN_VALUE_EMPTY = botBooleanValue === '';
+    const BOT_DIRECTION_EMPTY = botDirection === '';
+
+    if (NO_COLOR_SCHEMES) {
+      setError('Please select a color scheme.');
+      return;
+    }
+
+    if (NAME_IS_EMPTY) {
+      setError('Please choose a bot name.');
+      return;
+    }
+
+    if (NAME_ALREADY_EXIST) {
+      setError('Name already exists. Please choose another one.');
+      return;
+    }
+
+    if (BOOLEAN_VALUE_EMPTY) {
+      setError('Please choose a boolean value.');
+      return;
+    }
+
+    if (BOT_DIRECTION_EMPTY) {
+      setError('Please choose the initial direction of bot.');
+      return;
+    }
+
+    // Throw success error
+
+    // Reset the form
+    resetForm();
+
+    // Save the info to global context
+    const BOT_INFO = {
       colorSchemes: {
         avatarBorder: botAvatarBorder,
         avatarBg: botAvatarBg,
@@ -43,7 +106,9 @@ const BotForms = ({ onClickGoBackToMain }) => {
       name: botName,
       booleanValue: botBooleanValue,
       direction: botDirection,
-    });
+    };
+
+    bots.push(BOT_INFO);
   };
 
   useEffect(() => {
@@ -57,6 +122,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
   return (
     <>
+      {/* Go Back Button */}
       <button
         type="button"
         className="mb-8 flex rounded bg-primary-100 p-2 outline-none transition-shadow duration-100 ease-linear hover:bg-primary-200/70 focus:bg-primary-200/70 focus:ring-4 focus:ring-primary-300"
@@ -67,6 +133,10 @@ const BotForms = ({ onClickGoBackToMain }) => {
         </span>
         <span className="text-sm font-bold text-primary-500">Go back</span>
       </button>
+
+      {/* Error Alert */}
+      <ErrorAlert alertText={error} />
+
       <form className="flex flex-col">
         {/* Avatar */}
         <div className="mb-4 flex justify-center">
@@ -116,14 +186,14 @@ const BotForms = ({ onClickGoBackToMain }) => {
         <div className="mt-6 flex justify-end">
           <button
             type="button"
-            className="mr-2 rounded-lg bg-primary-100 px-4 py-3 text-sm font-black text-primary-500 outline-none transition-shadow duration-100 ease-in hover:bg-primary-200/60 focus:bg-primary-200/60 focus:ring-4 focus:ring-primary-300"
+            className="mr-2 rounded-lg bg-primary-100 px-4 py-3 text-sm font-black text-primary-500 outline-none transition-shadow duration-100 ease-linear hover:bg-primary-200/60 focus:bg-primary-200/60 focus:ring-4 focus:ring-primary-300"
             onClick={resetForm}
           >
             Reset
           </button>
           <button
             type="button"
-            className="rounded-lg bg-primary-500 px-4 py-3 text-sm font-black text-white outline-none transition-shadow duration-100 ease-in hover:bg-primary-600/80 focus:bg-primary-600/80 focus:ring-4 focus:ring-primary-300"
+            className="rounded-lg bg-primary-500 px-4 py-3 text-sm font-black text-white outline-none transition-shadow duration-100 ease-linear hover:bg-primary-600/80 focus:bg-primary-600/80 focus:ring-4 focus:ring-primary-300"
             onClick={onClickSaveRobot}
           >
             Create Bot
@@ -132,6 +202,10 @@ const BotForms = ({ onClickGoBackToMain }) => {
       </form>
     </>
   );
+};
+
+BotForms.propTypes = {
+  onClickGoBackToMain: PropTypes.func.isRequired,
 };
 
 export default BotForms;

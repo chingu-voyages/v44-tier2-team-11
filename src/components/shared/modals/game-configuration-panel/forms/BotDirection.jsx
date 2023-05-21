@@ -11,10 +11,9 @@ const BotDirection = ({ botDirection, setBotDirection }) => {
       </label>
       <select
         id="botDirection"
-        defaultValue=""
         className="h-full cursor-pointer rounded-lg bg-form-300 px-4 py-3 text-sm font-bold text-form-700 outline-none transition-shadow duration-100 ease-in hover:bg-primary-50 hover:text-primary-900 focus:bg-primary-50 focus:text-primary-500 focus:ring-4 focus:ring-primary-300"
         onChange={(e) => setBotDirection(e.target.value)}
-        value={botDirection}
+        defaultValue={botDirection}
       >
         <option value="" disabled className="bg-white text-slate-900">
           -- Please Select --

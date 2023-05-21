@@ -16,7 +16,7 @@ const BotList = ({ onClickShowForm }) => {
       <div>
         <button
           type="button"
-          className="h-[60px] w-[70px] rounded-xl bg-form-400 px-2 py-3 hover:bg-form-500/50 focus:bg-form-500/50"
+          className="h-[60px] w-[70px] rounded-xl bg-form-400 p-5 hover:bg-form-500/50 focus:bg-form-500/50"
           onClick={onClickShowForm}
         >
           <PlusIcon className="block h-full w-full fill-form-600" />
@@ -26,7 +26,7 @@ const BotList = ({ onClickShowForm }) => {
   }
 
   return (
-    <div>
+    <div className="flex items-center">
       {bots.map((bot) => (
         <button
           key={bot.name}
@@ -35,7 +35,7 @@ const BotList = ({ onClickShowForm }) => {
             borderColor: bot.colorSchemes.avatarBorder,
             backgroundColor: bot.colorSchemes.avatarBg,
           }}
-          className={`mr-3 h-[60px] w-[70px] rounded-xl border-2 border-[3px] px-2 py-3`}
+          className={`mr-3 h-[60px] w-[70px] rounded-xl border-2 border-[3px] p-3`}
         >
           <BotDynamic
             baseColor={bot.colorSchemes.baseColor}
@@ -46,7 +46,7 @@ const BotList = ({ onClickShowForm }) => {
       ))}
       <button
         type="button"
-        className="h-[60px] w-[70px] rounded-xl bg-form-400 px-2 py-3 hover:bg-form-500/50 focus:bg-form-500/50"
+        className="h-[60px] w-[70px] rounded-xl bg-form-400 p-5 hover:bg-form-500/50 focus:bg-form-500/50"
         onClick={onClickShowForm}
       >
         <PlusIcon className="block h-full w-full fill-form-600" />
