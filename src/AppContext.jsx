@@ -1,5 +1,5 @@
 import GlobalContext from './contexts/global-context.js';
-import { bots } from './data';
+import { BotData } from './data';
 
 // NPM
 import { useState, useRef } from 'react';
@@ -12,7 +12,7 @@ const AppContext = ({ children }) => {
   // An array that contains all bots defined by user
   const [bots, setBots] = useState([]);
 
-  const [botList, setBotList] = useState(bots);
+  const [botList, setBotList] = useState(BotData);
   const [inGame, setInGame] = useState(false);
   const inGamePositions = useRef([]);
 
