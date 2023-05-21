@@ -75,6 +75,10 @@ const BotForms = ({ onClickGoBackToMain }) => {
     const BOOLEAN_VALUE_EMPTY = botBooleanValue === '';
     const BOT_DIRECTION_EMPTY = botDirection === '';
 
+    // Reset alerts
+    setShowSuccessAlert(false);
+    setError('');
+
     const createError = (text) => {
       setError(text);
     };
