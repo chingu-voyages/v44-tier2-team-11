@@ -9,8 +9,12 @@ const Nav = () => {
     <>
       <div className="flex items-center justify-between px-4 pt-4">
         <div className="flex items-center">
-          <LogoIcon size={60} />
-          <div className="text-270000 ml-4 text-2xl font-bold">Boole Bot</div>
+          <span className="flex w-9">
+            <LogoIcon />
+          </span>
+          <div className="ml-2 text-xl font-black text-primary-900">
+            Boole Bot
+          </div>
         </div>
         <div className="flex flex-row">
           <button className="mr-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white">
