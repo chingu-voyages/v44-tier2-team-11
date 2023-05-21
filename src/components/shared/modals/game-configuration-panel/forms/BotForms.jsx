@@ -38,7 +38,12 @@ const BotForms = () => {
         </span>
       </div>
       <div className="mb-4">
-        <BotColorScheme />
+        <BotColorScheme
+          setBotAvatarBg={setBotAvatarBg}
+          setBotAvatarBorder={setBotAvatarBorder}
+          setBaseColor={setBaseColor}
+          setStrokeColor={setStrokeColor}
+        />
       </div>
       <div className="mb-4 max-w-sm">
         <BotName />

@@ -1,17 +1,44 @@
 import DiceFiveIcon from '../../../icons/DiceFiveIcon.jsx';
+import {
+  generatePastelColor,
+  makeColorLight,
+  makeColorDark,
+} from '../../../../../utilities/generate-colors.js';
 
-const BotColorScheme = ()=>{
-    return (
-        <div>
-            <button type='button' className='bg-form-200 group focus:ring-4 focus:ring-primary-300 focus:bg-primary-100 hover:bg-primary-100 rounded-lg px-4 ease-linear duration-100 py-2 flex'>
-                <span className='w-4 flex mr-2'>
-                    <DiceFiveIcon className='block fill-form-600 group-hover:fill-primary-500 group-focus:fill-primary-500 w-full h-full'/>
-                </span>
+const BotColorScheme = ({
+  setBotAvatarBg,
+  setBotAvatarBorder,
+  setBaseColor,
+  setStrokeColor,
+}) => {
+  const generateColorScheme = () => {
+    const COLOR = generatePastelColor();
+    const DARKENED_COLOR = makeColorDark(COLOR, 0.2);
+    const LIGHTENED_COLOR = makeColorLight(COLOR, 0.2);
 
-                <span className='text-form-600 group-hover:text-primary-500 group-focus:text-primary-500 font-bold text-md'>Generate Color Scheme</span>
-            </button>
-        </div>
-    );
-}
+    setBotAvatarBorder(DARKENED_COLOR);
+    setBotAvatarBg(makeColorLight(LIGHTENED_COLOR, 0.8));
+    setBaseColor(LIGHTENED_COLOR);
+    setStrokeColor(DARKENED_COLOR);
+  };
+
+  return (
+    <div>
+      <button
+        type="button"
+        className="group flex rounded-lg bg-form-200 px-4 py-2 duration-100 ease-linear hover:bg-primary-100 focus:bg-primary-100 focus:ring-4 focus:ring-primary-300"
+        onClick={generateColorScheme}
+      >
+        <span className="mr-2 flex w-4">
+          <DiceFiveIcon className="block h-full w-full fill-form-600 group-hover:fill-primary-500 group-focus:fill-primary-500" />
+        </span>
+
+        <span className="text-md font-bold text-form-600 group-hover:text-primary-500 group-focus:text-primary-500">
+          Generate Color Scheme
+        </span>
+      </button>
+    </div>
+  );
+};
 
 export default BotColorScheme;
