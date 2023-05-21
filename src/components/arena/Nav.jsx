@@ -1,6 +1,7 @@
 import { useGlobalContext } from '../../contex';
+import FilledButtonIcons from "../base/FilledButtonIcons.jsx";
 import LogoIcon from '../icons/LogoIcon';
-import TrophyStar from '../icons/TrophyStarIcon';
+import TrophyStarIcon from '../icons/TrophyStarIcon';
 import WrenchIcon from '../icons/WrenchIcon';
 
 const Nav = () => {
@@ -16,13 +17,13 @@ const Nav = () => {
             Boole Bot
           </div>
         </div>
-        <div className="flex flex-row">
-          <button className="mr-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white">
-            <TrophyStar size={8} />
-          </button>
-          <button className="flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white">
-            <WrenchIcon size={8} />
-          </button>
+        <div className="flex">
+          <FilledButtonIcons>
+            <TrophyStarIcon />
+          </FilledButtonIcons>
+          <FilledButtonIcons>
+            <WrenchIcon />
+          </FilledButtonIcons>
         </div>
       </div>
       <div className="flex w-full justify-center">
