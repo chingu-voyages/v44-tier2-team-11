@@ -1,16 +1,25 @@
-import Modal from '../../base/Modal.jsx';
-import OperationForm from '../forms/OperationForm.jsx';
-import SpeedForm from '../forms/SpeedForm.jsx';
-import BotPanel from '../forms/BotPanel.jsx';
+import Modal from '../../../base/Modal.jsx';
+import OperationForm from './OperationForm.jsx';
+import SpeedForm from './SpeedForm.jsx';
+import BotPanel from './BotPanel.jsx';
+
+// Context
+import GlobalContext from "../../../../contexts/global-context.js";
 
 // NPM
-import PropTypes from 'prop-types';
+import {useContext} from "react";
 
-const GameConfigurationPanel = ({ shouldShow, onClickCloseModal }) => {
+const GameConfigurationPanel = () => {
+  const {showConfigurationPanel, setShowConfigurationPanel} = useContext(GlobalContext);
+
+  const onClickCloseModal = ()=>{
+    setShowConfigurationPanel(false);
+  }
+
   return (
     <Modal
       mainContentWrapperClassName="w-11/12 max-w-3xl"
-      shouldShow={shouldShow}
+      shouldShow={showConfigurationPanel}
       onClickCloseModal={onClickCloseModal}
     >
       <h2 className="relative mb-12 inline-block text-xl font-black text-primary-900 before:absolute before:-bottom-2 before:left-0 before:block before:h-1 before:w-3/5 before:rounded-lg before:bg-primary-900">
@@ -40,11 +49,6 @@ const GameConfigurationPanel = ({ shouldShow, onClickCloseModal }) => {
       </div>
     </Modal>
   );
-};
-
-GameConfigurationPanel.propTypes = {
-  shouldShow: PropTypes.bool.isRequired,
-  onClickCloseModal: PropTypes.func.isRequired,
 };
 
 export default GameConfigurationPanel;
