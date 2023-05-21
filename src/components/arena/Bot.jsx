@@ -1,8 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { useGlobalContext } from '../../contex';
 import { winLosTie } from './utilis';
+import GlobalContext from "../../contexts/global-context.js";
 import BotFig from '../bots/BotFig';
+
+// NPM
+import {useContext} from "react";
 
 const Bot = ({
   id,
@@ -18,7 +21,7 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions } = useGlobalContext();
+  const { inGamePositions } = useContext(GlobalContext);
 
   const currentDirection = useRef(direction);
   const botPositions = useRef();

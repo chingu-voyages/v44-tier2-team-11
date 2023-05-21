@@ -1,11 +1,14 @@
-import { useGlobalContext } from '../../contex';
+import GlobalContext from "../../contexts/global-context.js";
 import FilledButtonIcons from "../base/FilledButtonIcons.jsx";
 import LogoIcon from '../icons/LogoIcon';
 import TrophyStarIcon from '../icons/TrophyStarIcon';
 import WrenchIcon from '../icons/WrenchIcon';
 
+// NPM
+import {useContext} from "react";
+
 const Nav = () => {
-    const { setInGame, inGame } = useGlobalContext();
+    const { setInGame, inGame } = useContext(GlobalContext);
     return (
         <>
             <div className="flex items-center justify-between px-4 pt-4">

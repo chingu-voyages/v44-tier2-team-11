@@ -1,10 +1,12 @@
-import { useState } from 'react';
 import { tiles } from '../../data';
 import Bot from './Bot';
-import { useGlobalContext } from '../../contex';
+import GlobalContext from "../../contexts/global-context.js";
+
+// NPM
+import {useContext} from "react";
 
 const Arena = () => {
-  const { botList, inGame } = useGlobalContext();
+  const { botList, inGame } = useContext(GlobalContext);
 
   return (
     <>

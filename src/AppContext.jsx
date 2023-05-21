@@ -1,7 +1,9 @@
-import { createContext, useState, useContext, useRef } from 'react';
+import GlobalContext from "./contexts/global-context.js";
 import { bots } from './data';
-const GlobalContext = createContext();
-export const useGlobalContext = () => useContext(GlobalContext);
+
+// NPM
+import { useState, useRef } from 'react';
+import PropTypes from "prop-types";
 
 const AppContext = ({ children }) => {
   const [botList, setBotList] = useState(bots);
@@ -15,4 +17,9 @@ const AppContext = ({ children }) => {
     </GlobalContext.Provider>
   );
 };
+
+AppContext.propTypes = {
+  children: PropTypes.object.isRequired
+}
+
 export default AppContext;
