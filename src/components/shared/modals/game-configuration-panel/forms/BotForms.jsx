@@ -3,6 +3,7 @@ import BotName from './BotName.jsx';
 import BotBooleanValue from './BotBooleanValue.jsx';
 import BotDirection from './BotDirection.jsx';
 import ErrorAlert from './ErrorAlert.jsx';
+import SuccessAlert from './SuccessAlert.jsx';
 import BotDynamic from '../../../bots/BotDynamic.jsx';
 import ArrowLeftIcon from '../../../icons/ArrowLeftIcon.jsx';
 
@@ -12,6 +13,7 @@ import GlobalContext from '../../../../../contexts/global-context.js';
 // NPM
 import { useState, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import successAlert from './SuccessAlert.jsx';
 
 const BotForms = ({ onClickGoBackToMain }) => {
   const DEFAULT_COLOR_SCHEMES = {
@@ -35,6 +37,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
   const [botBooleanValue, setBotBooleanValue] = useState('');
   const [botDirection, setBotDirection] = useState('');
   const [error, setError] = useState('');
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const { bots } = useContext(GlobalContext);
 
   const resetForm = () => {
@@ -50,9 +53,14 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
   const goBackToMainForm = () => {
     resetForm();
+    setShowSuccessAlert(false);
     onClickGoBackToMain();
   };
 
+  const onClickResetForm = () => {
+    resetForm();
+    setShowSuccessAlert(false);
+  };
   const onClickSaveRobot = () => {
     const NO_COLOR_SCHEMES =
       botAvatarBorder === DEFAULT_COLOR_SCHEMES.avatarBg ||
@@ -91,6 +99,9 @@ const BotForms = ({ onClickGoBackToMain }) => {
     }
 
     // Throw success error
+    setShowSuccessAlert(true);
+
+    console.log(showSuccessAlert);
 
     // Reset the form
     resetForm();
@@ -112,7 +123,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
   };
 
   useEffect(() => {
-    if (avatarRef) {
+    if (avatarRef.current) {
       Object.assign(avatarRef.current.style, {
         borderColor: botAvatarBorder,
         backgroundColor: botAvatarBg,
@@ -134,8 +145,9 @@ const BotForms = ({ onClickGoBackToMain }) => {
         <span className="text-sm font-bold text-primary-500">Go back</span>
       </button>
 
-      {/* Error Alert */}
+      {/* Alert */}
       <ErrorAlert alertText={error} />
+      <SuccessAlert canShow={showSuccessAlert} />
 
       <form className="flex flex-col">
         {/* Avatar */}
@@ -187,7 +199,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
           <button
             type="button"
             className="mr-2 rounded-lg bg-primary-100 px-4 py-3 text-sm font-black text-primary-500 outline-none transition-shadow duration-100 ease-linear hover:bg-primary-200/60 focus:bg-primary-200/60 focus:ring-4 focus:ring-primary-300"
-            onClick={resetForm}
+            onClick={onClickResetForm}
           >
             Reset
           </button>
