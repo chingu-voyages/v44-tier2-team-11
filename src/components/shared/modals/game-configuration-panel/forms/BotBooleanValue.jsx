@@ -1,4 +1,6 @@
-const BotBooleanValue = () => {
+import PropTypes from 'prop-types';
+
+const BotBooleanValue = ({ botBooleanValue, setBotBooleanValue }) => {
   return (
     <div className="flex h-full flex-col">
       <label
@@ -15,6 +17,8 @@ const BotBooleanValue = () => {
             name="botRadioBoolean"
             value="0"
             className="peer inline appearance-none outline-none"
+            checked={botBooleanValue === '0'}
+            onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
             htmlFor="botRadioFalsy"
@@ -30,6 +34,8 @@ const BotBooleanValue = () => {
             value="1"
             name="botRadioBoolean"
             className="peer inline appearance-none outline-none"
+            checked={botBooleanValue === '1'}
+            onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
             htmlFor="botRadioTruthy"
@@ -41,6 +47,11 @@ const BotBooleanValue = () => {
       </div>
     </div>
   );
+};
+
+BotBooleanValue.propTypes = {
+  botBooleanValue: PropTypes.string.isRequired,
+  setBotBooleanValue: PropTypes.func.isRequired,
 };
 
 export default BotBooleanValue;
