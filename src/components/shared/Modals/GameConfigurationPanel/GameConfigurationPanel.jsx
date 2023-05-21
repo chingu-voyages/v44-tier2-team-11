@@ -31,6 +31,7 @@ const GameConfigurationPanel = () => {
       <div className="mb-6">
         <SpeedForm />
       </div>
+
       <BotPanel />
 
       <div className="mt-6 flex justify-end">
