@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css';
 import Arena from "./components/shared/arena/Arena.jsx";
-import Leaderboard from './components/shared/leaderboard/Leaderboard';
+import Leaderboard from './components/shared/Modals/Leaderboard.jsx';
 import GameConfigurationPanel from './components/shared/Modals/GameConfigurationPanel/GameConfigurationPanel.jsx';
 
 function App() {
