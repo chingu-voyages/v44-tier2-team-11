@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const ErrorAlert = ({ alertText }) => {
+const BotFormsErrorAlert = ({ alertText }) => {
   if (alertText === '') {
     return <></>;
   }
@@ -12,7 +12,7 @@ const ErrorAlert = ({ alertText }) => {
   );
 };
 
-ErrorAlert.propTypes = {
+BotFormsErrorAlert.propTypes = {
   alertText: PropTypes.string,
 };
-export default ErrorAlert;
+export default BotFormsErrorAlert;

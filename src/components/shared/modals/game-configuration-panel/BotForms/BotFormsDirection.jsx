@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BotDirection = ({ botDirection, setBotDirection }) => {
+const BotFormsDirection = ({ botDirection, setBotDirection }) => {
   return (
     <div className="flex h-full flex-col">
       <label
@@ -35,9 +35,9 @@ const BotDirection = ({ botDirection, setBotDirection }) => {
   );
 };
 
-BotDirection.propTypes = {
+BotFormsDirection.propTypes = {
   botDirection: PropTypes.string.isRequired,
   setBotDirection: PropTypes.func.isRequired,
 };
 
-export default BotDirection;
+export default BotFormsDirection;

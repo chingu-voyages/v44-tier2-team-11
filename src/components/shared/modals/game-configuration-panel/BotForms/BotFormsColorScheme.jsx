@@ -8,7 +8,7 @@ import {
 // NPM
 import PropTypes from 'prop-types';
 
-const BotColorScheme = ({
+const BotFormsColorScheme = ({
   setBotAvatarBg,
   setBotAvatarBorder,
   setBaseColor,
@@ -44,11 +44,11 @@ const BotColorScheme = ({
   );
 };
 
-BotColorScheme.propTypes = {
+BotFormsColorScheme.propTypes = {
   setBotAvatarBg: PropTypes.func.isRequired,
   setBotAvatarBorder: PropTypes.func.isRequired,
   setBaseColor: PropTypes.func.isRequired,
   setStrokeColor: PropTypes.func.isRequired,
 };
 
-export default BotColorScheme;
+export default BotFormsColorScheme;

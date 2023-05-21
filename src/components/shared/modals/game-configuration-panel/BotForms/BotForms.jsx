@@ -1,9 +1,9 @@
-import BotColorScheme from './BotColorScheme.jsx';
-import BotName from './BotName.jsx';
-import BotBooleanValue from './BotBooleanValue.jsx';
-import BotDirection from './BotDirection.jsx';
-import ErrorAlert from './ErrorAlert.jsx';
-import SuccessAlert from './SuccessAlert.jsx';
+import BotFormsColorScheme from './BotFormsColorScheme.jsx';
+import BotFormsName from './BotFormsName.jsx';
+import BotFormsBooleanValue from './BotFormsBooleanValue.jsx';
+import BotFormsDirection from './BotFormsDirection.jsx';
+import BotFormsErrorAlert from './BotFormsErrorAlert.jsx';
+import BotFormsSuccessAlert from './BotFormsSuccessAlert.jsx';
 import BotDynamic from '../../../bots/BotDynamic.jsx';
 import ArrowLeftIcon from '../../../icons/ArrowLeftIcon.jsx';
 
@@ -56,10 +56,13 @@ const BotForms = ({ onClickGoBackToMain }) => {
     onClickGoBackToMain();
   };
 
+  // Resets the form fields
   const onClickResetForm = () => {
     resetForm();
     setShowSuccessAlert(false);
   };
+
+  // Handles the validation & saving the bot info to global context
   const onClickSaveRobot = () => {
     const NO_COLOR_SCHEMES =
       botAvatarBorder === DEFAULT_COLOR_SCHEMES.avatarBg ||
@@ -126,6 +129,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
   };
 
   useEffect(() => {
+    // Change avatar background everytime the color scheme changes
     if (avatarRef.current) {
       Object.assign(avatarRef.current.style, {
         borderColor: botAvatarBorder,
@@ -149,8 +153,8 @@ const BotForms = ({ onClickGoBackToMain }) => {
       </button>
 
       {/* Alert */}
-      <ErrorAlert alertText={error} />
-      <SuccessAlert canShow={showSuccessAlert} />
+      <BotFormsErrorAlert alertText={error} />
+      <BotFormsSuccessAlert canShow={showSuccessAlert} />
 
       <form className="flex flex-col">
         {/* Avatar */}
@@ -169,7 +173,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
         {/* Color Scheme */}
         <div className="mb-4">
-          <BotColorScheme
+          <BotFormsColorScheme
             setBotAvatarBg={setBotAvatarBg}
             setBotAvatarBorder={setBotAvatarBorder}
             setBaseColor={setBaseColor}
@@ -179,12 +183,12 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
         {/* Bot Name */}
         <div className="mb-4 max-w-sm">
-          <BotName botName={botName} setBotName={setBotName} />
+          <BotFormsName botName={botName} setBotName={setBotName} />
         </div>
 
         {/* Bot Boolean Value */}
         <div className="mb-4 mr-10">
-          <BotBooleanValue
+          <BotFormsBooleanValue
             botBooleanValue={botBooleanValue}
             setBotBooleanValue={setBotBooleanValue}
           />
@@ -192,12 +196,13 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
         {/* Bot Direction */}
         <div className="max-w-sm">
-          <BotDirection
+          <BotFormsDirection
             botDirection={botDirection}
             setBotDirection={setBotDirection}
           />
         </div>
 
+        {/* Controls */}
         <div className="mt-6 flex justify-end">
           <button
             type="button"

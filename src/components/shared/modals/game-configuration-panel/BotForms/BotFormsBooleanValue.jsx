@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BotBooleanValue = ({ botBooleanValue, setBotBooleanValue }) => {
+const BotFormsBooleanValue = ({ botBooleanValue, setBotBooleanValue }) => {
   return (
     <div className="flex h-full flex-col">
       <label
@@ -49,9 +49,9 @@ const BotBooleanValue = ({ botBooleanValue, setBotBooleanValue }) => {
   );
 };
 
-BotBooleanValue.propTypes = {
+BotFormsBooleanValue.propTypes = {
   botBooleanValue: PropTypes.string.isRequired,
   setBotBooleanValue: PropTypes.func.isRequired,
 };
 
-export default BotBooleanValue;
+export default BotFormsBooleanValue;

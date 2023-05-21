@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const SuccessAlert = ({ canShow }) => {
+const BotFormsSuccessAlert = ({ canShow }) => {
   if (!canShow) {
     return <></>;
   }
@@ -12,7 +12,7 @@ const SuccessAlert = ({ canShow }) => {
   );
 };
 
-SuccessAlert.propTypes = {
+BotFormsSuccessAlert.propTypes = {
   canShow: PropTypes.bool,
 };
-export default SuccessAlert;
+export default BotFormsSuccessAlert;

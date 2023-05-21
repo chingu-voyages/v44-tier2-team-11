@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BotName = ({ botName, setBotName }) => {
+const BotFormsName = ({ botName, setBotName }) => {
   return (
     <div className="flex flex-col">
       <label
@@ -21,8 +21,8 @@ const BotName = ({ botName, setBotName }) => {
   );
 };
 
-BotName.propTypes = {
+BotFormsName.propTypes = {
   botName: PropTypes.string.isRequired,
   setBotName: PropTypes.func.isRequired,
 };
-export default BotName;
+export default BotFormsName;

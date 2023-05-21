@@ -1,6 +1,6 @@
 import Modal from '../../../base/Modal.jsx';
 import MainForm from './MainForms/MainForm.jsx';
-import BotForms from './forms/BotForms.jsx';
+import BotForms from './BotForms/BotForms.jsx';
 
 // Context
 import GlobalContext from '../../../../contexts/global-context.js';
