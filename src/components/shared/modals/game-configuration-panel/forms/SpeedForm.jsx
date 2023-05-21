@@ -24,15 +24,18 @@ const SpeedForm = () => {
         setCurrentPosition(LEVEL_IN_PERCENTAGE);
       };
 
+      const handleMouseDown = ()=>{
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+      }
+
       const handleMouseUp = () => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        handleRef.current.removeEventListener('mousedown', handleMouseDown);
       };
 
-      handleRef.current.addEventListener('mousedown', () => {
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
-      });
+      handleRef.current.addEventListener('mousedown', handleMouseDown);
     }, 450);
   });
 
@@ -50,7 +53,7 @@ const SpeedForm = () => {
           ></div>
           <button
             type="button"
-            className="absolute top-0 -mt-1 h-3 w-3 -translate-x-2/4 cursor-pointer rounded-full border-2 border-white bg-primary-500 shadow-md outline-none duration-100 ease-in focus:ring-4 focus:ring-primary-300"
+            className="absolute top-0 -mt-1 h-3 w-3 -translate-x-2/4 cursor-pointer rounded-full border-2 border-white bg-primary-500 shadow-md outline-none ease-in focus:ring-4 focus:ring-primary-300"
             style={{ left: `${currentPosition}%` }}
             ref={handleRef}
           ></button>

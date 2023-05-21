@@ -2,7 +2,7 @@ import BotName from './BotName.jsx';
 import BotBooleanValue from './BotBooleanValue.jsx';
 import BotDirection from './BotDirection.jsx';
 
-const BotPanel = () => {
+const BotForms = () => {
   return (
     <div className="flex flex-col">
       <div className="mb-4 max-w-sm">
@@ -18,4 +18,4 @@ const BotPanel = () => {
   );
 };
 
-export default BotPanel;
+export default BotForms;
