@@ -6,7 +6,7 @@ function BotFig(prop) {
   return (
     <>
       <svg
-        className="translate-y-1"
+        className={`translate-y-1 ${prop.className}`}
         width={prop.scale}
         height={prop.scale}
         viewBox="0 0 542 507"
