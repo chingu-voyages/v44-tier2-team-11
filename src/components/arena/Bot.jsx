@@ -2,8 +2,19 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { useGlobalContext } from '../../contex';
 import { winLosTie } from './utilis';
+import BotFig from '../bots/BotFig';
 
-const Bot = ({ id, x, y, direction, inGame, speed, booleanValue }) => {
+const Bot = ({
+  id,
+  x,
+  y,
+  direction,
+  inGame,
+  speed,
+  booleanValue,
+  color,
+  bColor,
+}) => {
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
@@ -123,14 +134,15 @@ const Bot = ({ id, x, y, direction, inGame, speed, booleanValue }) => {
   return (
     <div
       ref={botPositions}
-      className="absolute h-14 w-14 rounded-full bg-primary-300 "
+      className="transparent absolute grid h-14 w-14   place-items-center rounded-full"
       style={{
         left: left * 56,
         top: top * 56,
         transition: `all ${speed / 999}s linear`,
+        paddingBottom: '1rem',
       }}
     >
-      Bot {id}
+      <BotFig scale="46" priColor={color} bColor={bColor} />
     </div>
   );
 };
