@@ -15,20 +15,16 @@ function App() {
   };
 
   return (
-    <>
-      <div className="flex h-screen items-center justify-center">
-        <div className="w-3/4 rounded bg-gradient-to-b from-red-100 to-red-300 p-4">
-          <Nav />
-          <Arena />
-          <Leaderboard />
-          <button onClick={onClickCloseModal}>Show game configuration</button>
-          <GameConfigurationPanel
-            onClickCloseModal={onClickCloseModal}
-            shouldShow={isGameConfigurationShown}
-          />
-        </div>
-      </div>
-    </>
+    <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
+      <Nav />
+      <Arena />
+      <Leaderboard />
+      <button onClick={onClickCloseModal}>Show game configuration</button>
+      <GameConfigurationPanel
+        onClickCloseModal={onClickCloseModal}
+        shouldShow={isGameConfigurationShown}
+      />
+    </div>
   );
 }
 
