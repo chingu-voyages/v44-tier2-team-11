@@ -1,29 +1,17 @@
 import 'tailwindcss/tailwind.css';
-import Arena from './components/arena/Arena';
-import Leaderboard from './components/leaderboard/Leaderboard';
-import Nav from './components/arena/Nav';
+import Arena from "./components/shared/arena/Arena.jsx";
+import Leaderboard from './components/shared/Modals/Leaderboard.jsx';
+import GameConfigurationPanel from './components/shared/Modals/GameConfigurationPanel/GameConfigurationPanel.jsx';
 
 function App() {
-  return (
-    <>
-      <div className="flex h-screen items-center justify-center">
-        <div className="w-3/4 rounded bg-gradient-to-b from-red-100 to-red-300 p-4">
-          <Nav />
-          <Arena />
-          <Leaderboard />
+    return (
+        <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
+            <Arena/>
+            {/*<Leaderboard />*/}
+            <GameConfigurationPanel
+            />
         </div>
-      </div>
-    </>
-  );
+    );
 }
 
 export default App;
-
-// const App = () => {
-//   return (
-//     <>
-//
-//     </>
-//   );
-// }
-// export default App;

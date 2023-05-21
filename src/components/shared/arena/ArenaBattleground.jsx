@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { tiles } from '../../data';
-import Bot from './Bot';
-import { useGlobalContext } from '../../contex';
+import Bot from './ArenaBot.jsx';
+import { tiles } from '../../../data.js';
+import GlobalContext from "../../../contexts/global-context.js";
 
-const Arena = () => {
-  const { botList, inGame } = useGlobalContext();
+// NPM
+import {useContext} from "react";
+
+const ArenaBattleground = () => {
+  const { botList, inGame } = useContext(GlobalContext);
 
   return (
-    <>
+    <div className='w-full flex justify-center'>
       <div className="relative flex w-8x8 flex-wrap bg-primary-100">
         {botList.map((bot) => (
           <Bot key={bot.id} {...bot} inGame={inGame} />
@@ -22,8 +24,8 @@ const Arena = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Arena;
+export default ArenaBattleground;
