@@ -15,9 +15,11 @@ const GameConfigurationPanel = () => {
   const mainFormRef = useRef(null);
   const botFormsRef = useRef(null);
   const [showBotForm, setShowBotForm] = useState(false);
+  const [selectedBotName, setSelectedBotName] = useState('');
 
   const onClickCloseModal = () => {
     setShowConfigurationPanel(false);
+
     if (showBotForm) {
       // Modal has an animation duration of 450ms
       setTimeout(() => {
@@ -33,6 +35,7 @@ const GameConfigurationPanel = () => {
     setShowBotForm(true);
   };
 
+  // Hide main form and show forms for creating bots
   const hideMainForm = () => {
     const MAIN_FORM = mainFormRef.current;
     const MAIN_FORM_PARENT = MAIN_FORM.parentElement;
@@ -94,6 +97,7 @@ const GameConfigurationPanel = () => {
     });
   };
 
+  // Show main form again
   const onClickShowMainForm = () => {
     const BOT_FORM = botFormsRef.current;
     const MAIN_FORM_PARENT = BOT_FORM.parentElement;
@@ -149,6 +153,7 @@ const GameConfigurationPanel = () => {
           display: 'block',
         });
         setShowBotForm(false);
+        setSelectedBotName('');
       },
     });
   };
@@ -159,6 +164,12 @@ const GameConfigurationPanel = () => {
     }
   }, [showBotForm]);
 
+  useEffect(() => {
+    if (selectedBotName !== '') {
+      hideMainForm();
+    }
+  }, [selectedBotName]);
+
   return (
     <Modal
       mainContentWrapperClassName="w-11/12 max-w-3xl overflow-hidden"
@@ -167,10 +178,16 @@ const GameConfigurationPanel = () => {
     >
       <div className="relative">
         <div ref={mainFormRef}>
-          <MainForm onClickShowForm={onClickShowForm} />
+          <MainForm
+            setSelectedBotName={setSelectedBotName}
+            onClickShowForm={onClickShowForm}
+          />
         </div>
         <div ref={botFormsRef} className="hidden w-full">
-          <BotForms onClickGoBackToMain={onClickShowMainForm} />
+          <BotForms
+            selectedBotName={selectedBotName}
+            onClickGoBackToMain={onClickShowMainForm}
+          />
         </div>
       </div>
     </Modal>

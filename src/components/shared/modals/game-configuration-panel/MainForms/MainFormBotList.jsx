@@ -8,8 +8,14 @@ import globalContext from '../../../../../contexts/global-context.js';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
-const MainFormBotList = ({ onClickShowForm }) => {
+const MainFormBotList = ({ onClickShowForm, setSelectedBotName }) => {
   const { bots } = useContext(globalContext);
+
+  const onClickSelectBot = (e) => {
+    const BTN = e.currentTarget;
+    const NAME = BTN.dataset.name;
+    setSelectedBotName(NAME);
+  };
 
   if (bots.length === 0) {
     return (
@@ -30,12 +36,14 @@ const MainFormBotList = ({ onClickShowForm }) => {
       {bots.map((bot) => (
         <button
           key={bot.name}
+          data-name={bot.name}
           type="button"
           style={{
             borderColor: bot.colorSchemes.avatarBorder,
             backgroundColor: bot.colorSchemes.avatarBg,
           }}
-          className={`mr-3 h-[60px] w-[70px] rounded-xl border-2 border-[3px] p-3`}
+          className={`mr-3 h-[60px] w-[70px] rounded-xl border-[3px] p-3`}
+          onClick={onClickSelectBot}
         >
           <BotDynamic
             baseColor={bot.colorSchemes.baseColor}
@@ -57,6 +65,7 @@ const MainFormBotList = ({ onClickShowForm }) => {
 
 MainFormBotList.propTypes = {
   onClickShowForm: PropTypes.func.isRequired,
+  setSelectedBotName: PropTypes.func.isRequired,
 };
 
 export default MainFormBotList;

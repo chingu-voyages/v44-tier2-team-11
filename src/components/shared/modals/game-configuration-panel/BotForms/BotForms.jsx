@@ -14,7 +14,7 @@ import GlobalContext from '../../../../../contexts/global-context.js';
 import { useState, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-const BotForms = ({ onClickGoBackToMain }) => {
+const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
   const DEFAULT_COLOR_SCHEMES = {
     avatarBg: '#E7EFF3',
     avatarBorder: '#A9C6D5',
@@ -138,7 +138,21 @@ const BotForms = ({ onClickGoBackToMain }) => {
         backgroundColor: botAvatarBg,
       });
     }
-  }, [baseColor]);
+  }, [baseColor, botAvatarBorder, botAvatarBg]);
+
+  useEffect(() => {
+    if (selectedBotName !== '') {
+      const BOT_INFO = bots.filter((obj) => obj.name === selectedBotName)[0];
+
+      setBotAvatarBorder(BOT_INFO.colorSchemes.avatarBorder);
+      setBotAvatarBg(BOT_INFO.colorSchemes.avatarBg);
+      setBaseColor(BOT_INFO.colorSchemes.baseColor);
+      setStrokeColor(BOT_INFO.colorSchemes.strokeColor);
+      setBotName(BOT_INFO.name);
+      setBotBooleanValue(BOT_INFO.booleanValue);
+      setBotDirection(BOT_INFO.direction);
+    }
+  }, [selectedBotName, bots]);
 
   return (
     <>
@@ -228,6 +242,7 @@ const BotForms = ({ onClickGoBackToMain }) => {
 
 BotForms.propTypes = {
   onClickGoBackToMain: PropTypes.func.isRequired,
+  selectedBotName: PropTypes.string.isRequired,
 };
 
 export default BotForms;

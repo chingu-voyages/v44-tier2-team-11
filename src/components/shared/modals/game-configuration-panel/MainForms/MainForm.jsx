@@ -12,7 +12,7 @@ import GlobalContext from '../../../../../contexts/global-context.js';
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const MainForm = ({ onClickShowForm }) => {
+const MainForm = ({ onClickShowForm, setSelectedBotName }) => {
   const { bots } = useContext(GlobalContext);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [operation, setOperation] = useState('AND');
@@ -60,7 +60,10 @@ const MainForm = ({ onClickShowForm }) => {
         <span className="mb-2 inline-block text-sm font-black text-form-900">
           Your Bots:
         </span>
-        <MainFormBotList onClickShowForm={onClickSwitchForm} />
+        <MainFormBotList
+          setSelectedBotName={setSelectedBotName}
+          onClickShowForm={onClickSwitchForm}
+        />
       </div>
       <div className="mt-6 flex justify-end">
         <FadedButton onClick={onClickResetForm}>Reset</FadedButton>
@@ -72,5 +75,6 @@ const MainForm = ({ onClickShowForm }) => {
 
 MainForm.propTypes = {
   onClickShowForm: PropTypes.func.isRequired,
+  setSelectedBotName: PropTypes.func.isRequired,
 };
 export default MainForm;
