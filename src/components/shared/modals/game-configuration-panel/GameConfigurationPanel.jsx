@@ -68,6 +68,7 @@ const GameConfigurationPanel = () => {
     anime({
       targets: MAIN_FORM_PARENT,
       height: `${botFormsRef.current.getBoundingClientRect().height}px`,
+      complete: () => (MAIN_FORM_PARENT.style = null),
     });
 
     // Entrance animation of BotForms component
@@ -90,7 +91,7 @@ const GameConfigurationPanel = () => {
           display: 'block',
         });
 
-        MAIN_FORM_PARENT.style = null;
+        console.log(MAIN_FORM_PARENT);
       },
     });
   };
@@ -131,6 +132,7 @@ const GameConfigurationPanel = () => {
     anime({
       targets: MAIN_FORM_PARENT,
       height: `${mainFormRef.current.getBoundingClientRect().height}px`,
+      complete: () => (MAIN_FORM_PARENT.style = null),
     });
 
     // Entrance animation of BotForms component

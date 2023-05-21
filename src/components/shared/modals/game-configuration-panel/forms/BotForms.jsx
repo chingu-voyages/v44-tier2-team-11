@@ -13,7 +13,6 @@ import GlobalContext from '../../../../../contexts/global-context.js';
 // NPM
 import { useState, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import successAlert from './SuccessAlert.jsx';
 
 const BotForms = ({ onClickGoBackToMain }) => {
   const DEFAULT_COLOR_SCHEMES = {
@@ -73,28 +72,32 @@ const BotForms = ({ onClickGoBackToMain }) => {
     const BOOLEAN_VALUE_EMPTY = botBooleanValue === '';
     const BOT_DIRECTION_EMPTY = botDirection === '';
 
+    const createError = (text) => {
+      setError(text);
+    };
+
     if (NO_COLOR_SCHEMES) {
-      setError('Please select a color scheme.');
+      createError('Please select a color scheme.');
       return;
     }
 
     if (NAME_IS_EMPTY) {
-      setError('Please choose a bot name.');
+      createError('Please choose a bot name.');
       return;
     }
 
     if (NAME_ALREADY_EXIST) {
-      setError('Name already exists. Please choose another one.');
+      createError('Name already exists. Please choose another one.');
       return;
     }
 
     if (BOOLEAN_VALUE_EMPTY) {
-      setError('Please choose a boolean value.');
+      createError('Please choose a boolean value.');
       return;
     }
 
     if (BOT_DIRECTION_EMPTY) {
-      setError('Please choose the initial direction of bot.');
+      createError('Please choose the initial direction of bot.');
       return;
     }
 
