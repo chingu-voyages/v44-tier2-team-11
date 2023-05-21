@@ -10,7 +10,7 @@ const FilledButtonIcons = ({ className, children }) => {
 
 FilledButtonIcons.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default FilledButtonIcons;
