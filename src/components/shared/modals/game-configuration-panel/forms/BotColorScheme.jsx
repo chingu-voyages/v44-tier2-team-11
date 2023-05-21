@@ -5,6 +5,9 @@ import {
   makeColorDark,
 } from '../../../../../utilities/generate-colors.js';
 
+// NPM
+import PropTypes from 'prop-types';
+
 const BotColorScheme = ({
   setBotAvatarBg,
   setBotAvatarBorder,
@@ -39,6 +42,13 @@ const BotColorScheme = ({
       </button>
     </div>
   );
+};
+
+BotColorScheme.propTypes = {
+  setBotAvatarBg: PropTypes.func.isRequired,
+  setBotAvatarBorder: PropTypes.func.isRequired,
+  setBaseColor: PropTypes.func.isRequired,
+  setStrokeColor: PropTypes.func.isRequired,
 };
 
 export default BotColorScheme;
