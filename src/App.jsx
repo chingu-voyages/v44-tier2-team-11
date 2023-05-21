@@ -1,13 +1,18 @@
+import 'tailwindcss/tailwind.css';
 import Arena from './components/arena/Arena';
 import Leaderboard from './components/leaderboard/Leaderboard';
+import Nav from './components/arena/Nav';
 
 function App() {
   return (
     <>
-      <h2 className="flex h-screen w-full items-center justify-center text-4xl font-black text-cyan-500">
-        Start Coding Here
-      </h2>
-      <Arena />
+      <div className="flex h-screen items-center justify-center">
+        <div className="w-3/4 rounded bg-gradient-to-b from-red-100 to-red-300 p-4">
+          <Nav />
+          <Arena />
+          <Leaderboard />
+        </div>
+      </div>
     </>
   );
 }
