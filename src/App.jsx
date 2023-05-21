@@ -1,7 +1,6 @@
 import 'tailwindcss/tailwind.css';
-import Arena from './components/arena/Arena';
+import Arena from "./components/shared/Arena/Arena.jsx";
 import Leaderboard from './components/leaderboard/Leaderboard';
-import ArenaNavigationBar from "./components/shared/ArenaNavigationBar.jsx";
 import GameConfigurationPanel from './components/GameConfigurationPanel';
 
 // NPM
@@ -16,7 +15,6 @@ function App() {
 
   return (
     <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
-      <ArenaNavigationBar />
       <Arena />
       {/*<Leaderboard />*/}
       <button onClick={onClickCloseModal}>Show game configuration</button>
