@@ -18,7 +18,7 @@ function App() {
     <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
       <Nav />
       <Arena />
-      <Leaderboard />
+      {/*<Leaderboard />*/}
       <button onClick={onClickCloseModal}>Show game configuration</button>
       <GameConfigurationPanel
         onClickCloseModal={onClickCloseModal}

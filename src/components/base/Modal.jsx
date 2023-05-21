@@ -12,8 +12,8 @@ const Modal = ({
   children,
   onClickCloseModal,
 }) => {
-  const rootWrapper = useRef('');
-  const bgRef = useRef('');
+  const rootWrapper = useRef(null);
+  const bgRef = useRef(null);
   const contentRef = useRef('');
 
   const animateModal = () => {
@@ -37,8 +37,8 @@ const Modal = ({
       anime({
         targets: bgRef.current,
         opacity: 0.8,
-        easing: 'easeOutCubic',
-        duration: 450,
+        easing: 'linear',
+        duration: 150,
       });
 
       // Animate content wrapper
@@ -56,8 +56,8 @@ const Modal = ({
       anime({
         targets: bgRef.current,
         opacity: 0,
-        easing: 'easeOutCubic',
-        duration: 350,
+        easing: 'linear',
+        duration: 150,
       });
 
       // Animate content wrapper
@@ -71,7 +71,6 @@ const Modal = ({
           // Reset styles to back to initial state
           bgRef.current.style = null;
           rootWrapper.current.style = null;
-          contentRef.current.style = null;
         },
       });
     }
