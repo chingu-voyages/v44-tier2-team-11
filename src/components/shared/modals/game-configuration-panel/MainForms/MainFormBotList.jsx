@@ -8,7 +8,7 @@ import globalContext from '../../../../../contexts/global-context.js';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
-const BotList = ({ onClickShowForm }) => {
+const MainFormBotList = ({ onClickShowForm }) => {
   const { bots } = useContext(globalContext);
 
   if (bots.length === 0) {
@@ -55,8 +55,8 @@ const BotList = ({ onClickShowForm }) => {
   );
 };
 
-BotList.propTypes = {
+MainFormBotList.propTypes = {
   onClickShowForm: PropTypes.func.isRequired,
 };
 
-export default BotList;
+export default MainFormBotList;

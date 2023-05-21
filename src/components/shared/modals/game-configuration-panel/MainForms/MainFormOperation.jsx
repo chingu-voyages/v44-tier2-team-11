@@ -1,7 +1,7 @@
 // NPM
 import { useState } from 'react';
 
-const OperationForm = () => {
+const MainFormOperation = () => {
   const OPERATIONS = ['AND', 'OR', 'XOR', 'NAND', 'NOR', 'XNOR'];
   const [operation, setOperation] = useState('AND');
 
@@ -35,4 +35,4 @@ const OperationForm = () => {
   );
 };
 
-export default OperationForm;
+export default MainFormOperation;

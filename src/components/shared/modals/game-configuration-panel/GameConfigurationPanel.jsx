@@ -1,7 +1,5 @@
 import Modal from '../../../base/Modal.jsx';
-import OperationForm from './forms/OperationForm.jsx';
-import SpeedForm from './forms/SpeedForm.jsx';
-import BotList from './forms/BotList.jsx';
+import MainForm from './MainForms/MainForm.jsx';
 import BotForms from './forms/BotForms.jsx';
 
 // Context
@@ -10,7 +8,6 @@ import GlobalContext from '../../../../contexts/global-context.js';
 // NPM
 import { useContext, useState, useEffect, useRef } from 'react';
 import anime from 'animejs';
-import botForms from './forms/BotForms.jsx';
 
 const GameConfigurationPanel = () => {
   const { showConfigurationPanel, setShowConfigurationPanel } =
@@ -52,6 +49,13 @@ const GameConfigurationPanel = () => {
       width: '100%',
     });
 
+    // Before animating the bot form, make sure it is animatable
+    Object.assign(botFormsRef.current.style, {
+      position: 'absolute',
+      right: '-200%',
+      display: 'block',
+    });
+
     // Exit animation of main wrapper
     anime({
       targets: mainFormRef.current,
@@ -72,12 +76,48 @@ const GameConfigurationPanel = () => {
       right: 0,
       duration: 450,
       easing: 'easeOutCubic',
+      complete: () => {
+        Object.assign(mainFormRef.current.style, {
+          display: 'none',
+          position: null,
+          width: null,
+        });
+
+        // Before animating the main form, make sure it is animatable
+        Object.assign(botFormsRef.current.style, {
+          position: null,
+          right: null,
+          display: 'block',
+        });
+
+        MAIN_FORM_PARENT.style = null;
+      },
     });
   };
 
   const onClickShowMainForm = () => {
     const BOT_FORM = botFormsRef.current;
     const MAIN_FORM_PARENT = BOT_FORM.parentElement;
+    const BOT_FORM_RECT = BOT_FORM.getBoundingClientRect();
+
+    // Get the height of main form because position will change to 'absolute'
+    Object.assign(MAIN_FORM_PARENT.style, {
+      height: `${BOT_FORM_RECT.height}px`,
+    });
+
+    // Before animating the main form, make sure it is animatable
+    Object.assign(mainFormRef.current.style, {
+      position: 'absolute',
+      left: '200',
+      width: '100%',
+      display: 'block',
+    });
+
+    // Before animating the bot form, make sure it is animatable
+    Object.assign(BOT_FORM.style, {
+      position: 'absolute',
+      right: '0',
+    });
 
     // Exit animation of main wrapper
     anime({
@@ -99,7 +139,17 @@ const GameConfigurationPanel = () => {
       left: '0%',
       duration: 450,
       easing: 'easeOutCubic',
-      complete: () => setShowBotForm(false),
+      complete: () => {
+        MAIN_FORM_PARENT.style = null;
+        BOT_FORM.style = null;
+        Object.assign(mainFormRef.current.style, {
+          position: null,
+          left: null,
+          width: null,
+          display: 'block',
+        });
+        setShowBotForm(false);
+      },
     });
   };
 
@@ -117,37 +167,9 @@ const GameConfigurationPanel = () => {
     >
       <div className="relative">
         <div ref={mainFormRef}>
-          <h2 className="relative mb-12 inline-block text-xl font-black text-primary-900 before:absolute before:-bottom-2 before:left-0 before:block before:h-1 before:w-3/5 before:rounded-lg before:bg-primary-900">
-            Configurations
-          </h2>
-          <div className="mb-6">
-            <OperationForm />
-          </div>
-          <div className="mb-6">
-            <SpeedForm />
-          </div>
-          <div>
-            <span className="mb-2 inline-block text-sm font-black text-form-900">
-              Your Bots:
-            </span>
-            <BotList onClickShowForm={onClickShowForm} />
-          </div>
-          <div className="mt-6 flex justify-end">
-            <button
-              type="button"
-              className="mr-2 rounded-lg bg-primary-100 px-4 py-3 text-sm font-black text-primary-500 outline-none transition-shadow duration-100 ease-in hover:bg-primary-200/60 focus:bg-primary-200/60 focus:ring-4 focus:ring-primary-300 "
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              className="rounded-lg bg-primary-500 px-4 py-3 text-sm font-black text-white outline-none transition-shadow duration-100 ease-in hover:bg-primary-600/80 focus:bg-primary-600/80 focus:ring-4 focus:ring-primary-300"
-            >
-              Save
-            </button>
-          </div>
+          <MainForm onClickShowForm={onClickShowForm} />
         </div>
-        <div ref={botFormsRef} className="absolute right-[-200%] top-0 w-full">
+        <div ref={botFormsRef} className="hidden w-full">
           <BotForms onClickGoBackToMain={onClickShowMainForm} />
         </div>
       </div>

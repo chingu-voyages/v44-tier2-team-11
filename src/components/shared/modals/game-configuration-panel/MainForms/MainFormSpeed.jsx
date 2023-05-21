@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const SpeedForm = () => {
+const MainFormSpeed = () => {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [second, setSecond] = useState(1);
   const trackRef = useRef(null);
@@ -24,10 +24,10 @@ const SpeedForm = () => {
         setCurrentPosition(LEVEL_IN_PERCENTAGE);
       };
 
-      const handleMouseDown = ()=>{
+      const handleMouseDown = () => {
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
-      }
+      };
 
       const handleMouseUp = () => {
         document.removeEventListener('mousemove', handleMouseMove);
@@ -63,4 +63,4 @@ const SpeedForm = () => {
   );
 };
 
-export default SpeedForm;
+export default MainFormSpeed;
