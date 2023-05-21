@@ -5,11 +5,10 @@ import GameConfigurationPanel from './components/shared/Modals/GameConfiguration
 
 function App() {
     return (
-        <div className="w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
+        <div className="w-full min-h-screen bg-gradient-to-b from-red-100 to-red-300 p-4">
             <Arena/>
             {/*<Leaderboard />*/}
-            <GameConfigurationPanel
-            />
+            <GameConfigurationPanel/>
         </div>
     );
 }
