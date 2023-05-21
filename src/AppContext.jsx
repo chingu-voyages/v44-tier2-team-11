@@ -9,7 +9,7 @@ const AppContext = ({ children }) => {
   // Toggle configuration panel modal
   const [showConfigurationPanel, setShowConfigurationPanel] = useState();
 
-  // An array that contains all bots defined by user
+  // An array that contains all bots created by user
   const [bots, setBots] = useState([]);
 
   const [botList, setBotList] = useState(BotData);
