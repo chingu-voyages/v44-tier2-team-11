@@ -107,8 +107,6 @@ const BotForms = ({ onClickGoBackToMain }) => {
     // Throw success error
     setShowSuccessAlert(true);
 
-    console.log(showSuccessAlert);
-
     // Reset the form
     resetForm();
 

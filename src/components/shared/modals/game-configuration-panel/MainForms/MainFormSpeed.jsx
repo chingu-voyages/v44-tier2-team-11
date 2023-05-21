@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
-const MainFormSpeed = () => {
+const MainFormSpeed = ({ second, setSecond }) => {
   const [currentPosition, setCurrentPosition] = useState(0);
-  const [second, setSecond] = useState(1);
   const trackRef = useRef(null);
   const handleRef = useRef(null);
   const LEVELS = 9; // Max level that user can slide
@@ -16,7 +16,8 @@ const MainFormSpeed = () => {
       const WIDTH_FOR_EACH_LEVEL = TRACK_CLIENT_RECT.width / LEVELS; // Get width for each level
 
       const handleMouseMove = (event) => {
-        const OFFSET_X = event.clientX - TRACK_CLIENT_RECT.left; // Get current mouse position
+        const CLIENT_X = event?.clientX ?? TRACK_CLIENT_RECT.left; // Checks if it has clientX because it is immediately triggered on r
+        const OFFSET_X = CLIENT_X - TRACK_CLIENT_RECT.left; // Get current mouse position
         const LEVEL = Math.round(OFFSET_X / WIDTH_FOR_EACH_LEVEL); // Get current level as mouse moves
         const LIMIT_LEVEL = Math.max(0, Math.min(LEVELS, LEVEL)); // To ensure that handle will go beyond 0 and 10.
         const LEVEL_IN_PERCENTAGE = LIMIT_LEVEL * (100 / LEVELS); // Convert the current level into percentage
@@ -38,6 +39,12 @@ const MainFormSpeed = () => {
       handleRef.current.addEventListener('mousedown', handleMouseDown);
     }, 450);
   });
+
+  useEffect(() => {
+    if (second === 1) {
+      setCurrentPosition(0);
+    }
+  }, [second]);
 
   return (
     <div>
@@ -63,4 +70,8 @@ const MainFormSpeed = () => {
   );
 };
 
+MainFormSpeed.propTypes = {
+  second: PropTypes.number.isRequired,
+  setSecond: PropTypes.func.isRequired,
+};
 export default MainFormSpeed;

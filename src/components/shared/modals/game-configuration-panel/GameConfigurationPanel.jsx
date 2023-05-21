@@ -90,8 +90,6 @@ const GameConfigurationPanel = () => {
           right: null,
           display: 'block',
         });
-
-        console.log(MAIN_FORM_PARENT);
       },
     });
   };

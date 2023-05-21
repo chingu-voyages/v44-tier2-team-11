@@ -16,10 +16,12 @@ const MainForm = ({ onClickShowForm }) => {
   const { bots } = useContext(GlobalContext);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [operation, setOperation] = useState('AND');
+  const [speedInSecond, setSpeedInSecond] = useState(1);
 
   const onClickResetForm = () => {
     setShowErrorAlert(false);
     setOperation('AND');
+    setSpeedInSecond(1);
   };
   const onClickSaveConfiguration = () => {
     setShowErrorAlert(false);
@@ -32,6 +34,7 @@ const MainForm = ({ onClickShowForm }) => {
     // Success
     const CONFIG = {
       operation: operation,
+      speed: speedInSecond * 1000, // Convert into seconds
     };
     console.log(CONFIG);
   };
@@ -48,7 +51,7 @@ const MainForm = ({ onClickShowForm }) => {
         <MainFormOperation operation={operation} setOperation={setOperation} />
       </div>
       <div className="mb-6">
-        <MainFormSpeed />
+        <MainFormSpeed second={speedInSecond} setSecond={setSpeedInSecond} />
       </div>
       <div>
         <span className="mb-2 inline-block text-sm font-black text-form-900">
