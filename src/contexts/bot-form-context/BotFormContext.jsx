@@ -31,9 +31,12 @@ const Context = ({ children }) => {
     useState(false);
   const [canShowSuccessfullyUpdatedAlert, setCanShowSuccessfullyUpdatedAlert] =
     useState(false);
+  const [canShowSuccessfullyDeletedAlert, setCanShowSuccessfullyDeletedAlert] =
+    useState(false);
 
   const onClickResetForm = () => {
     setFailedAlertText('');
+    setCanShowSuccessfullyDeletedAlert(false);
     setCanShowSuccessfullyCreatedAlert(false);
     setCanShowSuccessfullyUpdatedAlert(false);
 
@@ -62,6 +65,7 @@ const Context = ({ children }) => {
     const BOT_DIRECTION_EMPTY = botDirection === '';
 
     // Reset alerts
+    setCanShowSuccessfullyDeletedAlert(false);
     setCanShowSuccessfullyCreatedAlert(false);
     setCanShowSuccessfullyUpdatedAlert(false);
     setFailedAlertText('');
@@ -140,6 +144,16 @@ const Context = ({ children }) => {
     bots.push(BOT_INFO);
   };
 
+  const onClickDeleteBot = () => {
+    const IND = bots.findIndex(
+      (botObj) => botObj.name === selectedBotInfo.name
+    );
+    bots.splice(IND, 1);
+    setSelectedBotInfo({});
+    onClickResetForm();
+    setCanShowSuccessfullyDeletedAlert(true);
+  };
+
   useEffect(() => {
     if (Object.keys(selectedBotInfo).length !== 0) {
       setBotColorSchemes(selectedBotInfo.colorSchemes);
@@ -174,8 +188,11 @@ const Context = ({ children }) => {
         setCanShowSuccessfullyCreatedAlert,
         canShowSuccessfullyUpdatedAlert,
         setCanShowSuccessfullyUpdatedAlert,
+        canShowSuccessfullyDeletedAlert,
+        setCanShowSuccessfullyDeletedAlert,
         onClickResetForm,
         onClickCreateBot,
+        onClickDeleteBot,
       }}
     >
       {children}

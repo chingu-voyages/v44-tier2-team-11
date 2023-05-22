@@ -36,7 +36,7 @@ const MainForm = () => {
       return;
     }
 
-    // Success
+    // Save to the global context the current configuration
     const CONFIG = {
       operation: operation,
       speed: speedInSecond * 1000, // Convert into seconds

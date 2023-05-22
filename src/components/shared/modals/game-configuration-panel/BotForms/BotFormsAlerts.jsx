@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const BotFormsAlert = ({ className, onClickGoBackToMain }) => {
   const {
+    canShowSuccessfullyDeletedAlert,
     canShowSuccessfullyUpdatedAlert,
     canShowSuccessfullyCreatedAlert,
     failedAlertText,
@@ -23,6 +24,12 @@ const BotFormsAlert = ({ className, onClickGoBackToMain }) => {
     <div>
       <GoBackFadedButton onClick={onClickResetFormAndShowMainForm} />
       <div className={`mt-6 ${className}`}>
+        <AlertSuccess
+          canShow={canShowSuccessfullyDeletedAlert}
+          className={'mx-auto w-full max-w-[350px]'}
+        >
+          You have successfully deleted a bot!
+        </AlertSuccess>
         <AlertSuccess
           canShow={canShowSuccessfullyCreatedAlert}
           className={'mx-auto w-full max-w-[350px]'}
