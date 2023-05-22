@@ -1,8 +1,12 @@
+import BotFormContext from '../../../../../contexts/bot-form-context/bot-form-context.js';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-const BotFormsName = ({ botName, setBotName }) => {
+const BotFormsName = ({ className }) => {
+  const { botName, setBotName } = useContext(BotFormContext);
+
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className}`}>
       <label
         htmlFor="botNameTxt"
         className="mb-1 cursor-pointer self-start text-sm font-black text-form-900"
@@ -22,7 +26,6 @@ const BotFormsName = ({ botName, setBotName }) => {
 };
 
 BotFormsName.propTypes = {
-  botName: PropTypes.string.isRequired,
-  setBotName: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 export default BotFormsName;

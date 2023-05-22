@@ -1,8 +1,12 @@
+import BotFormContext from '../../../../../contexts/bot-form-context/bot-form-context.js';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-const BotFormsDirection = ({ botDirection, setBotDirection }) => {
+const BotFormsDirection = ({ className }) => {
+  const { botDirection, setBotDirection } = useContext(BotFormContext);
+
   return (
-    <div className="flex h-full flex-col">
+    <div className={`flex h-full flex-col ${className}`}>
       <label
         htmlFor="botDirection"
         className="mb-1 cursor-pointer self-start text-sm font-black text-form-900"
@@ -36,8 +40,7 @@ const BotFormsDirection = ({ botDirection, setBotDirection }) => {
 };
 
 BotFormsDirection.propTypes = {
-  botDirection: PropTypes.string.isRequired,
-  setBotDirection: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default BotFormsDirection;

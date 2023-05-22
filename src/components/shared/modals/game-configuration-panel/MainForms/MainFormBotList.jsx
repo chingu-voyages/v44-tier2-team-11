@@ -39,15 +39,15 @@ const MainFormBotList = ({ onClickShowForm, setSelectedBotName }) => {
           data-name={bot.name}
           type="button"
           style={{
-            borderColor: bot.colorSchemes.avatarBorder,
-            backgroundColor: bot.colorSchemes.avatarBg,
+            borderColor: bot.colorSchemes.border,
+            backgroundColor: bot.colorSchemes.background,
           }}
           className={`mr-3 h-[60px] w-[70px] rounded-xl border-[3px] p-3`}
           onClick={onClickSelectBot}
         >
           <BotDynamic
-            baseColor={bot.colorSchemes.baseColor}
-            strokeColor={bot.colorSchemes.strokeColor}
+            baseColor={bot.colorSchemes.base}
+            strokeColor={bot.colorSchemes.stroke}
             className={'block h-full w-full'}
           />
         </button>
