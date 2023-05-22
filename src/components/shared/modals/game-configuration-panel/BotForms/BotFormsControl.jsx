@@ -6,12 +6,19 @@ import { useContext } from 'react';
 import FormContext from '../../../../../contexts/bot-form-context/bot-form-context.js';
 
 const BotFormsControl = ({ className }) => {
-  const { onClickResetForm, onClickCreateBot } = useContext(FormContext);
+  const { selectedBotInfo, onClickResetForm, onClickCreateBot } =
+    useContext(FormContext);
+
+  console.log(selectedBotInfo);
 
   return (
     <div className={`mt-6 flex justify-end ${className}`}>
       <FadedButton onClick={onClickResetForm}>Reset</FadedButton>
-      <FilledButton onClick={onClickCreateBot}>Create Bot</FilledButton>
+      <FilledButton onClick={onClickCreateBot}>
+        {Object.keys(selectedBotInfo).length !== 0
+          ? 'Update Bot'
+          : 'Create Bot'}
+      </FilledButton>
     </div>
   );
 };

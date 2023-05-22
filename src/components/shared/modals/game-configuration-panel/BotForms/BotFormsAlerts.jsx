@@ -1,14 +1,18 @@
 import AlertDanger from '../../../../base/AlertDanger.jsx';
 import AlertSuccess from '../../../../base/AlertSuccess.jsx';
+import GoBackFadedButton from '../../../buttons/GoBackFadedButton.jsx';
 
 import BotFormContext from '../../../../../contexts/bot-form-context/bot-form-context.js';
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import GoBackFadedButton from '../../../buttons/GoBackFadedButton.jsx';
 
 const BotFormsAlert = ({ className, onClickGoBackToMain }) => {
-  const { canShowSuccessfullyCreatedAlert, failedAlertText, onClickResetForm } =
-    useContext(BotFormContext);
+  const {
+    canShowSuccessfullyUpdatedAlert,
+    canShowSuccessfullyCreatedAlert,
+    failedAlertText,
+    onClickResetForm,
+  } = useContext(BotFormContext);
 
   const onClickResetFormAndShowMainForm = () => {
     onClickGoBackToMain();
@@ -24,6 +28,12 @@ const BotFormsAlert = ({ className, onClickGoBackToMain }) => {
           className={'mx-auto w-full max-w-[350px]'}
         >
           You have successfully created a bot!
+        </AlertSuccess>
+        <AlertSuccess
+          canShow={canShowSuccessfullyUpdatedAlert}
+          className={'mx-auto w-full max-w-[350px]'}
+        >
+          You have successfully updated the bot!
         </AlertSuccess>
         <AlertDanger
           canShow={failedAlertText !== ''}

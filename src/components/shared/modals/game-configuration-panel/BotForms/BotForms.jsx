@@ -5,15 +5,18 @@ import BotFormsName from './BotFormsName.jsx';
 import BotFormsBooleanValue from './BotFormsBooleanValue.jsx';
 import BotFormsDirection from './BotFormsDirection.jsx';
 import BotFormsControl from './BotFormsControl.jsx';
+import GameConfigurationPanelContext from '../../../../../contexts/game-configuration-panel/game-configuration-panel-context.js';
 
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 
-const BotForms = ({ onClickGoBackToMain }) => {
+const BotForms = () => {
+  const { onClickShowMainForm } = useContext(GameConfigurationPanelContext);
+
   return (
     <BotFormContext>
       <BotFormsAlerts
         className="mb-4"
-        onClickGoBackToMain={onClickGoBackToMain}
+        onClickGoBackToMain={onClickShowMainForm}
       />
       <BotFormsAvatarPreviewer className="mb-6" />
       <BotFormsName className="mb-6 max-w-sm" />
@@ -24,7 +27,4 @@ const BotForms = ({ onClickGoBackToMain }) => {
   );
 };
 
-BotForms.propTypes = {
-  onClickGoBackToMain: PropTypes.func.isRequired,
-};
 export default BotForms;

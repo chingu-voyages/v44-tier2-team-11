@@ -1,5 +1,5 @@
-import BotDynamic from '../../../bots/BotDynamic.jsx';
-import PlusIcon from '../../../icons/PlusIcon.jsx';
+import BotAvatarButton from '../../../buttons/BotAvatarButton.jsx';
+import AddBotButton from '../../../buttons/AddBotButton.jsx';
 
 // Context
 import globalContext from '../../../../../contexts/global-context/global-context.js';
@@ -20,13 +20,7 @@ const MainFormBotList = ({ onClickShowForm, setSelectedBotName }) => {
   if (bots.length === 0) {
     return (
       <div>
-        <button
-          type="button"
-          className="h-[60px] w-[70px] rounded-xl bg-form-400 p-5 hover:bg-form-500/50 focus:bg-form-500/50"
-          onClick={onClickShowForm}
-        >
-          <PlusIcon className="block h-full w-full fill-form-600" />
-        </button>
+        <AddBotButton onClick={onClickShowForm} />
       </div>
     );
   }
@@ -34,35 +28,20 @@ const MainFormBotList = ({ onClickShowForm, setSelectedBotName }) => {
   return (
     <div className="flex items-center">
       {bots.map((bot) => (
-        <button
+        <BotAvatarButton
           key={bot.name}
-          data-name={bot.name}
-          type="button"
-          style={{
-            borderColor: bot.colorSchemes.border,
-            backgroundColor: bot.colorSchemes.background,
-          }}
-          className={`mr-3 h-[60px] w-[70px] rounded-xl border-[3px] p-3`}
+          name={bot.name}
+          background={bot.colorSchemes.background}
+          border={bot.colorSchemes.border}
+          base={bot.colorSchemes.base}
+          stroke={bot.colorSchemes.stroke}
           onClick={onClickSelectBot}
-        >
-          <BotDynamic
-            baseColor={bot.colorSchemes.base}
-            strokeColor={bot.colorSchemes.stroke}
-            className={'block h-full w-full'}
-          />
-        </button>
+        />
       ))}
-      <button
-        type="button"
-        className="h-[60px] w-[70px] rounded-xl bg-form-400 p-5 hover:bg-form-500/50 focus:bg-form-500/50"
-        onClick={onClickShowForm}
-      >
-        <PlusIcon className="block h-full w-full fill-form-600" />
-      </button>
+      <AddBotButton onClick={onClickShowForm} />
     </div>
   );
 };
-
 MainFormBotList.propTypes = {
   onClickShowForm: PropTypes.func.isRequired,
   setSelectedBotName: PropTypes.func.isRequired,

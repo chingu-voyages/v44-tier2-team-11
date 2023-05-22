@@ -1,19 +1,24 @@
+import ModalTitle from '../../../../base/ModalTitle.jsx';
 import MainFormOperation from './MainFormOperation.jsx';
 import MainFormSpeed from './MainFormSpeed.jsx';
 import MainFormBotList from './MainFormBotList.jsx';
 import FadedButton from '../../../../base/FadedButton.jsx';
 import FilledButton from '../../../../base/FilledButton.jsx';
-import ErrorAlert from '../../../../base/ErrorAlert.jsx';
+import AlertDanger from '../../../../base/AlertDanger.jsx';
 
 // Context
 import GlobalContext from '../../../../../contexts/global-context/global-context.js';
+import GameConfigurationPanelContext from '../../../../../contexts/game-configuration-panel/game-configuration-panel-context.js';
 
 // NPM
 import { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
-const MainForm = ({ onClickShowForm, setSelectedBotName }) => {
+const MainForm = () => {
   const { bots } = useContext(GlobalContext);
+  const { setSelectedBotName, onClickShowForm } = useContext(
+    GameConfigurationPanelContext
+  );
+
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [operation, setOperation] = useState('AND');
   const [speedInSecond, setSpeedInSecond] = useState(1);
@@ -42,14 +47,16 @@ const MainForm = ({ onClickShowForm, setSelectedBotName }) => {
     setShowErrorAlert(false);
     onClickShowForm();
   };
+
   return (
     <>
-      <h2 className="relative mb-12 inline-block text-xl font-black text-primary-900 before:absolute before:-bottom-2 before:left-0 before:block before:h-1 before:w-3/5 before:rounded-lg before:bg-primary-900">
-        Configurations
-      </h2>
-      <ErrorAlert className="mb-5 max-w-[350px]" shouldShow={showErrorAlert}>
+      <ModalTitle>Configurations</ModalTitle>
+      <AlertDanger
+        className="mx-auto mb-5 max-w-[350px]"
+        canShow={showErrorAlert}
+      >
         Please add at-least two bots.
-      </ErrorAlert>
+      </AlertDanger>
       <div className="mb-6">
         <MainFormOperation operation={operation} setOperation={setOperation} />
       </div>
@@ -73,8 +80,4 @@ const MainForm = ({ onClickShowForm, setSelectedBotName }) => {
   );
 };
 
-MainForm.propTypes = {
-  onClickShowForm: PropTypes.func.isRequired,
-  setSelectedBotName: PropTypes.func.isRequired,
-};
 export default MainForm;

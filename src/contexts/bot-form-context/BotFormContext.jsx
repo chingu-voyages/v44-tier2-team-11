@@ -1,19 +1,24 @@
 import BotFormContext from './bot-form-context.js';
 import GlobalContext from '../global-context/global-context.js';
+import GameConfigurationPanelContext from '../game-configuration-panel/game-configuration-panel-context.js';
 import PropTypes from 'prop-types';
 
 // NPM
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
 const Context = ({ children }) => {
   const { bots } = useContext(GlobalContext);
-  const defaultBotColorSchemes = {
+  const { selectedBotInfo, setSelectedBotInfo } = useContext(
+    GameConfigurationPanelContext
+  );
+
+  const [defaultBotColorSchemes] = useState({
     background: '#E7EFF3',
     border: '#A9C6D5',
     base: '#A9C6D5',
     stroke: '#4B7F9B',
-  };
+  });
 
   const [botColorSchemes, setBotColorSchemes] = useState({
     ...defaultBotColorSchemes,
@@ -24,14 +29,26 @@ const Context = ({ children }) => {
   const [failedAlertText, setFailedAlertText] = useState('');
   const [canShowSuccessfullyCreatedAlert, setCanShowSuccessfullyCreatedAlert] =
     useState(false);
+  const [canShowSuccessfullyUpdatedAlert, setCanShowSuccessfullyUpdatedAlert] =
+    useState(false);
 
   const onClickResetForm = () => {
+    setFailedAlertText('');
+    setCanShowSuccessfullyCreatedAlert(false);
+    setCanShowSuccessfullyUpdatedAlert(false);
+
+    if (Object.keys(selectedBotInfo).length !== 0) {
+      setBotColorSchemes(selectedBotInfo.colorSchemes);
+      setBotName(selectedBotInfo.name);
+      setBotBooleanValue(selectedBotInfo.booleanValue);
+      setBotDirection(selectedBotInfo.direction);
+      return;
+    }
+
     setBotColorSchemes(defaultBotColorSchemes);
     setBotName('');
     setBotBooleanValue('');
     setBotDirection('');
-    setFailedAlertText('');
-    setCanShowSuccessfullyCreatedAlert(false);
   };
 
   const onClickCreateBot = () => {
@@ -45,6 +62,8 @@ const Context = ({ children }) => {
     const BOT_DIRECTION_EMPTY = botDirection === '';
 
     // Reset alerts
+    setCanShowSuccessfullyCreatedAlert(false);
+    setCanShowSuccessfullyUpdatedAlert(false);
     setFailedAlertText('');
 
     if (NO_COLOR_SCHEMES) {
@@ -60,7 +79,19 @@ const Context = ({ children }) => {
     // If user has already created a bot, make sure that name is unique
     if (bots.length !== 0) {
       const BOT = bots.filter((obj) => obj.name === botName);
-      if (BOT.length !== 0) {
+
+      // If user is updating a particular bot
+      if (
+        Object.keys(selectedBotInfo).length !== 0 &&
+        BOT.length !== 0 &&
+        BOT[0].name !== selectedBotInfo.name
+      ) {
+        setFailedAlertText('Name already exists. Please choose another one.');
+        return;
+      }
+
+      // If user is creating a new bot
+      if (Object.keys(selectedBotInfo).length === 0 && BOT.length !== 0) {
         setFailedAlertText('Name already exists. Please choose another one.');
         return;
       }
@@ -88,6 +119,17 @@ const Context = ({ children }) => {
       direction: botDirection,
     };
 
+    // Update the bot with new information
+    if (Object.keys(selectedBotInfo).length !== 0) {
+      setCanShowSuccessfullyUpdatedAlert(true);
+      const IND = bots.findIndex(
+        (botObj) => botObj.name === selectedBotInfo.name
+      );
+      bots[IND] = BOT_INFO;
+      setSelectedBotInfo(BOT_INFO);
+      return;
+    }
+
     // Reset the form
     onClickResetForm();
 
@@ -98,12 +140,28 @@ const Context = ({ children }) => {
     bots.push(BOT_INFO);
   };
 
+  useEffect(() => {
+    if (Object.keys(selectedBotInfo).length !== 0) {
+      setBotColorSchemes(selectedBotInfo.colorSchemes);
+      setBotName(selectedBotInfo.name);
+      setBotBooleanValue(selectedBotInfo.booleanValue);
+      setBotDirection(selectedBotInfo.direction);
+      return;
+    }
+
+    setBotColorSchemes({ ...defaultBotColorSchemes });
+    setBotName('');
+    setBotBooleanValue('');
+    setBotDirection('');
+  }, [selectedBotInfo, defaultBotColorSchemes]);
+
   return (
     <BotFormContext.Provider
       value={{
         defaultBotColorSchemes,
         botColorSchemes,
         setBotColorSchemes,
+        selectedBotInfo,
         botName,
         setBotName,
         botBooleanValue,
@@ -114,6 +172,8 @@ const Context = ({ children }) => {
         setFailedAlertText,
         canShowSuccessfullyCreatedAlert,
         setCanShowSuccessfullyCreatedAlert,
+        canShowSuccessfullyUpdatedAlert,
+        setCanShowSuccessfullyUpdatedAlert,
         onClickResetForm,
         onClickCreateBot,
       }}
