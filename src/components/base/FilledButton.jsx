@@ -14,7 +14,7 @@ const FilledButton = ({ className, onClick, children }) => {
 FilledButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };
 
 export default FilledButton;

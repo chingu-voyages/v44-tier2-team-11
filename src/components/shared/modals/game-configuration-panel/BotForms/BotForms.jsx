@@ -3,7 +3,10 @@ import BotFormsName from './BotFormsName.jsx';
 import BotFormsBooleanValue from './BotFormsBooleanValue.jsx';
 import BotFormsDirection from './BotFormsDirection.jsx';
 import BotFormsErrorAlert from './BotFormsErrorAlert.jsx';
-import BotFormsSuccessAlert from './BotFormsSuccessAlert.jsx';
+import BotFormsSuccessfullyCreatedAlert from './BotFormsSuccessfullyCreatedAlert.jsx';
+import BotFormsSuccessfullyUpdatedAlert from './BotFormsSuccessfullyUpdatedAlert.jsx';
+import FilledButton from '../../../../base/FilledButton.jsx';
+import FadedButton from '../../../../base/FadedButton.jsx';
 import BotDynamic from '../../../bots/BotDynamic.jsx';
 import ArrowLeftIcon from '../../../icons/ArrowLeftIcon.jsx';
 
@@ -36,9 +39,27 @@ const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
   const [botBooleanValue, setBotBooleanValue] = useState('');
   const [botDirection, setBotDirection] = useState('');
   const [error, setError] = useState('');
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showSuccessfullyCreatedAlert, setShowSuccessfullyCreatedAlert] =
+    useState(false);
+  const [showSuccessfullyUpdatedAlert, setShowSuccessfullyUpdatedAlert] =
+    useState(false);
+  const [isEditingFromContext, setIsEditingFromContext] = useState(false);
   const { bots } = useContext(GlobalContext);
 
+  // Use bot info instead of using default values
+  // because user is editing a particular bot
+  const getBotInfoFromContext = () => {
+    const BOT_INFO = bots.filter((obj) => obj.name === selectedBotName)[0];
+    setBotAvatarBorder(BOT_INFO.colorSchemes.avatarBorder);
+    setBotAvatarBg(BOT_INFO.colorSchemes.avatarBg);
+    setBaseColor(BOT_INFO.colorSchemes.baseColor);
+    setStrokeColor(BOT_INFO.colorSchemes.strokeColor);
+    setBotName(BOT_INFO.name);
+    setBotBooleanValue(BOT_INFO.booleanValue);
+    setBotDirection(BOT_INFO.direction);
+  };
+
+  //
   const resetForm = () => {
     setBotAvatarBg(DEFAULT_COLOR_SCHEMES.avatarBg);
     setBotAvatarBorder(DEFAULT_COLOR_SCHEMES.avatarBorder);
@@ -50,71 +71,85 @@ const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
     setError('');
   };
 
+  //
   const goBackToMainForm = () => {
     resetForm();
-    setShowSuccessAlert(false);
+    setShowSuccessfullyCreatedAlert(false);
+    setIsEditingFromContext(false);
+    setShowSuccessfullyUpdatedAlert(false);
     onClickGoBackToMain();
   };
 
-  // Resets the form fields
+  // Resets the form fields and alert components
   const onClickResetForm = () => {
+    setShowSuccessfullyCreatedAlert(false);
+    setShowSuccessfullyUpdatedAlert(false);
+
+    // Reset form based on bot default values
+    if (isEditingFromContext) {
+      getBotInfoFromContext();
+      return;
+    }
+
+    // Reset from with empty values
     resetForm();
-    setShowSuccessAlert(false);
   };
 
   // Handles the validation & saving the bot info to global context
-  const onClickSaveRobot = () => {
+  const onClickUpdateRobot = () => {
     const NO_COLOR_SCHEMES =
       botAvatarBorder === DEFAULT_COLOR_SCHEMES.avatarBg ||
       botAvatarBg === DEFAULT_COLOR_SCHEMES.avatarBorder ||
       baseColor === DEFAULT_COLOR_SCHEMES.baseColor ||
       strokeColor === DEFAULT_COLOR_SCHEMES.strokeColor;
-    const NAME_ALREADY_EXIST =
-      bots.filter((obj) => obj.name === botName).length !== 0;
     const NAME_IS_EMPTY = botName === '';
     const BOOLEAN_VALUE_EMPTY = botBooleanValue === '';
     const BOT_DIRECTION_EMPTY = botDirection === '';
 
     // Reset alerts
-    setShowSuccessAlert(false);
+    setShowSuccessfullyCreatedAlert(false);
+    setShowSuccessfullyUpdatedAlert(false);
     setError('');
 
-    const createError = (text) => {
-      setError(text);
-    };
-
     if (NO_COLOR_SCHEMES) {
-      createError('Please select a color scheme.');
+      setError('Please select a color scheme.');
       return;
     }
 
     if (NAME_IS_EMPTY) {
-      createError('Please choose a bot name.');
+      setError('Please choose a bot name.');
       return;
     }
 
-    if (NAME_ALREADY_EXIST) {
-      createError('Name already exists. Please choose another one.');
-      return;
+    // If user has already created a bot, make sure that name is unique
+    if (bots.length !== 0) {
+      const BOT = bots.filter((obj) => obj.name === botName);
+      const NAME_SAME_WITH_OTHER_BOTS =
+        isEditingFromContext &&
+        BOT.length !== 0 &&
+        BOT[0].name !== selectedBotName;
+
+      if (NAME_SAME_WITH_OTHER_BOTS) {
+        setError('Name already exists. Please choose another one.');
+        return;
+      }
+
+      if (!isEditingFromContext && BOT.length !== 0) {
+        setError('Name already exists. Please choose another one.');
+        return;
+      }
     }
 
     if (BOOLEAN_VALUE_EMPTY) {
-      createError('Please choose a boolean value.');
+      setError('Please choose a boolean value.');
       return;
     }
 
     if (BOT_DIRECTION_EMPTY) {
-      createError('Please choose the initial direction of bot.');
+      setError('Please choose the initial direction of bot.');
       return;
     }
 
-    // Throw success error
-    setShowSuccessAlert(true);
-
-    // Reset the form
-    resetForm();
-
-    // Save the info to global context
     const BOT_INFO = {
       colorSchemes: {
         avatarBorder: botAvatarBorder,
@@ -127,11 +162,26 @@ const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
       direction: botDirection,
     };
 
+    // If user is updates info of a particular bot
+    if (isEditingFromContext) {
+      setShowSuccessfullyUpdatedAlert(true);
+      const IND = bots.findIndex((botObj) => botObj.name === selectedBotName);
+      bots[IND] = Object.assign({}, BOT_INFO);
+      return;
+    }
+
+    // Reset the form
+    resetForm();
+
+    // Throw success alert
+    setShowSuccessfullyCreatedAlert(true);
+
+    // Save the info to global context
     bots.push(BOT_INFO);
   };
 
+  // Change avatar background everytime the color scheme changes
   useEffect(() => {
-    // Change avatar background everytime the color scheme changes
     if (avatarRef.current) {
       Object.assign(avatarRef.current.style, {
         borderColor: botAvatarBorder,
@@ -140,37 +190,32 @@ const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
     }
   }, [baseColor, botAvatarBorder, botAvatarBg]);
 
+  // Everytime user selects an existing bot to edit its information
   useEffect(() => {
     if (selectedBotName !== '') {
-      const BOT_INFO = bots.filter((obj) => obj.name === selectedBotName)[0];
-
-      setBotAvatarBorder(BOT_INFO.colorSchemes.avatarBorder);
-      setBotAvatarBg(BOT_INFO.colorSchemes.avatarBg);
-      setBaseColor(BOT_INFO.colorSchemes.baseColor);
-      setStrokeColor(BOT_INFO.colorSchemes.strokeColor);
-      setBotName(BOT_INFO.name);
-      setBotBooleanValue(BOT_INFO.booleanValue);
-      setBotDirection(BOT_INFO.direction);
+      getBotInfoFromContext();
+      setIsEditingFromContext(true);
     }
-  }, [selectedBotName, bots]);
+  }, [selectedBotName]);
 
   return (
     <>
       {/* Go Back Button */}
-      <button
-        type="button"
-        className="mb-8 flex rounded bg-primary-100 p-2 outline-none transition-shadow duration-100 ease-linear hover:bg-primary-200/70 focus:bg-primary-200/70 focus:ring-4 focus:ring-primary-300"
-        onClick={goBackToMainForm}
-      >
+      <FadedButton className="flex" onClick={goBackToMainForm}>
         <span className="mr-1 flex w-3">
           <ArrowLeftIcon className="block h-full w-full fill-primary-500" />
         </span>
         <span className="text-sm font-bold text-primary-500">Go back</span>
-      </button>
+      </FadedButton>
 
       {/* Alert */}
       <BotFormsErrorAlert alertText={error} />
-      <BotFormsSuccessAlert canShow={showSuccessAlert} />
+      <BotFormsSuccessfullyCreatedAlert
+        canShow={showSuccessfullyCreatedAlert}
+      />
+      <BotFormsSuccessfullyUpdatedAlert
+        canShow={showSuccessfullyUpdatedAlert}
+      />
 
       <form className="flex flex-col">
         {/* Avatar */}
@@ -220,20 +265,10 @@ const BotForms = ({ onClickGoBackToMain, selectedBotName }) => {
 
         {/* Controls */}
         <div className="mt-6 flex justify-end">
-          <button
-            type="button"
-            className="mr-2 rounded-lg bg-primary-100 px-4 py-3 text-sm font-black text-primary-500 outline-none transition-shadow duration-100 ease-linear hover:bg-primary-200/60 focus:bg-primary-200/60 focus:ring-4 focus:ring-primary-300"
-            onClick={onClickResetForm}
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            className="rounded-lg bg-primary-500 px-4 py-3 text-sm font-black text-white outline-none transition-shadow duration-100 ease-linear hover:bg-primary-600/80 focus:bg-primary-600/80 focus:ring-4 focus:ring-primary-300"
-            onClick={onClickSaveRobot}
-          >
-            Create Bot
-          </button>
+          <FadedButton onClick={onClickResetForm}>Reset</FadedButton>
+          <FilledButton onClick={onClickUpdateRobot}>
+            {isEditingFromContext ? 'Update Bot' : 'Create Bot'}
+          </FilledButton>
         </div>
       </form>
     </>
