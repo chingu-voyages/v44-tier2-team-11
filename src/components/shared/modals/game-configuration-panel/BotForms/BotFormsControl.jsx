@@ -9,8 +9,6 @@ const BotFormsControl = ({ className }) => {
   const { selectedBotInfo, onClickResetForm, onClickCreateBot } =
     useContext(FormContext);
 
-  console.log(selectedBotInfo);
-
   return (
     <div className={`mt-6 flex justify-end ${className}`}>
       <FadedButton onClick={onClickResetForm}>Reset</FadedButton>

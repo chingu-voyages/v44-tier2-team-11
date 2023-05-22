@@ -41,7 +41,6 @@ const MainForm = () => {
       operation: operation,
       speed: speedInSecond * 1000, // Convert into seconds
     };
-    console.log(CONFIG);
   };
   const onClickSwitchForm = () => {
     setShowErrorAlert(false);
