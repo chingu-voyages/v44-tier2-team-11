@@ -1,6 +1,12 @@
-const BotBooleanValue = () => {
+import BotFormContext from '../../../../../contexts/bot-form-context/bot-form-context.js';
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
+
+const BotFormsBooleanValue = ({ className }) => {
+  const { botBooleanValue, setBotBooleanValue } = useContext(BotFormContext);
+
   return (
-    <div className="flex h-full flex-col">
+    <div className={`flex h-full flex-col ${className}`}>
       <label
         htmlFor="botNameTxt"
         className="mb-1 cursor-pointer self-start text-sm font-black text-form-900"
@@ -15,6 +21,8 @@ const BotBooleanValue = () => {
             name="botRadioBoolean"
             value="0"
             className="peer inline appearance-none outline-none"
+            checked={botBooleanValue === '0'}
+            onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
             htmlFor="botRadioFalsy"
@@ -30,6 +38,8 @@ const BotBooleanValue = () => {
             value="1"
             name="botRadioBoolean"
             className="peer inline appearance-none outline-none"
+            checked={botBooleanValue === '1'}
+            onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
             htmlFor="botRadioTruthy"
@@ -43,4 +53,8 @@ const BotBooleanValue = () => {
   );
 };
 
-export default BotBooleanValue;
+BotFormsBooleanValue.propTypes = {
+  className: PropTypes.string,
+};
+
+export default BotFormsBooleanValue;
