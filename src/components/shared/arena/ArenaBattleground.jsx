@@ -1,15 +1,15 @@
 import Bot from './ArenaBot.jsx';
 import { tiles } from '../../../data.js';
-import GlobalContext from "../../../contexts/global-context.js";
+import GlobalContext from '../../../contexts/global-context/global-context.js';
 
 // NPM
-import {useContext} from "react";
+import { useContext } from 'react';
 
 const ArenaBattleground = () => {
   const { botList, inGame } = useContext(GlobalContext);
 
   return (
-    <div className='w-full flex justify-center'>
+    <div className="flex w-full justify-center">
       <div className="relative flex w-8x8 flex-wrap bg-primary-100">
         {botList.map((bot) => (
           <Bot key={bot.id} {...bot} inGame={inGame} />

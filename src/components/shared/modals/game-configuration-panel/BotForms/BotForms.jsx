@@ -11,7 +11,7 @@ import BotDynamic from '../../../bots/BotDynamic.jsx';
 import ArrowLeftIcon from '../../../icons/ArrowLeftIcon.jsx';
 
 // Context
-import GlobalContext from '../../../../../contexts/global-context.js';
+import GlobalContext from '../../../../../contexts/global-context/global-context.js';
 
 // NPM
 import { useState, useContext, useEffect, useRef } from 'react';

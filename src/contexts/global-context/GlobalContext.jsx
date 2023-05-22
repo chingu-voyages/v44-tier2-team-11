@@ -1,11 +1,11 @@
-import GlobalContext from './contexts/global-context.js';
-import { BotData } from './data';
+import GlobalContext from './global-context.js';
+import { BotData } from '../../data.js';
 
 // NPM
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-const AppContext = ({ children }) => {
+const Context = ({ children }) => {
   // Toggle configuration panel modal
   const [showConfigurationPanel, setShowConfigurationPanel] = useState();
 
@@ -35,8 +35,8 @@ const AppContext = ({ children }) => {
   );
 };
 
-AppContext.propTypes = {
+Context.propTypes = {
   children: PropTypes.object.isRequired,
 };
 
-export default AppContext;
+export default Context;

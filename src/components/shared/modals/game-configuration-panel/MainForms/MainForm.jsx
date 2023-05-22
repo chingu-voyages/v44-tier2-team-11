@@ -6,7 +6,7 @@ import FilledButton from '../../../../base/FilledButton.jsx';
 import ErrorAlert from '../../../../base/ErrorAlert.jsx';
 
 // Context
-import GlobalContext from '../../../../../contexts/global-context.js';
+import GlobalContext from '../../../../../contexts/global-context/global-context.js';
 
 // NPM
 import { useContext, useState } from 'react';

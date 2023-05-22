@@ -3,7 +3,7 @@ import MainForm from './MainForms/MainForm.jsx';
 import BotForms from './BotForms/BotForms.jsx';
 
 // Context
-import GlobalContext from '../../../../contexts/global-context.js';
+import GlobalContext from '../../../../contexts/global-context/global-context.js';
 
 // NPM
 import { useContext, useState, useEffect, useRef } from 'react';

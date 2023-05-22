@@ -2,7 +2,7 @@ import BotDynamic from '../../../bots/BotDynamic.jsx';
 import PlusIcon from '../../../icons/PlusIcon.jsx';
 
 // Context
-import globalContext from '../../../../../contexts/global-context.js';
+import globalContext from '../../../../../contexts/global-context/global-context.js';
 
 // NPM
 import PropTypes from 'prop-types';
