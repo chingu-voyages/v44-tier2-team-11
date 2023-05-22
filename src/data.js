@@ -1,4 +1,4 @@
-export const bots = [
+export const BotData = [
   {
     id: 1,
     x: 7,

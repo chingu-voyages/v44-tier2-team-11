@@ -1,9 +1,7 @@
-// NPM
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const OperationForm = () => {
+const MainFormOperation = ({ operation, setOperation }) => {
   const OPERATIONS = ['AND', 'OR', 'XOR', 'NAND', 'NOR', 'XNOR'];
-  const [operation, setOperation] = useState('AND');
 
   const changeOperation = (e) => {
     const BTN = e.currentTarget;
@@ -35,4 +33,8 @@ const OperationForm = () => {
   );
 };
 
-export default OperationForm;
+MainFormOperation.propTypes = {
+  operation: PropTypes.string.isRequired,
+  setOperation: PropTypes.func.isRequired,
+};
+export default MainFormOperation;

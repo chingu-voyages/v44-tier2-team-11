@@ -95,7 +95,7 @@ const Modal = ({
       <div className="absolute flex h-screen w-full items-center justify-center overflow-y-scroll">
         {/* Main Content Wrapper */}
         <div
-          className={`my-auto rounded-lg bg-white p-4 ${mainContentWrapperClassName}`}
+          className={`my-auto rounded-lg relative bg-white p-4 ${mainContentWrapperClassName}`}
           ref={contentRef}
         >
           <div className="mb-2 flex justify-end">
