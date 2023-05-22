@@ -12,6 +12,9 @@ const Context = ({ children }) => {
   // An array that contains all bots created by user
   const [bots, setBots] = useState([]);
 
+  // An object that contains all configuration of the game
+  const [configuration, setConfiguration] = useState({});
+
   const [botList, setBotList] = useState(BotData);
   const [inGame, setInGame] = useState(false);
   const inGamePositions = useRef([]);
@@ -23,6 +26,8 @@ const Context = ({ children }) => {
         setShowConfigurationPanel,
         bots,
         setBots,
+        configuration,
+        setConfiguration,
         botList,
         setBotList,
         inGamePositions,

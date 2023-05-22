@@ -14,7 +14,7 @@ import GameConfigurationPanelContext from '../../../../../contexts/game-configur
 import { useContext, useState } from 'react';
 
 const MainForm = () => {
-  const { bots } = useContext(GlobalContext);
+  const { setConfiguration, bots } = useContext(GlobalContext);
   const { setSelectedBotName, onClickShowForm } = useContext(
     GameConfigurationPanelContext
   );
@@ -41,6 +41,8 @@ const MainForm = () => {
       operation: operation,
       speed: speedInSecond * 1000, // Convert into seconds
     };
+
+    setConfiguration(CONFIG);
   };
   const onClickSwitchForm = () => {
     setShowErrorAlert(false);
