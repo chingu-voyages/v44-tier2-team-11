@@ -9,9 +9,8 @@ import { useContext } from 'react';
 
 const Context = ({ children }) => {
   const { bots } = useContext(GlobalContext);
-  const { selectedBotInfo, setSelectedBotInfo } = useContext(
-    GameConfigurationPanelContext
-  );
+  const { showConfigurationPanel, selectedBotInfo, setSelectedBotInfo } =
+    useContext(GameConfigurationPanelContext);
 
   const [defaultBotColorSchemes] = useState({
     background: '#E7EFF3',
@@ -168,6 +167,16 @@ const Context = ({ children }) => {
     setBotBooleanValue('');
     setBotDirection('');
   }, [selectedBotInfo, defaultBotColorSchemes]);
+  useEffect(() => {
+    if (!showConfigurationPanel) {
+      setSelectedBotInfo({});
+
+      setBotColorSchemes(defaultBotColorSchemes);
+      setBotName('');
+      setBotBooleanValue('');
+      setBotDirection('');
+    }
+  }, [showConfigurationPanel, defaultBotColorSchemes, setSelectedBotInfo]);
 
   return (
     <BotFormContext.Provider
