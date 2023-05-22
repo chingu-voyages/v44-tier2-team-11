@@ -7,20 +7,10 @@ import BotFormsDirection from './BotFormsDirection.jsx';
 import BotFormsControl from './BotFormsControl.jsx';
 import GameConfigurationPanelContext from '../../../../../contexts/game-configuration-panel/game-configuration-panel-context.js';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 const BotForms = () => {
-  const { showConfigurationPanel, onClickShowMainForm } = useContext(
-    GameConfigurationPanelContext
-  );
-
-  // When modal is hidden, go back to main form
-  useEffect(() => {
-    // Modal's animation duration is 450ms, wait for it to end before resetting the modal
-    setTimeout(() => {
-      if (!showConfigurationPanel) onClickShowMainForm();
-    }, 450);
-  }, [showConfigurationPanel, onClickShowMainForm]);
+  const { onClickShowMainForm } = useContext(GameConfigurationPanelContext);
 
   return (
     <BotFormContext>

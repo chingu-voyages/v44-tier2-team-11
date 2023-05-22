@@ -15,20 +15,6 @@ const Context = ({ children }) => {
   const [selectedBotName, setSelectedBotName] = useState('');
   const [selectedBotInfo, setSelectedBotInfo] = useState({});
 
-  const onClickCloseModal = () => {
-    setShowConfigurationPanel(false);
-
-    if (showBotForm) {
-      // Modal has an animation duration of 450ms
-      setTimeout(() => {
-        setShowBotForm(false);
-        mainFormRef.current.parentElement.style = null;
-        mainFormRef.current.style = null;
-        botFormsRef.current.style = null;
-      }, 450);
-    }
-  };
-
   const onClickShowForm = () => {
     setShowBotForm(true);
   };
@@ -154,6 +140,22 @@ const Context = ({ children }) => {
         setSelectedBotName('');
       },
     });
+  };
+
+  const onClickCloseModal = () => {
+    setShowConfigurationPanel(false);
+
+    if (showBotForm) {
+      // Modal has an animation duration of 450ms
+      setTimeout(() => {
+        setShowBotForm(false);
+        mainFormRef.current.parentElement.style = null;
+        mainFormRef.current.style = null;
+        botFormsRef.current.style = null;
+        setShowBotForm(false);
+        setSelectedBotName('');
+      }, 450);
+    }
   };
 
   useEffect(() => {
