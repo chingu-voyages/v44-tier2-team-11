@@ -13,23 +13,25 @@ const Bot = ({
   y,
   direction,
   inGame,
-  speed,
+  name,
   booleanValue,
-  color,
-  bColor,
+  colorSchemes,
 }) => {
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
   const { inGamePositions } = useContext(GlobalContext);
-
+  const speed = 500;
+  const { background, stroke, base } = colorSchemes;
   const currentDirection = useRef(direction);
   const botPositions = useRef();
   const PosX = botPositions?.current?.offsetLeft;
   const PosY = botPositions?.current?.offsetTop;
   const botWidth = botPositions?.current?.clientWidth;
   const botHeight = botPositions?.current?.clientHeight;
-
+  const isCollied = useRef(false);
+  const botOver = useRef(false);
+  console.log(inGamePositions);
   const checkForCollision = () => {
     const compareArr = inGamePositions.current.filter((bot) => bot.id !== id);
     compareArr.map((bot) => {
@@ -51,16 +53,21 @@ const Bot = ({
         console.log(`bot ${id} x:${PosX} , y:${PosY}`);
         console.log(`bot ${botId} x:${x} , y:${y}`);
         const result = winLosTie(booleanValue, comparedValue, 'AND');
-
+        isCollied.current = true;
         console.log(
           `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
         );
+
         if (result === 1 && id < botId) {
           inGame = true;
         } else if (result === 0) {
           inGame = true;
         } else if (result === 1 && id > botId) {
           inGame = false;
+          inGamePositions.current = inGamePositions.current.filter(
+            (bot) => bot.id !== id
+          );
+          botOver.current = true;
         }
       }
     });
@@ -96,7 +103,14 @@ const Bot = ({
     };
     let moveBot;
 
-    if (top <= 7 && top >= 0 && left >= 0 && left <= 7 && inGame) {
+    if (
+      top <= 7 &&
+      top >= 0 &&
+      left >= 0 &&
+      left <= 7 &&
+      inGame &&
+      !botOver.current
+    ) {
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
@@ -141,11 +155,13 @@ const Bot = ({
       style={{
         left: left * 56,
         top: top * 56,
-        transition: `all ${speed / 999}s linear`,
+        transition: `all ${speed / 1000}s linear`,
         paddingBottom: '1rem',
+        display: botOver.current ? '' : '',
       }}
     >
-      <BotFig scale="46" priColor={color} bColor={bColor} />
+      <BotFig scale="46" priColor={background} bColor={stroke} />
+      {name}
     </div>
   );
 };

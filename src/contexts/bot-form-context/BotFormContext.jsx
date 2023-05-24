@@ -117,8 +117,11 @@ const Context = ({ children }) => {
         base: botColorSchemes.base,
         stroke: botColorSchemes.stroke,
       },
+      id: Date.now(),
+      x: Math.floor(Math.random() * 7),
+      y: Math.floor(Math.random() * 7),
       name: botName,
-      booleanValue: botBooleanValue,
+      booleanValue: parseFloat(botBooleanValue),
       direction: botDirection,
     };
 
