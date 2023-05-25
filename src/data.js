@@ -1,6 +1,65 @@
+export const botList = [
+  {
+    colorSchemes: {
+      background: '#fcebe6',
+      border: '#bc6850',
+      base: '#ef9b83',
+      stroke: '#bc6850',
+    },
+    id: 1684977998905,
+    x: 3,
+    y: 6,
+    name: 'alen',
+    booleanValue: 0,
+    direction: 'west',
+  },
+  {
+    colorSchemes: {
+      background: '#eff7ee',
+      border: '#7ba577',
+      base: '#aed8aa',
+      stroke: '#7ba577',
+    },
+    id: 1684978013028,
+    x: 5,
+    y: 0,
+    name: 'hana',
+    booleanValue: 1,
+    direction: 'west',
+  },
+  {
+    colorSchemes: {
+      background: '#f1f6fc',
+      border: '#869ebc',
+      base: '#b9d1ef',
+      stroke: '#869ebc',
+    },
+    id: 1684978024961,
+    x: 6,
+    y: 2,
+    name: 'josh',
+    booleanValue: 1,
+    direction: 'north',
+  },
+  {
+    colorSchemes: {
+      background: '#fcfbf9',
+      border: '#bcbaae',
+      base: '#efede1',
+      stroke: '#bcbaae',
+    },
+    id: 1684978031930,
+    x: 6,
+    y: 1,
+    name: 'ami',
+    booleanValue: 0,
+    direction: 'south',
+  },
+];
 export const BotData = [
   {
-    id: 1,
+    id: Date.now(),
+    name: 'alen',
     x: 7,
     y: 5,
     direction: 'north',

@@ -6,12 +6,12 @@ import GlobalContext from '../../../contexts/global-context/global-context.js';
 import { useContext } from 'react';
 
 const ArenaBattleground = () => {
-  const { bots, inGame } = useContext(GlobalContext);
+  const { bots, inGame, testBots } = useContext(GlobalContext);
 
   return (
     <div className="flex w-full justify-center">
       <div className="relative flex w-8x8 flex-wrap bg-primary-100">
-        {bots?.map((bot) => (
+        {testBots?.map((bot) => (
           <Bot key={bot.id} {...bot} inGame={inGame} />
         ))}
 

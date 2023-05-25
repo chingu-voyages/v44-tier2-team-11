@@ -29,70 +29,105 @@ const Bot = ({
   const PosY = botPositions?.current?.offsetTop;
   const botWidth = botPositions?.current?.clientWidth;
   const botHeight = botPositions?.current?.clientHeight;
-  const isCollied = useRef(false);
-  const botOver = useRef(false);
-  console.log(inGamePositions);
-  const checkForCollision = () => {
-    const compareArr = inGamePositions.current.filter((bot) => bot.id !== id);
-    compareArr.map((bot) => {
-      const {
-        id: botId,
-        x,
-        y,
-        width,
-        height,
-        booleanValue: comparedValue,
-      } = bot;
-      if (
-        PosX + botWidth > x &&
-        PosX < x + width &&
-        PosY + botHeight > y &&
-        PosY < y + height
-      ) {
-        console.log(`bot ${id} collied with bot ${botId}`);
-        console.log(`bot ${id} x:${PosX} , y:${PosY}`);
-        console.log(`bot ${botId} x:${x} , y:${y}`);
-        const result = winLosTie(booleanValue, comparedValue, 'AND');
-        isCollied.current = true;
-        console.log(
-          `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
-        );
+  const [colliedCheck, setColliedCheck] = useState(true);
+  const [isCollied, setIsCollied] = useState(false);
+  const [botOver, setBotOver] = useState(false);
+  // console.log(inGamePositions);
 
-        if (result === 1 && id < botId) {
-          inGame = true;
-        } else if (result === 0) {
-          inGame = true;
-        } else if (result === 1 && id > botId) {
-          inGame = false;
-          inGamePositions.current = inGamePositions.current.filter(
-            (bot) => bot.id !== id
+  useEffect(() => {
+    let timeId;
+    const checkForCollision = () => {
+      const compareArr = inGamePositions.current.filter((bot) => bot.id !== id);
+      compareArr.map((bot) => {
+        const {
+          id: botId,
+          x,
+          y,
+          width,
+          height,
+          booleanValue: comparedValue,
+          direction: ComparedDirection,
+        } = bot;
+        if (
+          PosX + botWidth > x &&
+          PosX < x + width &&
+          PosY + botHeight > y &&
+          PosY < y + height
+        ) {
+          console.log(`bot ${id} collied with bot ${botId}`);
+          console.log(`bot ${id} x:${PosX} , y:${PosY}`);
+          console.log(`bot ${botId} x:${x} , y:${y}`);
+          const result = winLosTie(booleanValue, comparedValue, 'AND');
+
+          console.log(
+            `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
           );
-          botOver.current = true;
+
+          if (result === 1 && id < botId) {
+            //Stop Bot
+            setIsCollied(true);
+            setTimeout(() => {
+              setIsCollied(false);
+              //keep bot moving
+            }, 1000);
+          } else if (result === 0) {
+            if (direction === ComparedDirection) return;
+            //Stop Bot
+            setIsCollied(true);
+            setColliedCheck(false);
+            setTimeout(() => {
+              setIsCollied(() => {
+                return false;
+              });
+              //keep bot moving
+            }, 2000);
+            setTimeout(() => {
+              setColliedCheck(true);
+              //resume collied check
+            }, speed * 11);
+          } else if (result === 1 && id > botId) {
+            setIsCollied(true);
+            inGamePositions.current = inGamePositions.current.filter(
+              (bot) => bot.id !== id
+            );
+
+            setTimeout(() => {
+              setIsCollied(false);
+              console.log('2s');
+              setBotOver(true);
+            }, 1000);
+          }
         }
+      });
+    };
+
+    const updateInGamePos = () => {
+      if (PosX >= 0 && PosY >= 0) {
+        const botPos = {
+          id,
+          x: PosX,
+          y: PosY,
+          width: botWidth,
+          height: botHeight,
+          booleanValue,
+          direction,
+        };
+        const newPosArr = [
+          ...inGamePositions.current.filter((bot) => bot.id !== id),
+          botPos,
+        ];
+
+        inGamePositions.current = newPosArr;
+        if (!colliedCheck) return;
+        checkForCollision();
       }
-    });
-  };
+    };
+    updateInGamePos();
 
-  const updateInGamePos = () => {
-    if (PosX >= 0 && PosY >= 0) {
-      const botPos = {
-        id,
-        x: PosX,
-        y: PosY,
-        width: botWidth,
-        height: botHeight,
-        booleanValue,
-      };
-      const newPosArr = [
-        ...inGamePositions.current.filter((bot) => bot.id !== id),
-        botPos,
-      ];
-
-      inGamePositions.current = newPosArr;
-      checkForCollision();
-    }
-  };
-  updateInGamePos();
+    return () => {
+      clearTimeout(timeId);
+    };
+  });
 
   useEffect(() => {
     const changeDirection = () => {
@@ -109,7 +144,8 @@ const Bot = ({
       left >= 0 &&
       left <= 7 &&
       inGame &&
-      !botOver.current
+      !botOver &&
+      !isCollied
     ) {
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
@@ -151,17 +187,18 @@ const Bot = ({
   return (
     <div
       ref={botPositions}
-      className="transparent absolute grid h-14 w-14   place-items-center rounded-full"
+      className="transparent absolute grid place-items-center  "
       style={{
-        left: left * 56,
+        width: 'calc(100/8)%',
+        height: 'calc(100/8)%',
+        left: left * 56 + 5,
         top: top * 56,
         transition: `all ${speed / 1000}s linear`,
-        paddingBottom: '1rem',
-        display: botOver.current ? '' : '',
+
+        display: botOver ? 'none' : '',
       }}
     >
-      <BotFig scale="46" priColor={background} bColor={stroke} />
-      {name}
+      <BotFig scale="44" priColor={background} bColor={stroke} />
     </div>
   );
 };
