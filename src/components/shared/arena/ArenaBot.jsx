@@ -6,6 +6,7 @@ import BotFig from '../bots/BotFig.jsx';
 
 // NPM
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 const Bot = ({
   id,
@@ -20,7 +21,7 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions } = useContext(GlobalContext);
+  const { inGamePositions, botScores } = useContext(GlobalContext);
   const speed = 500;
   const { background, stroke, base } = colorSchemes;
   const currentDirection = useRef(direction);
@@ -29,13 +30,21 @@ const Bot = ({
   const PosY = botPositions?.current?.offsetTop;
   const botWidth = botPositions?.current?.clientWidth;
   const botHeight = botPositions?.current?.clientHeight;
-  const [colliedCheck, setColliedCheck] = useState(true);
+  const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
-  // console.log(inGamePositions);
+  console.log(inGamePositions);
+  //update bot scores for the first time
+
+  useEffect(() => {
+    const bot = { id, name, wins: 0, loses: 0 };
+    botScores.current = [...botScores.current, bot];
+  }, []);
 
   useEffect(() => {
     let timeId;
+    let CheckColliedTime;
+
     const checkForCollision = () => {
       const compareArr = inGamePositions.current.filter((bot) => bot.id !== id);
       compareArr.map((bot) => {
@@ -47,16 +56,20 @@ const Bot = ({
           height,
           booleanValue: comparedValue,
           direction: ComparedDirection,
+          name: botName,
         } = bot;
         if (
-          PosX + botWidth > x &&
-          PosX < x + width &&
-          PosY + botHeight > y &&
-          PosY < y + height
+          PosX + botWidth >= x &&
+          PosX <= x + width &&
+          PosY + botHeight >= y &&
+          PosY <= y + height
         ) {
-          console.log(`bot ${id} collied with bot ${botId}`);
-          console.log(`bot ${id} x:${PosX} , y:${PosY}`);
-          console.log(`bot ${botId} x:${x} , y:${y}`);
+          if (currentDirection.current === ComparedDirection) return;
+          console.log(`bot ${name} collied with bot ${botName}`);
+          setIsCollied(true);
+          colliedCheck.current = false;
+          // console.log(`bot ${id} x:${PosX} , y:${PosY}`);
+          // console.log(`bot ${botId} x:${x} , y:${y}`);
           const result = winLosTie(booleanValue, comparedValue, 'AND');
 
           console.log(
@@ -65,44 +78,74 @@ const Bot = ({
 
           if (result === 1 && id < botId) {
             //Stop Bot
-            setIsCollied(true);
-            setTimeout(() => {
-              setIsCollied(false);
+
+            timeId = setTimeout(() => {
+              timeId = setIsCollied(false);
+
               //keep bot moving
-            }, 1000);
+              //update bot Scores
+              const botScore = botScores.current.find((bot) => bot.id === id);
+              //add Win Scores
+              botScore.wins = botScore.wins + 1;
+              //update bot score array
+              botScores.current = [
+                ...botScores.current.filter((bot) => bot.id !== id),
+                botScore,
+              ];
+              toast.success(`${name} won`);
+              colliedCheck.current = true;
+            }, 1995);
           } else if (result === 0) {
-            if (direction === ComparedDirection) return;
+            // if (currentDirection.current === ComparedDirection) return;
             //Stop Bot
-            setIsCollied(true);
-            setColliedCheck(false);
-            setTimeout(() => {
+
+            timeId = setTimeout(() => {
               setIsCollied(() => {
                 return false;
               });
               //keep bot moving
+              toast.success(`${name} vs ${botName} tied`);
+              console.log('tie');
             }, 2000);
-            setTimeout(() => {
-              setColliedCheck(true);
+            CheckColliedTime = setTimeout(() => {
+              colliedCheck.current = true;
               //resume collied check
-            }, speed * 11);
+            }, speed * 5 + 2200);
           } else if (result === 1 && id > botId) {
-            setIsCollied(true);
-            inGamePositions.current = inGamePositions.current.filter(
-              (bot) => bot.id !== id
-            );
+            //lost
+            //Stop Bot
 
-            setTimeout(() => {
-              setIsCollied(false);
-              console.log('2s');
+            timeId = setTimeout(() => {
+              //bot disappear
+              //update bot Scores
+              const botScore = botScores.current.find((bot) => bot.id === id);
+              //add lose Scores
+              botScore.loses = botScore.loses + 1;
+              //update bot score array
+              botScores.current = [
+                ...botScores.current.filter((bot) => bot.id !== id),
+                botScore,
+              ];
+
               setBotOver(true);
+
+              toast.success(`${name} lost`);
+              inGamePositions.current = inGamePositions.current.filter(
+                (bot) => bot.id !== id
+              );
             }, 1000);
           }
+          console.log(botScores.current);
         }
+        return () => {
+          clearTimeout(timeId);
+          clearTimeout(CheckColliedTime);
+        };
       });
     };
 
     const updateInGamePos = () => {
-      if (PosX >= 0 && PosY >= 0) {
+      if (PosX >= 0 && PosY >= 0 && !botOver) {
         const botPos = {
           id,
           x: PosX,
@@ -110,7 +153,9 @@ const Bot = ({
           width: botWidth,
           height: botHeight,
           booleanValue,
-          direction,
+          direction: currentDirection.current,
+          name,
+          colliedCheck,
         };
         const newPosArr = [
           ...inGamePositions.current.filter((bot) => bot.id !== id),
@@ -118,15 +163,11 @@ const Bot = ({
         ];
 
         inGamePositions.current = newPosArr;
-        if (!colliedCheck) return;
+        if (!colliedCheck.current || !inGame) return;
         checkForCollision();
       }
     };
     updateInGamePos();
-
-    return () => {
-      clearTimeout(timeId);
-    };
   });
 
   useEffect(() => {
@@ -187,18 +228,20 @@ const Bot = ({
   return (
     <div
       ref={botPositions}
-      className="transparent absolute grid place-items-center  "
+      className="transparent absolute grid place-items-center overflow-hidden text-gray-50 "
       style={{
-        width: 'calc(100/8)%',
-        height: 'calc(100/8)%',
-        left: left * 56 + 5,
-        top: top * 56,
+        width: '9%',
+        height: '9%',
+        left: left * 56 + 8,
+        top: top * 56 + 8,
         transition: `all ${speed / 1000}s linear`,
-
+        transform: 'translateX(3%) transformY(10%)',
         display: botOver ? 'none' : '',
+        paddingBottom: '.2rem',
       }}
     >
-      <BotFig scale="44" priColor={background} bColor={stroke} />
+      <BotFig scale="36" priColor={background} bColor={stroke} />
+      <p className="absolute top-0">{name}</p>
     </div>
   );
 };

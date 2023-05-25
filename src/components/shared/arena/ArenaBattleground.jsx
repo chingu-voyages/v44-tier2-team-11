@@ -10,18 +10,16 @@ const ArenaBattleground = () => {
 
   return (
     <div className="flex w-full justify-center">
-      <div className="relative flex w-8x8 flex-wrap bg-primary-100">
-        {testBots?.map((bot) => (
+      <div className="relative flex w-8x8 flex-wrap bg-primary-950">
+        {bots?.map((bot) => (
           <Bot key={bot.id} {...bot} inGame={inGame} />
         ))}
 
         {tiles.map((tile) => (
           <div
-            className="h-14 w-14 border-2 border-dashed border-amber-300 text-gray-50"
+            className="h-14 w-14 border border-dashed border-stone-50 "
             key={tile.id}
-          >
-            {tile.id}
-          </div>
+          ></div>
         ))}
       </div>
     </div>

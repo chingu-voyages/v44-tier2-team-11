@@ -14,7 +14,7 @@ const Context = ({ children }) => {
   const testBots = botList || [];
   // An object that contains all configuration of the game
   const [configuration, setConfiguration] = useState({});
-
+  const botScores = useRef([]);
   const [inGame, setInGame] = useState(false);
   const inGamePositions = useRef([]);
 
@@ -31,6 +31,7 @@ const Context = ({ children }) => {
         inGame,
         testBots,
         setInGame,
+        botScores,
       }}
     >
       {children}

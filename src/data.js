@@ -25,7 +25,7 @@ export const botList = [
     y: 0,
     name: 'hana',
     booleanValue: 1,
-    direction: 'west',
+    direction: 'north',
   },
   {
     colorSchemes: {
@@ -35,11 +35,11 @@ export const botList = [
       stroke: '#869ebc',
     },
     id: 1684978024961,
-    x: 6,
+    x: 5.5,
     y: 2,
     name: 'josh',
     booleanValue: 1,
-    direction: 'north',
+    direction: 'east',
   },
   {
     colorSchemes: {
@@ -52,7 +52,7 @@ export const botList = [
     x: 6,
     y: 1,
     name: 'ami',
-    booleanValue: 0,
+    booleanValue: 1,
     direction: 'south',
   },
 ];
