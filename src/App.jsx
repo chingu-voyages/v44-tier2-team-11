@@ -1,16 +1,19 @@
 import 'tailwindcss/tailwind.css';
-import Arena from "./components/shared/arena/Arena.jsx";
+import Arena from './components/shared/arena/Arena.jsx';
 import Leaderboard from './components/shared/modals/Leaderboard.jsx';
 import GameConfigurationPanel from './components/shared/modals/game-configuration-panel/GameConfigurationPanel.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    return (
-        <div className="w-full min-h-screen bg-gradient-to-b from-red-100 to-red-300 p-4">
-            <Arena/>
-            {/*<Leaderboard />*/}
-            <GameConfigurationPanel/>
-        </div>
-    );
+  return (
+    <div className="min-h-screen w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
+      <Arena />
+      {/*<Leaderboard />*/}
+      <GameConfigurationPanel />
+      <ToastContainer position="top-center" />
+    </div>
+  );
 }
 
 export default App;
