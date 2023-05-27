@@ -4,6 +4,7 @@ import Leaderboard from './components/shared/modals/Leaderboard.jsx';
 import GameConfigurationPanel from './components/shared/modals/game-configuration-panel/GameConfigurationPanel.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
