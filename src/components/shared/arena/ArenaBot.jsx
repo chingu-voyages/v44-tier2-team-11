@@ -228,7 +228,7 @@ const Bot = ({
   return (
     <div
       ref={botPositions}
-      className="transparent absolute grid place-items-center overflow-hidden text-gray-50 "
+      className="transparent group absolute grid place-items-center text-gray-50 "
       style={{
         width: '9%',
         height: '9%',
@@ -241,7 +241,12 @@ const Bot = ({
       }}
     >
       <BotFig scale="36" priColor={background} bColor={stroke} />
-      <p className="absolute top-0">{name}</p>
+      <p
+        className="duration-750 absolute bottom-0 max-w-[100px] translate-y-[80%] scale-0 truncate rounded-sm px-2 py-0.5 text-xs font-semibold transition-transform ease-in group-hover:scale-100"
+        style={{ backgroundColor: stroke }}
+      >
+        {name}
+      </p>
     </div>
   );
 };

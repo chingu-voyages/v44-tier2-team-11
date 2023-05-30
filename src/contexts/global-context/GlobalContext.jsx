@@ -11,9 +11,11 @@ const Context = ({ children }) => {
 
   // An array that contains all bots created by user
   const [bots, setBots] = useState([]);
-  const testBots = botList || [];
+
   // An object that contains all configuration of the game
   const [configuration, setConfiguration] = useState({});
+
+  const testBots = botList || [];
   const botScores = useRef([]);
   const [inGame, setInGame] = useState(false);
   const inGamePositions = useRef([]);
