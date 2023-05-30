@@ -35,11 +35,11 @@ export const botList = [
       stroke: '#869ebc',
     },
     id: 1684978024961,
-    x: 5.5,
+    x: 5,
     y: 2,
     name: 'josh',
     booleanValue: 1,
-    direction: 'east',
+    direction: 'west',
   },
   {
     colorSchemes: {

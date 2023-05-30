@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { winLosTie } from '../../../utilities/utilis.js';
+import { changeDirection, winLosTie } from '../../../utilities/utilis.js';
 import GlobalContext from '../../../contexts/global-context/global-context.js';
 import BotFig from '../bots/BotFig.jsx';
 
@@ -21,8 +21,9 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions, botScores } = useContext(GlobalContext);
-  const speed = 500;
+  const { inGamePositions, botScores, configuration } =
+    useContext(GlobalContext);
+
   const { background, stroke, base } = colorSchemes;
   const currentDirection = useRef(direction);
   const botPositions = useRef();
@@ -33,7 +34,13 @@ const Bot = ({
   const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
-  console.log(inGamePositions);
+  // Global Configuration
+  console.log(configuration);
+  const operator = configuration?.operation ?? 'AND';
+  const speed = 500;
+  const configSpeed = configuration?.speed ?? 1000;
+  // console.log(inGamePositions);
+  // console.log(botScores);
   //update bot scores for the first time
 
   useEffect(() => {
@@ -41,6 +48,20 @@ const Bot = ({
     botScores.current = [...botScores.current, bot];
   }, []);
 
+  //Stop for A while When Bots reach the cell
+  useEffect(() => {
+    if (top.toFixed(1) % 1 === 0 && left.toFixed(1) % 1 === 0) {
+      setIsCollied(true);
+      // console.log('stop');
+      const timeId = setTimeout(() => {
+        setIsCollied(false);
+        // console.log('move');
+      }, configSpeed);
+      return () => clearTimeout(timeId);
+    }
+  }, [top, left]);
+
+  //Check For Collision
   useEffect(() => {
     let timeId;
     let CheckColliedTime;
@@ -70,7 +91,7 @@ const Bot = ({
           colliedCheck.current = false;
           // console.log(`bot ${id} x:${PosX} , y:${PosY}`);
           // console.log(`bot ${botId} x:${x} , y:${y}`);
-          const result = winLosTie(booleanValue, comparedValue, 'AND');
+          const result = winLosTie(booleanValue, comparedValue, operator);
 
           console.log(
             `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
@@ -80,7 +101,7 @@ const Bot = ({
             //Stop Bot
 
             timeId = setTimeout(() => {
-              timeId = setIsCollied(false);
+              setIsCollied(false);
 
               //keep bot moving
               //update bot Scores
@@ -171,12 +192,6 @@ const Bot = ({
   });
 
   useEffect(() => {
-    const changeDirection = () => {
-      const directions = ['south', 'west', 'north', 'east'];
-      const newDirections = directions.filter((d) => d !== currentDirection);
-      const randomIndex = Math.floor(Math.random() * newDirections.length);
-      currentDirection.current = directions[randomIndex];
-    };
     let moveBot;
 
     if (
@@ -192,28 +207,44 @@ const Bot = ({
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
             setTop(7);
-            changeDirection();
+            currentDirection.current = changeDirection(
+              left,
+              7,
+              currentDirection.current
+            );
             return;
           }
           return setTop(top + duration);
         } else if (currentDirection.current === 'north') {
           if (top - duration <= 0) {
             setTop(0);
-            changeDirection();
+            currentDirection.current = changeDirection(
+              left,
+              0,
+              currentDirection.current
+            );
             return;
           }
           return setTop(top - duration);
         } else if (currentDirection.current === 'east') {
           if (left - duration < 0) {
             setLeft(0);
-            changeDirection();
+            currentDirection.current = changeDirection(
+              0,
+              top,
+              currentDirection.current
+            );
             return;
           }
           return setLeft(left - duration);
         } else if (currentDirection.current === 'west') {
           if (left + duration >= 7) {
             setLeft(7);
-            changeDirection();
+            currentDirection.current = changeDirection(
+              7,
+              top,
+              currentDirection.current
+            );
             return;
           }
           return setLeft(left + duration);
@@ -225,6 +256,7 @@ const Bot = ({
       clearInterval(moveBot);
     };
   });
+
   return (
     <div
       ref={botPositions}
@@ -232,15 +264,15 @@ const Bot = ({
       style={{
         width: '9%',
         height: '9%',
-        left: left * 56 + 8,
-        top: top * 56 + 8,
+        left: left * 56 + 6,
+        top: top * 56 + 4,
         transition: `all ${speed / 1000}s linear`,
         transform: 'translateX(3%) transformY(10%)',
         display: botOver ? 'none' : '',
         paddingBottom: '.2rem',
       }}
     >
-      <BotFig scale="36" priColor={background} bColor={stroke} />
+      <BotFig scale="40" priColor={background} bColor={stroke} />
       <p
         className="duration-750 absolute bottom-0 max-w-[100px] translate-y-[80%] scale-0 truncate rounded-sm px-2 py-0.5 text-xs font-semibold transition-transform ease-in group-hover:scale-100"
         style={{ backgroundColor: stroke }}
