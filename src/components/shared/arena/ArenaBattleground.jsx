@@ -9,8 +9,8 @@ const ArenaBattleground = () => {
   const { bots, inGame, testBots } = useContext(GlobalContext);
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="relative flex w-8x8 flex-wrap bg-primary-950">
+    <div className="flex w-full justify-center ">
+      <div className="relative flex w-8x8 flex-wrap rounded-md bg-primary-950">
         {bots?.map((bot) => (
           <Bot key={bot.id} {...bot} inGame={inGame} />
         ))}
