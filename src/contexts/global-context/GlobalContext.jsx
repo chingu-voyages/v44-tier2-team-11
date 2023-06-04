@@ -13,7 +13,10 @@ const Context = ({ children }) => {
   const [bots, setBots] = useState([]);
 
   // An object that contains all configuration of the game
-  const [configuration, setConfiguration] = useState({});
+  const [configuration, setConfiguration] = useState({
+    operation: 'AND',
+    speed: 1000,
+  });
 
   const testBots = botList || [];
   const botScores = useRef([]);
