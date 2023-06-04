@@ -38,3 +38,28 @@ export const winLosTie = (bot1, bot2, operator) => {
     }
   }
 };
+
+export const changeDirection = (x, y, direction) => {
+  const directions = ['south', 'north', 'west', 'east'];
+
+  if (x === 0 && y === 0) {
+    const newDirections = ['south', 'west'];
+    const randomIndex = Math.floor(Math.random() * 2);
+    return newDirections[randomIndex];
+  } else if (x === 0 && y === 7) {
+    const newDirections = ['north', 'west'];
+    const randomIndex = Math.floor(Math.random() * 2);
+    return newDirections[randomIndex];
+  } else if (x === 7 && y === 7) {
+    const newDirections = ['north', 'east'];
+    const randomIndex = Math.floor(Math.random() * 2);
+    return newDirections[randomIndex];
+  } else if (x === 7 && y === 0) {
+    const newDirections = ['south', 'east'];
+    const randomIndex = Math.floor(Math.random() * 2);
+    return newDirections[randomIndex];
+  }
+  const newDirections = directions.filter((d) => d !== direction);
+  const randomIndex = Math.floor(Math.random() * 3);
+  return newDirections[randomIndex];
+};

@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 
-const FilledButtonIcons = ({ className, children, onClick }) => {
+const FilledButtonIcons = ({ className, disabled, children, onClick }) => {
   return (
-    <button className={`mr-4 flex h-10 w-10 items-center justify-center hover:bg-primary-600/75 focus:bg-primary-600/75 outline-none focus:ring-4 focus:ring-primary-300 transition-shadow duration-100 ease-in rounded-full bg-primary-500 fill-white p-2.5 ${className}`}
-    onClick={onClick}>
+    <button
+      className={`mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 fill-white p-2.5 outline-none transition-shadow duration-100 ease-in hover:bg-primary-600/75 focus:bg-primary-600/75 focus:ring-4 focus:ring-primary-300 disabled:cursor-not-allowed ${className}`}
+      disabled={disabled}
+      onClick={() => (!disabled ? onClick() : null)}
+    >
       {children}
     </button>
   );
@@ -11,8 +14,9 @@ const FilledButtonIcons = ({ className, children, onClick }) => {
 
 FilledButtonIcons.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   children: PropTypes.object.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default FilledButtonIcons;

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const MainFormOperation = ({ operation, setOperation }) => {
-  const OPERATIONS = ['AND', 'OR', 'XOR', 'NOT'];
+  const OPERATIONS = ['AND', 'OR', 'XOR', 'NOR'];
 
   const changeOperation = (e) => {
     const BTN = e.currentTarget;
