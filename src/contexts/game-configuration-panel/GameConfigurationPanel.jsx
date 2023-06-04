@@ -145,17 +145,15 @@ const Context = ({ children }) => {
   const onClickCloseModal = () => {
     setShowConfigurationPanel(false);
 
-    if (showBotForm) {
-      // Modal has an animation duration of 450ms
-      setTimeout(() => {
-        setShowBotForm(false);
-        mainFormRef.current.parentElement.style = null;
-        mainFormRef.current.style = null;
-        botFormsRef.current.style = null;
-        setShowBotForm(false);
-        setSelectedBotName('');
-      }, 450);
-    }
+    // Modal has an animation duration of 450ms, wait for it to end.
+    setTimeout(() => {
+      setShowBotForm(false);
+      mainFormRef.current.parentElement.style = null;
+      mainFormRef.current.style = null;
+      botFormsRef.current.style = null;
+      setShowBotForm(false);
+      setSelectedBotName('');
+    }, 450);
   };
 
   useEffect(() => {
