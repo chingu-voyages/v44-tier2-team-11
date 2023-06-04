@@ -19,7 +19,7 @@ const MainFormSpeed = ({ second, setSecond }) => {
         const CLIENT_X = event?.clientX ?? TRACK_CLIENT_RECT.left; // Checks if it has clientX because it is immediately triggered on r
         const OFFSET_X = CLIENT_X - TRACK_CLIENT_RECT.left; // Get current mouse position
         const LEVEL = Math.round(OFFSET_X / WIDTH_FOR_EACH_LEVEL); // Get current level as mouse moves
-        const LIMIT_LEVEL = Math.max(0, Math.min(LEVELS, LEVEL)); // To ensure that handle will go beyond 0 and 10.
+        const LIMIT_LEVEL = Math.max(0, Math.min(LEVELS, LEVEL)); // To ensure that handle will not go below 0 and beyond 10.
         const LEVEL_IN_PERCENTAGE = LIMIT_LEVEL * (100 / LEVELS); // Convert the current level into percentage
         setSecond(LIMIT_LEVEL + 1);
         setCurrentPosition(LEVEL_IN_PERCENTAGE);

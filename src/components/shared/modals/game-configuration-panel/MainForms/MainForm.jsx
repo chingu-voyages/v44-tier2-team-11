@@ -5,6 +5,7 @@ import MainFormBotList from './MainFormBotList.jsx';
 import FadedButton from '../../../../base/FadedButton.jsx';
 import FilledButton from '../../../../base/FilledButton.jsx';
 import AlertDanger from '../../../../base/AlertDanger.jsx';
+import AlertSuccess from '../../../../base/AlertSuccess.jsx';
 
 // Context
 import GlobalContext from '../../../../../contexts/global-context/global-context.js';
@@ -14,19 +15,23 @@ import GameConfigurationPanelContext from '../../../../../contexts/game-configur
 import { useContext, useState } from 'react';
 
 const MainForm = () => {
-  const { setConfiguration, bots } = useContext(GlobalContext);
+  const { configuration, setConfiguration, bots } = useContext(GlobalContext);
   const { setSelectedBotName, onClickShowForm } = useContext(
     GameConfigurationPanelContext
   );
 
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-  const [operation, setOperation] = useState('AND');
-  const [speedInSecond, setSpeedInSecond] = useState(1);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [operation, setOperation] = useState(configuration.operation);
+  const [speedInSecond, setSpeedInSecond] = useState(
+    configuration.speed / 1000
+  );
 
   const onClickResetForm = () => {
     setShowErrorAlert(false);
-    setOperation('AND');
-    setSpeedInSecond(1);
+    setShowSuccessAlert(false);
+    setOperation(configuration.operation);
+    setSpeedInSecond(configuration.speed / 1000);
   };
   const onClickSaveConfiguration = () => {
     setShowErrorAlert(false);
@@ -42,16 +47,24 @@ const MainForm = () => {
       speed: speedInSecond * 1000, // Convert into seconds
     };
 
+    setShowSuccessAlert(true);
     setConfiguration(CONFIG);
   };
   const onClickSwitchForm = () => {
     setShowErrorAlert(false);
+    setShowSuccessAlert(false);
     onClickShowForm();
   };
 
   return (
     <>
       <ModalTitle>Configurations</ModalTitle>
+      <AlertSuccess
+        className="mx-auto mb-5 max-w-[180px]"
+        canShow={showSuccessAlert}
+      >
+        Successfully updated!
+      </AlertSuccess>
       <AlertDanger
         className="mx-auto mb-5 max-w-[350px]"
         canShow={showErrorAlert}
