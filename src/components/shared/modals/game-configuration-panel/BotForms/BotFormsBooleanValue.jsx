@@ -5,8 +5,6 @@ import { useContext } from 'react';
 const BotFormsBooleanValue = ({ className }) => {
   const { botBooleanValue, setBotBooleanValue } = useContext(BotFormContext);
 
-  console.log(botBooleanValue);
-
   return (
     <div className={`flex h-full flex-col ${className}`}>
       <label
