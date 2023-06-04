@@ -145,7 +145,7 @@ const Context = ({ children }) => {
   const onClickCloseModal = () => {
     setShowConfigurationPanel(false);
 
-    // Modal has an animation duration of 450ms
+    // Modal has an animation duration of 450ms, wait for it to end.
     setTimeout(() => {
       setShowBotForm(false);
       mainFormRef.current.parentElement.style = null;

@@ -156,6 +156,7 @@ const Context = ({ children }) => {
     setCanShowSuccessfullyDeletedAlert(true);
   };
 
+  // Initialize form fields based on whether user is updating an existing bot or creating a new one
   useEffect(() => {
     if (Object.keys(selectedBotInfo).length !== 0) {
       setBotColorSchemes(selectedBotInfo.colorSchemes);
@@ -170,8 +171,14 @@ const Context = ({ children }) => {
     setBotBooleanValue('');
     setBotDirection('');
   }, [selectedBotInfo, defaultBotColorSchemes]);
+
+  // When configuration has been closed, reset the bot form
   useEffect(() => {
     if (!showConfigurationPanel) {
+      setCanShowSuccessfullyDeletedAlert(false);
+      setCanShowSuccessfullyCreatedAlert(false);
+      setCanShowSuccessfullyUpdatedAlert(false);
+
       setSelectedBotInfo({});
 
       setBotColorSchemes(defaultBotColorSchemes);
