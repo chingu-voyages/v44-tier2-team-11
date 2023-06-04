@@ -5,6 +5,8 @@ import { useContext } from 'react';
 const BotFormsBooleanValue = ({ className }) => {
   const { botBooleanValue, setBotBooleanValue } = useContext(BotFormContext);
 
+  console.log(botBooleanValue);
+
   return (
     <div className={`flex h-full flex-col ${className}`}>
       <label
@@ -21,7 +23,7 @@ const BotFormsBooleanValue = ({ className }) => {
             name="botRadioBoolean"
             value="0"
             className="peer inline appearance-none outline-none"
-            checked={botBooleanValue === '0'}
+            checked={botBooleanValue === 0}
             onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
@@ -38,7 +40,7 @@ const BotFormsBooleanValue = ({ className }) => {
             value="1"
             name="botRadioBoolean"
             className="peer inline appearance-none outline-none"
-            checked={botBooleanValue === '1'}
+            checked={botBooleanValue === 1}
             onChange={(e) => setBotBooleanValue(e.target.value)}
           />
           <label
