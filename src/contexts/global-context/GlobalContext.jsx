@@ -9,6 +9,9 @@ const Context = ({ children }) => {
   // Toggle configuration panel modal
   const [showConfigurationPanel, setShowConfigurationPanel] = useState();
 
+  // toggle leaderborad
+  const [showLeaderboard, setShowLeaderboard] = useState();
+
   // An array that contains all bots created by user
   const [bots, setBots] = useState([]);
 
@@ -28,6 +31,8 @@ const Context = ({ children }) => {
       value={{
         showConfigurationPanel,
         setShowConfigurationPanel,
+        showLeaderboard,
+        setShowLeaderboard,
         bots,
         setBots,
         configuration,
