@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-red-100 to-red-300 p-4">
       <Arena />
-      {/*<Leaderboard />*/}
+      <Leaderboard />
       <GameConfigurationPanel />
       <ToastContainer position="top-center" />
     </div>
