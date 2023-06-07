@@ -10,7 +10,7 @@ export const botList = [
     x: 3,
     y: 6,
     name: 'alen',
-    booleanValue: 0,
+    booleanValue: 1,
     direction: 'west',
   },
   {
@@ -52,7 +52,7 @@ export const botList = [
     x: 6,
     y: 1,
     name: 'ami',
-    booleanValue: 1,
+    booleanValue: 0,
     direction: 'south',
   },
 ];
@@ -64,7 +64,7 @@ export const BotData = [
     y: 5,
     direction: 'north',
     speed: 500,
-    booleanValue: 0,
+    booleanValue: 1,
     color: '#EF5350',
     bColor: '#B91C19',
     bgColor: '#FFC8C7',

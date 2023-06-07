@@ -10,7 +10,8 @@ import GlobalContext from '../../../contexts/global-context/global-context.js';
 import { useContext } from 'react';
 
 const ArenaNavigationBar = () => {
-  const { inGame, bots, setShowConfigurationPanel, setShowLeaderboard } = useContext(GlobalContext);
+  const { inGame, bots, setShowConfigurationPanel, setShowLeaderboard } =
+    useContext(GlobalContext);
   return (
     <div className="flex items-center justify-between px-4 pt-4">
       <div className="flex items-center">
@@ -23,7 +24,7 @@ const ArenaNavigationBar = () => {
       </div>
       <div className="flex">
         <FilledButtonIcons
-          // disabled={inGame && bots.length >= 2}
+          disabled={inGame && bots.length >= 2}
           onClick={() => setShowLeaderboard(true)}
         >
           <TrophyStarIcon />
