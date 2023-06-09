@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { changeDirection, winLosTie } from '../../../utilities/utilis.js';
 import GlobalContext from '../../../contexts/global-context/global-context.js';
-import BotFig from '../bots/BotFig.jsx';
+import BotDynamic from '../bots/BotDynamic.jsx';
 
 // NPM
 import { useContext } from 'react';
@@ -272,7 +272,11 @@ const Bot = ({
         paddingBottom: '.2rem',
       }}
     >
-      <BotFig scale="40" priColor={background} bColor={stroke} />
+      <BotDynamic
+        className="translate-y-1"
+        baseColor={background}
+        strokeColor={stroke}
+      />
       <p
         className="duration-750 absolute bottom-0 max-w-[100px] translate-y-[80%] scale-0 truncate rounded-sm px-2 py-0.5 text-xs font-semibold transition-transform ease-in group-hover:scale-100"
         style={{ backgroundColor: stroke }}

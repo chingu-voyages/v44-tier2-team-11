@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const BotDynamic = ({ className, baseColor, strokeColor }) => {
   return (
     <svg
-      className={`${className}`}
+      className={`h-full w-full ${className}`}
       width="533"
       height="498"
       viewBox="0 0 533 498"
