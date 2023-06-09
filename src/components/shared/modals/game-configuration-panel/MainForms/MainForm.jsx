@@ -15,7 +15,8 @@ import GameConfigurationPanelContext from '../../../../../contexts/game-configur
 import { useContext, useState } from 'react';
 
 const MainForm = () => {
-  const { configuration, setConfiguration, bots } = useContext(GlobalContext);
+  const { configuration, setConfiguration, bots, setBots } =
+    useContext(GlobalContext);
   const { setSelectedBotName, onClickShowForm } = useContext(
     GameConfigurationPanelContext
   );
