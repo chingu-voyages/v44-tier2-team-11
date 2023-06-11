@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { changeDirection, winLosTie } from '../../../utilities/utilis.js';
 import GlobalContext from '../../../contexts/global-context/global-context.js';
-import BotFig from '../bots/BotFig.jsx';
+import BotDynamic from '../bots/BotDynamic.jsx';
 
 // NPM
 import { useContext } from 'react';
@@ -21,7 +21,7 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions, botScores, configuration } =
+  const { inGamePositions, botScores, configuration, gameOver } =
     useContext(GlobalContext);
 
   const { background, stroke, base } = colorSchemes;
@@ -34,17 +34,34 @@ const Bot = ({
   const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
+
   // Global Configuration
-  console.log(configuration);
-  const operator = configuration?.operation ?? 'AND';
-  const speed = 500;
+  // console.log(configuration);
+  const operator = configuration?.operation || 'AND';
+  const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
-  // console.log(inGamePositions);
+
   // console.log(botScores);
-  //update bot scores for the first time
+  console.log(inGamePositions);
 
   useEffect(() => {
-    const bot = { id, name, wins: 0, loses: 0 };
+    let timeId;
+    // Check For Game Over
+    // console.log('Check For Game Over');
+    // console.log(inGamePositions.current.length);
+    if (inGamePositions.current.length === 1 && inGame) {
+      // console.log('checked');
+      timeId = setTimeout(() => {
+        gameOver();
+      }, 3000);
+    }
+    return () => clearTimeout(timeId);
+  });
+
+  // console.log(botScores.current);
+  //update bot scores for the first time
+  useEffect(() => {
+    const bot = { id, name, win: 0, lose: 0, colorSchemes };
     botScores.current = [...botScores.current, bot];
   }, []);
 
@@ -59,7 +76,7 @@ const Bot = ({
       }, configSpeed);
       return () => clearTimeout(timeId);
     }
-  }, [top, left]);
+  }, [top, left, configSpeed]);
 
   //Check For Collision
   useEffect(() => {
@@ -107,7 +124,7 @@ const Bot = ({
               //update bot Scores
               const botScore = botScores.current.find((bot) => bot.id === id);
               //add Win Scores
-              botScore.wins = botScore.wins + 1;
+              botScore.win = botScore.win + 1;
               //update bot score array
               botScores.current = [
                 ...botScores.current.filter((bot) => bot.id !== id),
@@ -141,7 +158,7 @@ const Bot = ({
               //update bot Scores
               const botScore = botScores.current.find((bot) => bot.id === id);
               //add lose Scores
-              botScore.loses = botScore.loses + 1;
+              botScore.lose = botScore.lose + 1;
               //update bot score array
               botScores.current = [
                 ...botScores.current.filter((bot) => bot.id !== id),
@@ -156,7 +173,6 @@ const Bot = ({
               );
             }, 1000);
           }
-          console.log(botScores.current);
         }
         return () => {
           clearTimeout(timeId);
@@ -194,15 +210,16 @@ const Bot = ({
   useEffect(() => {
     let moveBot;
 
-    if (
+    const shouldGetNewDirection =
       top <= 7 &&
       top >= 0 &&
       left >= 0 &&
       left <= 7 &&
       inGame &&
       !botOver &&
-      !isCollied
-    ) {
+      !isCollied;
+
+    if (shouldGetNewDirection) {
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
@@ -272,7 +289,11 @@ const Bot = ({
         paddingBottom: '.2rem',
       }}
     >
-      <BotFig scale="40" priColor={background} bColor={stroke} />
+      <BotDynamic
+        className="translate-y-1"
+        baseColor={background}
+        strokeColor={stroke}
+      />
       <p
         className="duration-750 absolute bottom-0 max-w-[100px] translate-y-[80%] scale-0 truncate rounded-sm px-2 py-0.5 text-xs font-semibold transition-transform ease-in group-hover:scale-100"
         style={{ backgroundColor: stroke }}
