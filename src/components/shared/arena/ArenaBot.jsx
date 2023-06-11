@@ -34,6 +34,8 @@ const Bot = ({
   const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
+
 
   // Global Configuration
   // console.log(configuration);
@@ -173,7 +175,7 @@ const Bot = ({
 
               setBotOver(true);
 
-              toast.success(`${name} lost`, {
+              toast.error(`${name} lost`, {
                 position: toast.POSITION.TOP_LEFT,
               });
               inGamePositions.current = inGamePositions.current.filter(
@@ -228,6 +230,7 @@ const Bot = ({
       !isCollied;
 
     if (shouldGetNewDirection) {
+      setIsMoving(true);
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
@@ -237,6 +240,7 @@ const Bot = ({
               7,
               currentDirection.current
             );
+            setIsMoving(false);
             return;
           }
           return setTop(top + duration);
@@ -248,6 +252,7 @@ const Bot = ({
               0,
               currentDirection.current
             );
+            setIsMoving(false);
             return;
           }
           return setTop(top - duration);
@@ -259,6 +264,7 @@ const Bot = ({
               top,
               currentDirection.current
             );
+            setIsMoving(false);
             return;
           }
           return setLeft(left - duration);
@@ -270,6 +276,7 @@ const Bot = ({
               top,
               currentDirection.current
             );
+            setIsMoving(false);
             return;
           }
           return setLeft(left + duration);
@@ -285,7 +292,7 @@ const Bot = ({
   return (
     <div
       ref={botPositions}
-      className="transparent group absolute grid place-items-center text-gray-50 "
+      className={`transparent group absolute grid place-items-center text-gray-50 ${isMoving ? 'jumping-animation' : ''}`}
       style={{
         width: '9%',
         height: '9%',
