@@ -25,10 +25,15 @@ const Context = ({ children }) => {
   const botScores = useRef([]);
   const [inGame, setInGame] = useState(false);
   const inGamePositions = useRef([]);
+  const gameOver = () => {
+    setInGame(false);
+    setShowLeaderboard(true);
+  };
 
   return (
     <GlobalContext.Provider
       value={{
+        gameOver,
         showConfigurationPanel,
         setShowConfigurationPanel,
         showLeaderboard,

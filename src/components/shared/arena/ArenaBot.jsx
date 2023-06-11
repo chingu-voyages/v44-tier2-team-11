@@ -21,7 +21,7 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions, botScores, configuration } =
+  const { inGamePositions, botScores, configuration, gameOver } =
     useContext(GlobalContext);
 
   const { background, stroke, base } = colorSchemes;
@@ -36,17 +36,32 @@ const Bot = ({
   const [botOver, setBotOver] = useState(false);
 
   // Global Configuration
-  console.log(configuration);
-  const operator = configuration?.operation ?? 'AND';
-  const speed = 500;
+  // console.log(configuration);
+  const operator = configuration?.operation || 'AND';
+  const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
 
-  // console.log(inGamePositions);
   // console.log(botScores);
+  console.log(inGamePositions);
 
+  useEffect(() => {
+    let timeId;
+    // Check For Game Over
+    // console.log('Check For Game Over');
+    // console.log(inGamePositions.current.length);
+    if (inGamePositions.current.length === 1 && inGame) {
+      // console.log('checked');
+      timeId = setTimeout(() => {
+        gameOver();
+      }, 3000);
+    }
+    return () => clearTimeout(timeId);
+  });
+
+  // console.log(botScores.current);
   //update bot scores for the first time
   useEffect(() => {
-    const bot = { id, name, wins: 0, loses: 0 };
+    const bot = { id, name, win: 0, lose: 0, colorSchemes };
     botScores.current = [...botScores.current, bot];
   }, []);
 
@@ -61,7 +76,7 @@ const Bot = ({
       }, configSpeed);
       return () => clearTimeout(timeId);
     }
-  }, [top, left]);
+  }, [top, left, configSpeed]);
 
   //Check For Collision
   useEffect(() => {
@@ -109,7 +124,7 @@ const Bot = ({
               //update bot Scores
               const botScore = botScores.current.find((bot) => bot.id === id);
               //add Win Scores
-              botScore.wins = botScore.wins + 1;
+              botScore.win = botScore.win + 1;
               //update bot score array
               botScores.current = [
                 ...botScores.current.filter((bot) => bot.id !== id),
@@ -143,7 +158,7 @@ const Bot = ({
               //update bot Scores
               const botScore = botScores.current.find((bot) => bot.id === id);
               //add lose Scores
-              botScore.loses = botScore.loses + 1;
+              botScore.lose = botScore.lose + 1;
               //update bot score array
               botScores.current = [
                 ...botScores.current.filter((bot) => bot.id !== id),
@@ -158,7 +173,6 @@ const Bot = ({
               );
             }, 1000);
           }
-          console.log(botScores.current);
         }
         return () => {
           clearTimeout(timeId);
