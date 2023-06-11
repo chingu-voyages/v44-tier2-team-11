@@ -61,7 +61,7 @@ const Bot = ({
   // console.log(botScores.current);
   //update bot scores for the first time
   useEffect(() => {
-    const bot = { id, name, win: 0, lose: 0, tie: 0, colorSchemes };
+    const bot = { id, name, win: 0, lose: 0, colorSchemes };
     botScores.current = [...botScores.current, bot];
   }, []);
 
@@ -143,8 +143,6 @@ const Bot = ({
               setIsCollied(() => {
                 return false;
               });
-              const botScore = botScores.current.find((bot) => bot.id === id);
-              botScore.tie = botScore.tie + 1;
               //keep bot moving
               toast.success(`${name} vs ${botName} tied`, {
                 position: toast.POSITION.TOP_LEFT,
