@@ -9,7 +9,7 @@ const Context = ({ children }) => {
   // Toggle configuration panel modal
   const [showConfigurationPanel, setShowConfigurationPanel] = useState();
 
-  // toggle leaderborad
+  // Toggle Leaderboard
   const [showLeaderboard, setShowLeaderboard] = useState();
 
   // An array that contains all bots created by user

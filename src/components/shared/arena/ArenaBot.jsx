@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { changeDirection, winLosTie } from '../../../utilities/utilis.js';
 import GlobalContext from '../../../contexts/global-context/global-context.js';
-import BotFig from '../bots/BotFig.jsx';
+import BotDynamic from '../bots/BotDynamic.jsx';
 
 // NPM
 import { useContext } from 'react';
@@ -34,11 +34,14 @@ const Bot = ({
   const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
+
   // Global Configuration
   // console.log(configuration);
   const operator = configuration?.operation || 'AND';
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
+
+  // console.log(botScores);
   console.log(inGamePositions);
 
   useEffect(() => {
@@ -57,7 +60,6 @@ const Bot = ({
 
   // console.log(botScores.current);
   //update bot scores for the first time
-
   useEffect(() => {
     const bot = { id, name, win: 0, lose: 0, colorSchemes };
     botScores.current = [...botScores.current, bot];
@@ -208,15 +210,16 @@ const Bot = ({
   useEffect(() => {
     let moveBot;
 
-    if (
+    const shouldGetNewDirection =
       top <= 7 &&
       top >= 0 &&
       left >= 0 &&
       left <= 7 &&
       inGame &&
       !botOver &&
-      !isCollied
-    ) {
+      !isCollied;
+
+    if (shouldGetNewDirection) {
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
@@ -286,7 +289,11 @@ const Bot = ({
         paddingBottom: '.2rem',
       }}
     >
-      <BotFig scale="40" priColor={background} bColor={stroke} />
+      <BotDynamic
+        className="translate-y-1"
+        baseColor={background}
+        strokeColor={stroke}
+      />
       <p
         className="duration-750 absolute bottom-0 max-w-[100px] translate-y-[80%] scale-0 truncate rounded-sm px-2 py-0.5 text-xs font-semibold transition-transform ease-in group-hover:scale-100"
         style={{ backgroundColor: stroke }}
