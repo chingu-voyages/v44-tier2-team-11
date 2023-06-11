@@ -33,8 +33,16 @@ const LeaderboardBotRow = (BotScore) => {
                     {BotScore.botName}
                 </div>
             </div>
-            <LeaderboardScoreCounter val={ BotScore.win }/> 
-            <LeaderboardScoreCounter val={ BotScore.loss }/>
+            <div className="w-16 my-3 h-16 flex translate-y-3 justify-center">
+                <div className="m-auto flex items-center justify-center">
+                <LeaderboardScoreCounter val={ BotScore.win }/> 
+                </div>
+            </div>
+            <div className="w-16 my-3 h-16 flex translate-y-3 justify-center">
+                <div className="m-auto flex items-center justify-center">
+                <LeaderboardScoreCounter val={ BotScore.loss }/> 
+                </div>
+            </div>
         </div>
 
     )
