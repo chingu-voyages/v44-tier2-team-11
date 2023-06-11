@@ -34,15 +34,17 @@ const Bot = ({
   const colliedCheck = useRef(true);
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
+
   // Global Configuration
   console.log(configuration);
   const operator = configuration?.operation ?? 'AND';
   const speed = 500;
   const configSpeed = configuration?.speed ?? 1000;
+
   // console.log(inGamePositions);
   // console.log(botScores);
-  //update bot scores for the first time
 
+  //update bot scores for the first time
   useEffect(() => {
     const bot = { id, name, wins: 0, loses: 0 };
     botScores.current = [...botScores.current, bot];
@@ -194,15 +196,16 @@ const Bot = ({
   useEffect(() => {
     let moveBot;
 
-    if (
+    const shouldGetNewDirection =
       top <= 7 &&
       top >= 0 &&
       left >= 0 &&
       left <= 7 &&
       inGame &&
       !botOver &&
-      !isCollied
-    ) {
+      !isCollied;
+
+    if (shouldGetNewDirection) {
       moveBot = setInterval(() => {
         if (currentDirection.current === 'south') {
           if (top + duration >= 7) {
