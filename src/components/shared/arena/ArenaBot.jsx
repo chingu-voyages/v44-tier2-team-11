@@ -41,7 +41,9 @@ const Bot = ({
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
 
+
   console.log(botScores);
+
   // console.log(inGamePositions);
 
   useEffect(() => {
@@ -130,7 +132,9 @@ const Bot = ({
                 ...botScores.current.filter((bot) => bot.id !== id),
                 botScore,
               ];
-              toast.success(`${name} won`);
+              toast.success(`${name} won`, {
+                position: toast.POSITION.TOP_LEFT,
+              });
               colliedCheck.current = true;
             }, 1995);
           } else if (result === 0) {
@@ -142,7 +146,9 @@ const Bot = ({
                 return false;
               });
               //keep bot moving
-              toast.success(`${name} vs ${botName} tied`);
+              toast.success(`${name} vs ${botName} tied`, {
+                position: toast.POSITION.TOP_LEFT,
+              });
               console.log('tie');
             }, 2000);
             CheckColliedTime = setTimeout(() => {
@@ -167,7 +173,9 @@ const Bot = ({
 
               setBotOver(true);
 
-              toast.success(`${name} lost`);
+              toast.success(`${name} lost`, {
+                position: toast.POSITION.TOP_LEFT,
+              });
               inGamePositions.current = inGamePositions.current.filter(
                 (bot) => bot.id !== id
               );
