@@ -26,10 +26,10 @@ const LeaderboardBotRow = (BotScore) => {
             <div className="flex flex-col justify-center align-middle items-center">
                 <div style={{backgroundColor:BotScore.background, borderColor:BotScore.stroke}} className="bg-primary-300 border-2 border-primary-700 relative translate-y-3 object-contain w-16 my-3 h-16 rounded-full flex justify-center">
                     {/* bot figure */}
-                    <BotDynamic className='h-full w-10/12' strokeColor={ BotScore.stroke } baseColor={ BotScore.base }/>
+                    <BotDynamic className='h-full w-9/12' strokeColor={ BotScore.stroke } baseColor={ BotScore.base }/>
                 </div>
                     {/* bot name */}
-                <div style={{backgroundColor:BotScore.base, textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'}} className="bg-primary-500 text-white p-1 rounded-lg -translate-y-3 text-center font-semibold text-xs">
+                <div style={{backgroundColor:BotScore.base, borderColor:BotScore.stroke, textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'}} className="bg-primary-500 border-2 text-white p-1 rounded-lg -translate-y-3 text-center font-semibold text-xs">
                     {BotScore.botName}
                 </div>
             </div>
