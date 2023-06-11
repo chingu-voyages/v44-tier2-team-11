@@ -15,9 +15,6 @@ const LeaderboardHeader = () => {
             <div className="flex justify-center items-center font-bold">
                 Loss
             </div>
-            <div className="flex justify-center items-center font-bold">
-                Tie
-            </div>
     </div>
     );
 }

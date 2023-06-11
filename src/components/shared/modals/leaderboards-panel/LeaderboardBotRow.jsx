@@ -21,7 +21,6 @@ const LeaderboardBotRow = (BotScore) => {
             </div>
             <LeaderboardScoreCounter val={ BotScore.win }/>
             <LeaderboardScoreCounter val={ BotScore.loss }/>
-            <LeaderboardScoreCounter val={ BotScore.tie }/>
         </div>
 
     )

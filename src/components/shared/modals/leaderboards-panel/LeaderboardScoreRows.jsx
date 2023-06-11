@@ -17,7 +17,6 @@ const LeaderboardScoreRows = () =>{
                     key={bot.id}
                     win={bot?.win}
                     loss={bot?.lose}
-                    tie={bot?.tie}
                     background={bot?.colorSchemes.background}
                     stroke={bot?.colorSchemes.stroke}
                     base={bot?.colorSchemes.base}
