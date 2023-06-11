@@ -5,16 +5,17 @@ import LeaderboardBotRow from "./LeaderboardBotRow";
 const LeaderboardScoreRows = () =>{
 
     const { botScores } = useContext(GlobalContext);
-
+    const rankedBots = botScores.current?.sort((a, b) => b.win - a.win);
     return(
         <>
         {
-            botScores.current?.map( (bot) => {
+            rankedBots?.map( (bot, i) => {
             return (
                 <LeaderboardBotRow
                     id={bot.id}
                     botName={bot.name}
-                    key={bot.id}
+                    i={i+1}
+                    key={i}
                     win={bot?.win}
                     loss={bot?.lose}
                     background={bot?.colorSchemes.background}

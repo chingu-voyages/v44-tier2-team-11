@@ -3,6 +3,7 @@ import Modal from "../../../base/Modal.jsx";
 import LeaderboardHeader from "./LeaderboardHeader.jsx";
 import LeaderboardScoreRows from "./LeaderboardScoreRows.jsx";
 import GlobalContext from "../../../../contexts/global-context/global-context.js";
+import ModalTitle from "../../../base/ModalTitle.jsx";
 
 // class Leaderboard extends React.Component {
 const Leaderboard = () => {
@@ -20,7 +21,7 @@ const Leaderboard = () => {
             shouldShow={showLeaderboard}
             onClickCloseModal={onClickCloseModal}          
             >
-
+                <ModalTitle>Ranking Leaderboard</ModalTitle>
                 <LeaderboardHeader />
                 {/* <Header title='Leaderboard' allBots={this.state.bots.length}/> */}
                 <LeaderboardScoreRows />

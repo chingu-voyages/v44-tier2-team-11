@@ -7,7 +7,10 @@ const LeaderboardHeader = () => {
                 Standing
             </div> */}
             <div className="flex justify-center items-center font-bold">
-                Bot Name:
+                Rank
+            </div>
+            <div className="flex justify-center items-center font-bold">
+                Bot
             </div>
             <div className="flex justify-center items-center font-bold">
                 Win
