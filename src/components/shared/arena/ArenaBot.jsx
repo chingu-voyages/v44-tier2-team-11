@@ -173,7 +173,7 @@ const Bot = ({
 
               setBotOver(true);
 
-              toast.success(`${name} lost`, {
+              toast.error(`${name} lost`, {
                 position: toast.POSITION.TOP_LEFT,
               });
               inGamePositions.current = inGamePositions.current.filter(
