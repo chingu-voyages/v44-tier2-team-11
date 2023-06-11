@@ -9,7 +9,8 @@ import LeaderboardRow from './LeaderboardRow.jsx';
 // class Leaderboard extends React.Component {
 const Leaderboard = () => {
   // render(){
-  const { showLeaderboard, setShowLeaderboard } = useContext(GlobalContext);
+  const { showLeaderboard, setShowLeaderboard, botScores } =
+    useContext(GlobalContext);
 
   const onClickCloseModal = () => {
     setShowLeaderboard(false);
@@ -23,9 +24,9 @@ const Leaderboard = () => {
     >
       <LeaderboardHeader />
       <div className="mb-8 mt-10">
-        <LeaderboardRow className="mb-10" />
-        <LeaderboardRow className="mb-10" />
-        <LeaderboardRow />
+        {botScores?.current?.map((bot) => (
+          <LeaderboardRow key={bot.id} {...bot} className="mb-10" />
+        ))}
       </div>
     </Modal>
   );

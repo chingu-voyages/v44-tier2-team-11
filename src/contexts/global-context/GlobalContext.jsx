@@ -1,5 +1,5 @@
 import GlobalContext from './global-context.js';
-import { BotData, botList } from '../../data.js';
+import { botList, testScores } from '../../data.js';
 
 // NPM
 import { useState, useRef } from 'react';
