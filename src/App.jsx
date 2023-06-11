@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css';
 import Arena from './components/shared/arena/Arena.jsx';
-import Leaderboard from './components/shared/modals/leaderboard-panel/Leaderboard.jsx';
+import Leaderboard from './components/shared/modals/leaderboards-panel/Leaderboard.jsx';
 import GameConfigurationPanel from './components/shared/modals/game-configuration-panel/GameConfigurationPanel.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
