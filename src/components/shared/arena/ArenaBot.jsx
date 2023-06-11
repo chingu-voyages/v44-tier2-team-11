@@ -41,7 +41,9 @@ const Bot = ({
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
 
-  // console.log(botScores);
+
+  console.log(botScores);
+
   // console.log(inGamePositions);
 
   useEffect(() => {

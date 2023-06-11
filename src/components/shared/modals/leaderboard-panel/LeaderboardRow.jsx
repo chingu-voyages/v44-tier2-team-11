@@ -4,17 +4,17 @@ import LeaderboardCounter from './LeaderboardCounter';
 // NPM
 import propTypes from 'prop-types';
 
-const LeaderboardRow = ({ className = '' }) => {
+const LeaderboardRow = ({ className = '', colorSchemes, win, lose, name }) => {
   return (
     <div className={`${className} flex items-center`}>
       <div className="flex w-full grow justify-center">
-        <LeaderboardBot />
+        <LeaderboardBot {...colorSchemes} name={name} />
       </div>
       <LeaderboardCounter className="flex w-full grow justify-center">
-        0
+        {win}
       </LeaderboardCounter>
       <LeaderboardCounter className="flex w-full grow justify-center">
-        2
+        {lose}
       </LeaderboardCounter>
       <LeaderboardCounter className="flex w-full grow justify-center">
         5
