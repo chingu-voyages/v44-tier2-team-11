@@ -42,7 +42,7 @@ const Bot = ({
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
 
-  console.log(botScores);
+  // console.log(botScores);
 
   // console.log(inGamePositions);
 
@@ -105,16 +105,16 @@ const Bot = ({
           PosY <= y + height
         ) {
           if (currentDirection.current === ComparedDirection) return;
-          console.log(`bot ${name} collied with bot ${botName}`);
+          // console.log(`bot ${name} collied with bot ${botName}`);
           setIsCollied(true);
           colliedCheck.current = false;
           // console.log(`bot ${id} x:${PosX} , y:${PosY}`);
           // console.log(`bot ${botId} x:${x} , y:${y}`);
           const result = winLosTie(booleanValue, comparedValue, operator);
 
-          console.log(
-            `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
-          );
+          // console.log(
+          //   `bot ${botId} Boolean:${booleanValue} , Boolean:${comparedValue}, result:${result}`
+          // );
 
           if (result === 1 && id < botId) {
             //Stop Bot
@@ -149,7 +149,7 @@ const Bot = ({
               toast.success(`${name} vs ${botName} tied`, {
                 position: toast.POSITION.TOP_LEFT,
               });
-              console.log('tie');
+              // console.log('tie');
             }, 2000);
             CheckColliedTime = setTimeout(() => {
               colliedCheck.current = true;
@@ -238,7 +238,6 @@ const Bot = ({
               7,
               currentDirection.current
             );
-            setIsMoving(false);
             return;
           }
           return setTop(top + duration);
@@ -250,7 +249,6 @@ const Bot = ({
               0,
               currentDirection.current
             );
-            setIsMoving(false);
             return;
           }
           return setTop(top - duration);
@@ -262,7 +260,6 @@ const Bot = ({
               top,
               currentDirection.current
             );
-            setIsMoving(false);
             return;
           }
           return setLeft(left - duration);
@@ -274,7 +271,6 @@ const Bot = ({
               top,
               currentDirection.current
             );
-            setIsMoving(false);
             return;
           }
           return setLeft(left + duration);
@@ -283,6 +279,7 @@ const Bot = ({
     }
 
     return () => {
+      setIsMoving(false);
       clearInterval(moveBot);
     };
   });
