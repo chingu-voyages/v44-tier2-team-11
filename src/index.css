@@ -18,26 +18,8 @@
     }
   }
 
-  @keyframes squish {
-    0% {
-        transform: scaleX(1);
-        transform: scaleY(1);
-    }
-    50% {
-        transform: scaleX(0.8);
-        transform: scaleY(1.2);
-    }
-    100% {
-        transform: scaleX(1);
-        transform: scaleY(1);
-    }
-  }
-  
   .jumping-animation {
-    animation: jump 0.7s infinite;
+    animation: jump 1s infinite;
   }
 
-  .squish-animation {
-    animation: squish 0.7s infinite;
-  }
   
