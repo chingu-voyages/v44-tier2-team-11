@@ -36,13 +36,11 @@ const Bot = ({
   const [botOver, setBotOver] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
 
-
   // Global Configuration
   // console.log(configuration);
   const operator = configuration?.operation || 'AND';
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
-
 
   console.log(botScores);
 
@@ -256,7 +254,7 @@ const Bot = ({
             return;
           }
           return setTop(top - duration);
-        } else if (currentDirection.current === 'east') {
+        } else if (currentDirection.current === 'west') {
           if (left - duration < 0) {
             setLeft(0);
             currentDirection.current = changeDirection(
@@ -268,7 +266,7 @@ const Bot = ({
             return;
           }
           return setLeft(left - duration);
-        } else if (currentDirection.current === 'west') {
+        } else if (currentDirection.current === 'east') {
           if (left + duration >= 7) {
             setLeft(7);
             currentDirection.current = changeDirection(
@@ -292,7 +290,9 @@ const Bot = ({
   return (
     <div
       ref={botPositions}
-      className={`transparent group absolute grid place-items-center text-gray-50 ${isMoving ? 'jumping-animation' : ''}`}
+      className={`transparent group absolute grid place-items-center text-gray-50 ${
+        isMoving ? 'jumping-animation' : ''
+      }`}
       style={{
         width: '9%',
         height: '9%',
