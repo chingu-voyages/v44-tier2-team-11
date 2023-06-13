@@ -12,10 +12,10 @@ import GlobalContext from '../../../../../contexts/global-context/global-context
 import GameConfigurationPanelContext from '../../../../../contexts/game-configuration-panel/game-configuration-panel-context.js';
 
 // NPM
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 
 const MainForm = () => {
-  const { configuration, setConfiguration, bots } = useContext(GlobalContext);
+  const { configuration, setConfiguration, bots, setBots, botScores } = useContext(GlobalContext);
   const { setSelectedBotName, onClickShowForm } = useContext(
     GameConfigurationPanelContext
   );
@@ -26,6 +26,11 @@ const MainForm = () => {
   const [speedInSecond, setSpeedInSecond] = useState(
     configuration.speed / 1000
   );
+
+  const onClickResetBots = () => {
+    setBots([]);
+    botScores.current = [];
+  }
 
   const onClickResetForm = () => {
     setShowErrorAlert(false);
@@ -87,7 +92,7 @@ const MainForm = () => {
         />
       </div>
       <div className="mt-6 flex justify-end">
-        <FadedButton onClick={onClickResetForm}>Reset</FadedButton>
+        <FadedButton onClick={onClickResetBots}>Reset</FadedButton>
         <FilledButton onClick={onClickSaveConfiguration}>Save</FilledButton>
       </div>
     </>
