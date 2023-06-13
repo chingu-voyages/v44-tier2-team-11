@@ -150,6 +150,10 @@ const Bot = ({
                 position: toast.POSITION.TOP_LEFT,
               });
               // console.log('tie');
+              if (inGamePositions.current.length === 2) {
+                setIsCollied(true);
+                gameOver();
+              }
             }, 2000);
             CheckColliedTime = setTimeout(() => {
               colliedCheck.current = true;
