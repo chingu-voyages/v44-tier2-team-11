@@ -22,7 +22,7 @@ const BotForms = () => {
       <BotFormsName className="mb-6 max-w-sm" />
       <BotFormsBooleanValue className="mb-6" />
       <BotFormsDirection className="mb-6 max-w-sm" />
-      <BotFormsControl />
+      <BotFormsControl onClickGoBackToMain={onClickShowMainForm} />
     </BotFormContext>
   );
 };

@@ -38,7 +38,7 @@ const MainFormBotList = ({ onClickShowForm, setSelectedBotName }) => {
           onClick={onClickSelectBot}
         />
       ))}
-      <AddBotButton onClick={onClickShowForm} />
+      {bots.length < 4 ? <AddBotButton onClick={onClickShowForm} /> : null}
     </div>
   );
 };
