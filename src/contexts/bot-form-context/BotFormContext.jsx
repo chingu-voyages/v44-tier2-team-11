@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
 const Context = ({ children }) => {
-  const { bots } = useContext(GlobalContext);
+  const { bots, setBots } = useContext(GlobalContext);
   const { showConfigurationPanel, selectedBotInfo, setSelectedBotInfo } =
     useContext(GameConfigurationPanelContext);
 
@@ -38,7 +38,7 @@ const Context = ({ children }) => {
     setCanShowSuccessfullyDeletedAlert(false);
     setCanShowSuccessfullyCreatedAlert(false);
     setCanShowSuccessfullyUpdatedAlert(false);
-
+    
     if (Object.keys(selectedBotInfo).length !== 0) {
       setBotColorSchemes(selectedBotInfo.colorSchemes);
       setBotName(selectedBotInfo.name);

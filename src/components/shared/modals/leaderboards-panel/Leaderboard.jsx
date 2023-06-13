@@ -23,7 +23,6 @@ const Leaderboard = () => {
             >
                 <ModalTitle>Ranking Leaderboard</ModalTitle>
                 <LeaderboardHeader />
-                {/* <Header title='Leaderboard' allBots={this.state.bots.length}/> */}
                 <LeaderboardScoreRows />
 
             </Modal>
