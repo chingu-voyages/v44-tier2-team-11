@@ -3,6 +3,25 @@ const OR = 'OR';
 const XOR = 'XOR';
 const NOR = 'NOR';
 
+export const CheckForAllTie = (botArray, operator) => {
+  let results = new Set();
+  botArray.map((currentBot) => {
+    const botId = currentBot.id;
+    const comparedBots = botArray.filter((bot) => bot.id !== botId);
+    comparedBots.map((comparedBot) => {
+      const result = winLosTie(
+        currentBot.booleanValue,
+        comparedBot.booleanValue,
+        operator
+      );
+      results.add(result);
+    });
+  });
+  console.log(results);
+
+  return results.size === 1 ? true : false;
+};
+
 export const winLosTie = (bot1, bot2, operator) => {
   const firstBoolean = bot1;
   const secondBoolean = bot2;

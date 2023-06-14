@@ -10,7 +10,7 @@ export const botList = [
     x: 3,
     y: 6,
     name: 'alen',
-    booleanValue: 1,
+    booleanValue: 0,
     direction: 'west',
   },
   {
@@ -39,7 +39,7 @@ export const botList = [
     y: 2,
     name: 'josh',
     booleanValue: 1,
-    direction: 'west',
+    direction: 'east',
   },
   {
     colorSchemes: {

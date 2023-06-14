@@ -1,6 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { changeDirection, winLosTie } from '../../../utilities/utilis.js';
+import {
+  changeDirection,
+  winLosTie,
+  CheckForAllTie,
+} from '../../../utilities/utilis.js';
 import GlobalContext from '../../../contexts/global-context/global-context.js';
 import BotDynamic from '../bots/BotDynamic.jsx';
 
@@ -44,7 +48,7 @@ const Bot = ({
 
   // console.log(botScores);
 
-  // console.log(inGamePositions);
+  console.log(inGamePositions);
 
   useEffect(() => {
     let timeId;
@@ -138,9 +142,6 @@ const Bot = ({
               colliedCheck.current = true;
             }, 1995);
           } else if (result === 0) {
-            // if (currentDirection.current === ComparedDirection) return;
-            //Stop Bot
-
             timeId = setTimeout(() => {
               setIsCollied(() => {
                 return false;
@@ -150,7 +151,8 @@ const Bot = ({
                 position: toast.POSITION.TOP_LEFT,
               });
               // console.log('tie');
-              if (inGamePositions.current.length === 2) {
+              console.log(CheckForAllTie(inGamePositions.current, operator));
+              if (CheckForAllTie(inGamePositions.current, operator) === true) {
                 setIsCollied(true);
                 gameOver();
               }

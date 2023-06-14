@@ -13,7 +13,7 @@ const ArenaBattleground = () => {
       <div className="rounded-xl border-2 border-dashed border-white p-2">
         <div className="relative w-8x8 bg-[#270000]">
           {/* Bots */}
-          {bots?.map((bot) => (
+          {testBots?.map((bot) => (
             <Bot key={bot.id} {...bot} inGame={inGame} />
           ))}
 
