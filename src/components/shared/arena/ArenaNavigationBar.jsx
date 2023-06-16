@@ -13,17 +13,18 @@ const ArenaNavigationBar = () => {
   const { inGame, bots, setShowConfigurationPanel, setShowLeaderboard } =
     useContext(GlobalContext);
   return (
-    <div className="flex items-center justify-between px-4 pt-4">
+    <div className="flex items-center justify-between pt-4">
       <div className="flex items-center">
         <span className="flex w-9">
           <LogoIcon />
         </span>
-        <div className="ml-2 text-xl font-black text-primary-900">
+        <div className="ml-2 hidden text-xl font-black text-primary-900 min-[300px]:block">
           Boole Bot
         </div>
       </div>
       <div className="flex">
         <FilledButtonIcons
+          className="mr-2"
           disabled={inGame && bots.length >= 2}
           onClick={() => setShowLeaderboard(true)}
         >
