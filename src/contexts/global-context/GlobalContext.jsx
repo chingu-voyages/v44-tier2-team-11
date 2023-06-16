@@ -21,6 +21,7 @@ const Context = ({ children }) => {
     speed: 1000,
   });
 
+  const arenaCell = useRef(null);
   const testBots = botList || [];
   const botScores = useRef([]);
   const [inGame, setInGame] = useState(false);
@@ -44,6 +45,7 @@ const Context = ({ children }) => {
         setConfiguration,
         inGamePositions,
         inGame,
+        arenaCell,
         testBots,
         setInGame,
         botScores,
