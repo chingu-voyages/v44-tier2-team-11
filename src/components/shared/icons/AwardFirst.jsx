@@ -1,6 +1,7 @@
 const AwardFirst = () => {
   return (
     <svg
+      className="block h-full w-full"
       xmlns="http://www.w3.org/2000/svg"
       width="196"
       height="228"
