@@ -25,8 +25,14 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions, botScores, configuration, gameOver, arenaCell } =
-    useContext(GlobalContext);
+  const {
+    inGamePositions,
+    setInGame,
+    botScores,
+    configuration,
+    gameOver,
+    arenaCell,
+  } = useContext(GlobalContext);
 
   const INITIAL_CELL_SIZE =
     arenaCell?.current?.getBoundingClientRect().width ?? 0;
@@ -53,10 +59,12 @@ const Bot = ({
   const operator = configuration?.operation || 'AND';
   const speed = 350;
   const configSpeed = configuration?.speed ?? 1000;
+  const TRANSITION_DEFAULT = `all ${speed / 1000}s linear`;
+  const [transition, setTransition] = useState(TRANSITION_DEFAULT);
 
   // console.log(botScores);
 
-  console.log(inGamePositions);
+  // console.log(inGamePositions);
 
   useEffect(() => {
     let timeId;
@@ -300,17 +308,26 @@ const Bot = ({
 
   // Whenever the browser is being resized, recalculate bot position
   useEffect(() => {
+    let timeoutId = null;
     const updatePosition = () => {
       const CELL_SIZE = arenaCell.current.getBoundingClientRect().width;
       setCalculatedPosX(left * CELL_SIZE + 6);
       setCalculatedPosY(top * CELL_SIZE + 4);
     };
-
+    const controlBattleGround = () => {
+      if (transition !== null) setTransition(null);
+      if (inGame) setInGame(false);
+      updatePosition();
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setTransition(TRANSITION_DEFAULT);
+      }, 250);
+    };
     updatePosition();
 
-    window.addEventListener('resize', updatePosition);
+    window.addEventListener('resize', controlBattleGround);
     return () => {
-      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('resize', controlBattleGround);
     };
   }, [top, left, arenaCell]);
 
@@ -325,7 +342,7 @@ const Bot = ({
         height: '9%',
         left: calculatedPosX,
         top: calculatedPosY,
-        transition: `all ${speed / 1000}s linear`,
+        transition: transition,
         transform: 'translateX(3%) transformY(10%)',
         display: botOver ? 'none' : '',
         paddingBottom: '.2rem',
