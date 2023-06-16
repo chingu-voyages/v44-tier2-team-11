@@ -25,9 +25,11 @@ const Bot = ({
   const [top, setTop] = useState(y);
   const [left, setLeft] = useState(x);
   const [duration, setSpeed] = useState(0.2);
-  const { inGamePositions, botScores, configuration, gameOver } =
+  const { inGamePositions, botScores, configuration, gameOver, arenaCell } =
     useContext(GlobalContext);
 
+  const INITIAL_CELL_SIZE =
+    arenaCell?.current?.getBoundingClientRect().width ?? 0;
   const { background, stroke, base } = colorSchemes;
   const currentDirection = useRef(direction);
   const botPositions = useRef();
@@ -39,6 +41,12 @@ const Bot = ({
   const [isCollied, setIsCollied] = useState(false);
   const [botOver, setBotOver] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
+  const [calculatedPosX, setCalculatedPosX] = useState(
+    left * INITIAL_CELL_SIZE + 6
+  );
+  const [calculatedPosY, setCalculatedPosY] = useState(
+    top * INITIAL_CELL_SIZE + 4
+  );
 
   // Global Configuration
   // console.log(configuration);
@@ -290,6 +298,22 @@ const Bot = ({
     };
   });
 
+  // Whenever the browser is being resized, recalculate bot position
+  useEffect(() => {
+    const updatePosition = () => {
+      const CELL_SIZE = arenaCell.current.getBoundingClientRect().width;
+      setCalculatedPosX(left * CELL_SIZE + 6);
+      setCalculatedPosY(top * CELL_SIZE + 4);
+    };
+
+    updatePosition();
+
+    window.addEventListener('resize', updatePosition);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [top, left, arenaCell]);
+
   return (
     <div
       ref={botPositions}
@@ -299,8 +323,8 @@ const Bot = ({
       style={{
         width: '9%',
         height: '9%',
-        left: left * 56 + 6,
-        top: top * 56 + 4,
+        left: calculatedPosX,
+        top: calculatedPosY,
         transition: `all ${speed / 1000}s linear`,
         transform: 'translateX(3%) transformY(10%)',
         display: botOver ? 'none' : '',
